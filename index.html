@@ -158,16 +158,19 @@ footer .fine{margin-top:26px;padding-top:18px;border-top:1px solid rgba(255,255,
 }
 
 /* ---------- 3D tour section ---------- */
-.tour{position:relative;height:300vh;background:linear-gradient(180deg,#eef4f7 0%,#e6eef1 55%,#dde8ea 100%);padding:0}
+.tour{position:relative;height:340vh;background:linear-gradient(180deg,#fdf0da 0%,#f7e8ce 26%,#eee9d6 52%,#e3e9e0 78%,#d9e4e2 100%);padding:0}
 .tourSticky{position:sticky;top:0;height:100vh;overflow:hidden}
 #tourCanvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-.tourCap{position:absolute;left:6%;bottom:11%;max-width:430px;opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s;pointer-events:none}
-.tourCap.on{opacity:1;transform:none}
-.tourCap .kicker{color:#a07d10}
-.tourCap h2{font-size:clamp(26px,3.4vw,40px);font-weight:600;line-height:1.12;color:var(--forest);margin:10px 0 8px}
-.tourCap p{font-size:14.5px;color:#3d4a43;max-width:400px}
+.tourVig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 120% 90% at 50% 42%,transparent 55%,rgba(60,50,30,.14) 100%)}
+.tourCap{position:absolute;left:6%;bottom:12%;max-width:520px;opacity:0;transform:translateY(34px);filter:blur(8px);transition:opacity .55s ease,transform .75s cubic-bezier(.2,.75,.25,1),filter .55s ease;pointer-events:none}
+.tourCap.on{opacity:1;transform:none;filter:blur(0)}
+.tourCap .kicker{color:#a07d10;font-size:11px;letter-spacing:2.6px;text-transform:uppercase;font-weight:700}
+.tourCap h2{font-size:clamp(34px,5vw,58px);font-weight:600;line-height:1.06;color:var(--forest);margin:12px 0 10px;letter-spacing:-.5px}
+.tourCap p{font-size:15px;color:#3d4a43;max-width:420px}
 .tourHint{position:absolute;right:5%;bottom:6%;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#5c6660;font-weight:700;animation:pulse 2.2s infinite}
-@media(max-width:720px){ .tourCap{left:6%;right:6%;max-width:none} }
+.tourProg{position:absolute;right:26px;top:50%;transform:translateY(-50%);width:2px;height:120px;background:rgba(60,50,30,.18);border-radius:2px;overflow:hidden}
+.tourProg span{display:block;width:100%;height:100%;background:var(--forest);transform:scaleY(0);transform-origin:top;border-radius:2px}
+@media(max-width:720px){ .tourCap{left:6%;right:14%;max-width:none;bottom:9%} .tourProg{right:12px} }
 .tilt{transition:transform .2s ease-out;will-change:transform}
 
 /* ---------- embedded live assistant (scoped to .chatbox) ---------- */
@@ -347,6 +350,8 @@ footer b{color:#a9bfb2; font-weight:600}
 <section class="tour" id="tour">
   <div class="tourSticky">
     <canvas id="tourCanvas"></canvas>
+    <div class="tourVig"></div>
+    <div class="tourProg"><span id="tourProgFill"></span></div>
     <div class="tourCap on" data-cap="0">
       <div class="kicker">The project in 3D</div>
       <h2>Walk around the towers.</h2>
@@ -1122,14 +1127,17 @@ function addDivider(txt){ const d=document.createElement('div'); d.className='di
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.setClearColor(0x000000, 0);
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.08;
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.Fog(0xe6eef1, 70, 180);
-  const camera = new THREE.PerspectiveCamera(50, 1, .1, 400);
+  scene.fog = new THREE.Fog(0xf3e6cb, 58, 165);
+  const camera = new THREE.PerspectiveCamera(46, 1, .1, 400);
 
-  scene.add(new THREE.HemisphereLight(0xcfe2ee, 0x9db3a0, .95));
-  const sun = new THREE.DirectionalLight(0xfff1da, 1.05);
-  sun.position.set(34, 52, 20);
+  scene.add(new THREE.HemisphereLight(0xfff0d8, 0xa8b39a, .8));
+  const sun = new THREE.DirectionalLight(0xffd9a0, 1.35);
+  sun.position.set(40, 34, 16);
   sun.castShadow = true;
   sun.shadow.mapSize.set(1024, 1024);
   sun.shadow.camera.left=-46; sun.shadow.camera.right=46; sun.shadow.camera.top=46; sun.shadow.camera.bottom=-46;
@@ -1200,15 +1208,16 @@ function addDivider(txt){ const d=document.createElement('div'); d.className='di
 
   // camera flight path around the model
   const cam = new THREE.CatmullRomCurve3([
-    new THREE.Vector3(34, 13, 36),
-    new THREE.Vector3(4, 21, 42),
-    new THREE.Vector3(-30, 11, 26),
-    new THREE.Vector3(-34, 9, -8),
-    new THREE.Vector3(-4, 24, -34),
-    new THREE.Vector3(30, 16, -26),
-    new THREE.Vector3(38, 11, 10),
+    new THREE.Vector3(24, 3.2, 30),
+    new THREE.Vector3(6, 6.5, 36),
+    new THREE.Vector3(-18, 12, 32),
+    new THREE.Vector3(-36, 18, 6),
+    new THREE.Vector3(-22, 27, -24),
+    new THREE.Vector3(10, 33, -30),
+    new THREE.Vector3(36, 27, -4),
   ]);
-  const look = new THREE.Vector3(0, 8, 0);
+  const look = new THREE.Vector3(0, 6, 0);
+  const progFill = document.getElementById('tourProgFill');
 
   // scroll progress within the section
   let target = 0, prog = 0, mx = 0, my = 0, mxT = 0, myT = 0;
@@ -1239,12 +1248,16 @@ function addDivider(txt){ const d=document.createElement('div'); d.className='di
     requestAnimationFrame(loop);
     const dt = Math.min(clock.getDelta(), .05), t = clock.elapsedTime;
     resize();
-    prog += (target - prog) * .06;
+    prog += (target - prog) * .055;
     mx += (mxT - mx) * .05; my += (myT - my) * .05;
-    const cp = cam.getPoint(prog);
-    const drift = Math.sin(t * .4) * .5;
-    camera.position.set(cp.x + mx + drift, cp.y + my, cp.z);
+    const e = prog*prog*(3-2*prog);                       // smoothstep: slow in, slow out
+    const cp = cam.getPoint(e);
+    const drift = Math.sin(t * .35) * .45;
+    camera.position.set(cp.x + mx*1.2 + drift, cp.y + my, cp.z);
+    look.set(Math.sin(e*Math.PI*2)*2, 5 + e*10, 0);       // gaze rises from podium to rooftops
     camera.lookAt(look);
+    camera.rotateZ(Math.sin(e*Math.PI*2)*.014);           // whisper of cinematic roll
+    if(progFill) progFill.style.transform = 'scaleY(' + prog.toFixed(4) + ')';
     renderer.render(scene, camera);
   })();
 })();
