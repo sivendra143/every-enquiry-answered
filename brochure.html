@@ -211,10 +211,19 @@
   <button class="cbtn" id="prev" type="button">← PREV</button>
   <span id="pg">1 / 10</span>
   <button class="cbtn" id="next" type="button">NEXT →</button>
-  <a class="cbtn dl" href="brochure.pdf" download>↓ PDF</a>
+  <button class="cbtn dl" id="dl" type="button">↓ PDF</button>
 </div>
+<script src="brochure-pdf.js"></script>
 <script>
 (function(){
+  document.getElementById('dl').onclick=function(){
+    var b64=window.BROCHURE_PDF_B64; if(!b64){alert('PDF is still loading, try again in a moment.');return;}
+    var bin=atob(b64), len=bin.length, arr=new Uint8Array(len);
+    for(var i=0;i<len;i++) arr[i]=bin.charCodeAt(i);
+    var url=URL.createObjectURL(new Blob([arr],{type:'application/pdf'}));
+    var a=document.createElement('a'); a.href=url; a.download='Real-Estate-Demo-Brochure.pdf';
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){URL.revokeObjectURL(url);},4000);
+  };
   var book=document.getElementById('book');
   var portrait = window.innerWidth < 780;
   var W = portrait ? Math.min(window.innerWidth-24, 460) : Math.min((window.innerWidth-60)/2, 430);
@@ -241,4 +250,4 @@
 })();
 </script>
 </body>
-                                                                                       </html>
+</html>
