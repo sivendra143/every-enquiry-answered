@@ -3,216 +3,561 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Surya Grand AI - Every Enquiry Answered | Vizag Real Estate Demo</title>
+<title>Every Enquiry Answered - AI Receptionist for Vizag Builders</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --cream:#f6f2ea; --cream-2:#efe9dd; --ink:#1c2420; --ink-soft:#5c6660;
-    --forest:#0e3b2e; --forest-2:#14503e; --gold:#c9a227; --gold-soft:#e7d9a7;
-    --card:#ffffff; --line:#e4ddcf; --green-tick:#25d366;
-    --shadow:0 18px 50px rgba(14,59,46,.14);
-  }
-  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  html,body{height:100%}
-  body{
-    font-family:'Inter','Noto Sans Telugu',system-ui,sans-serif;
-    background:linear-gradient(160deg,#0e3b2e 0%,#14503e 45%,#0a2c22 100%);
-    color:var(--ink); display:flex; align-items:center; justify-content:center;
-    min-height:100dvh; padding:0;
-  }
-  .phone{
-    width:100%; max-width:430px; height:100dvh; max-height:100dvh;
-    background:var(--cream); display:flex; flex-direction:column; position:relative; overflow:hidden;
-  }
-  @media(min-width:520px){
-    body{padding:28px}
-    .phone{height:min(880px,94dvh); border-radius:34px; box-shadow:var(--shadow); border:1px solid rgba(255,255,255,.25)}
-  }
+:root{
+  --night:#08130f; --night2:#0d2019; --forest:#0e3b2e; --forest2:#14503e;
+  --gold:#c9a227; --gold2:#ffd98a; --cream:#f6f2ea; --ink:#1c2420; --soft:#8fa39a;
+  --line:#e4ddcf;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:auto}
+body{
+  font-family:'Inter','Noto Sans Telugu',system-ui,sans-serif;
+  background:var(--night); color:var(--cream); overflow-x:hidden;
+}
+::selection{background:var(--gold); color:var(--forest)}
+#bg3d{position:fixed; inset:0; z-index:0; display:block}
+.vignette{position:fixed; inset:0; z-index:1; pointer-events:none;
+  background:radial-gradient(ellipse at center, transparent 55%, rgba(4,12,9,.55) 100%)}
+.progress{position:fixed; top:0; left:0; height:3px; width:0; z-index:60;
+  background:linear-gradient(90deg,var(--gold),var(--gold2))}
 
-  /* ---------- header ---------- */
-  header{
-    background:linear-gradient(135deg,var(--forest) 0%,var(--forest-2) 100%);
-    color:#fff; padding:14px 16px 12px; display:flex; align-items:center; gap:12px;
-    flex:0 0 auto; position:relative; z-index:5;
-  }
-  header::after{content:""; position:absolute; inset:auto 0 0 0; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); opacity:.7}
-  .logo{
-    width:44px; height:44px; border-radius:14px; flex:0 0 auto;
-    background:linear-gradient(145deg,#fdf6df,#e9d488);
-    display:flex; align-items:center; justify-content:center;
-    box-shadow:0 4px 12px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.7);
-  }
-  .logo svg{width:26px;height:26px}
-  .h-title{flex:1; min-width:0}
-  .h-title h1{font-family:'Playfair Display',serif; font-size:17px; font-weight:600; letter-spacing:.2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-  .h-title p{font-size:11.5px; color:#bfe3d4; display:flex; align-items:center; gap:5px; margin-top:2px}
-  .dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 3px rgba(74,222,128,.25); animation:pulse 2s infinite}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
-  .lang{
-    flex:0 0 auto; display:flex; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22);
-    border-radius:999px; padding:3px; gap:2px;
-  }
-  .lang button{
-    border:0; cursor:pointer; font-family:inherit; font-size:11.5px; font-weight:600;
-    padding:5px 10px; border-radius:999px; color:#d7ece2; background:transparent; transition:all .25s;
-  }
-  .lang button.on{background:var(--gold); color:var(--forest); box-shadow:0 2px 8px rgba(0,0,0,.25)}
+/* nav */
+nav{position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center;
+  justify-content:space-between; padding:18px 5vw; mix-blend-mode:normal}
+nav .brand{display:flex; align-items:center; gap:10px; font-family:'Playfair Display',serif;
+  font-size:16px; letter-spacing:.3px; color:var(--cream)}
+nav .brand .mk{width:34px;height:34px;border-radius:10px;background:linear-gradient(145deg,#fdf6df,#e9d488);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+nav .brand .mk svg{width:20px;height:20px}
+nav .cta{font-size:12.5px;font-weight:600;color:var(--forest);background:linear-gradient(135deg,var(--gold2),var(--gold));
+  padding:9px 18px;border-radius:999px;text-decoration:none;box-shadow:0 6px 18px rgba(201,162,39,.35);transition:transform .2s}
+nav .cta:hover{transform:translateY(-2px)}
 
-  /* ---------- chat ---------- */
-  #chat{
-    flex:1; overflow-y:auto; padding:18px 14px 10px; scroll-behavior:smooth;
-    background:
-      radial-gradient(circle at 85% 8%, rgba(201,162,39,.07), transparent 42%),
-      radial-gradient(circle at 8% 92%, rgba(14,59,46,.06), transparent 45%),
-      var(--cream);
-  }
-  #chat::-webkit-scrollbar{width:0}
-  .msg{max-width:82%; margin-bottom:12px; display:flex; flex-direction:column; animation:rise .38s cubic-bezier(.2,.9,.3,1.2) both}
-  @keyframes rise{from{opacity:0; transform:translateY(14px) scale(.97)} to{opacity:1; transform:none}}
-  .msg.bot{align-items:flex-start}
-  .msg.user{align-items:flex-end; margin-left:auto}
-  .bubble{
-    padding:11px 14px; border-radius:18px; font-size:14px; line-height:1.5; white-space:pre-line;
-    box-shadow:0 2px 8px rgba(28,36,32,.07); position:relative;
-  }
-  .msg.bot .bubble{background:var(--card); border:1px solid var(--line); border-top-left-radius:6px}
-  .msg.user .bubble{
-    background:linear-gradient(135deg,var(--forest),var(--forest-2)); color:#fff; border-top-right-radius:6px;
-  }
-  .time{font-size:10px; color:var(--ink-soft); margin-top:4px; padding:0 4px}
-  .msg.user .time{text-align:right}
+/* scenes */
+main{position:relative; z-index:2}
+.scene{min-height:100vh; display:flex; align-items:center; padding:14vh 6vw; position:relative}
+.scene .panel{max-width:600px; position:relative}
+.scene.right{justify-content:flex-end; text-align:right}
+.scene.right .panel{margin-left:auto}
+.scene.center{justify-content:center; text-align:center}
+.scene.center .panel{margin:0 auto}
+.kicker{font-size:12px; letter-spacing:3px; text-transform:uppercase; color:var(--gold2);
+  font-weight:700; margin-bottom:18px; display:flex; align-items:center; gap:10px}
+.right .kicker{justify-content:flex-end}
+.center .kicker{justify-content:center}
+.kicker::before{content:""; width:34px; height:1px; background:var(--gold)}
+.right .kicker::before{order:2}
+h2{font-family:'Playfair Display',serif; font-weight:600; line-height:1.08;
+  font-size:clamp(2.4rem, 6.2vw, 4.6rem); letter-spacing:-.5px}
+h2 em{font-style:italic; color:var(--gold2)}
+.sub{margin-top:20px; font-size:clamp(1rem, 1.6vw, 1.2rem); line-height:1.65; color:#c7d6ce; max-width:46ch}
+.right .sub{margin-left:auto}
+.center .sub{margin-left:auto;margin-right:auto}
+.hint{position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:8px; color:#9fb5aa; font-size:11px;
+  letter-spacing:2.5px; text-transform:uppercase}
+.hint .wheel{width:22px;height:36px;border:1.5px solid #6d857a;border-radius:12px;position:relative}
+.hint .wheel::after{content:"";position:absolute;left:50%;top:6px;width:3px;height:7px;margin-left:-1.5px;
+  border-radius:3px;background:var(--gold2);animation:wheel 1.6s infinite}
+@keyframes wheel{0%{transform:translateY(0);opacity:1}70%{transform:translateY(12px);opacity:0}100%{opacity:0}}
 
-  /* typing */
-  .typing{display:inline-flex; gap:5px; padding:13px 16px; background:#fff; border:1px solid var(--line); border-radius:18px; border-top-left-radius:6px; box-shadow:0 2px 8px rgba(28,36,32,.07)}
-  .typing i{width:7px;height:7px;border-radius:50%;background:#9aa5a0; animation:tp 1.2s infinite}
-  .typing i:nth-child(2){animation-delay:.18s}.typing i:nth-child(3){animation-delay:.36s}
-  @keyframes tp{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-5px);opacity:1}}
+/* glass */
+.glass{background:rgba(10,26,20,.55); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,233,168,.14); border-radius:26px; box-shadow:0 24px 70px rgba(0,0,0,.45)}
 
-  /* chips */
-  .chips{display:flex; flex-wrap:wrap; gap:8px; margin:2px 0 14px; animation:rise .4s .1s both}
-  .chip{
-    border:1.5px solid var(--forest); color:var(--forest); background:rgba(255,255,255,.75);
-    font-family:inherit; font-size:13px; font-weight:600; padding:9px 15px; border-radius:999px;
-    cursor:pointer; transition:all .22s; backdrop-filter:blur(2px);
-  }
-  .chip:hover{background:var(--forest); color:#fff; transform:translateY(-1px)}
-  .chip:active{transform:scale(.96)}
-  .chip.gold{border-color:var(--gold); color:#8a6d10; background:linear-gradient(135deg,#fdf6dd,#f3e5ae)}
-  .chip.gold:hover{background:var(--gold); color:var(--forest)}
+/* scene 2 - buyer phone */
+.phone3d{width:300px; max-width:78vw; border-radius:34px; padding:14px; margin-top:34px;
+  background:linear-gradient(160deg,#122b22,#0a1d16); border:1px solid rgba(255,233,168,.18);
+  box-shadow:0 30px 80px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.08); transform-style:preserve-3d}
+.phone3d .notch{width:110px;height:22px;border-radius:12px;background:#050d0a;margin:0 auto 12px}
+.wahead{display:flex;align-items:center;gap:10px;padding:4px 6px 12px;border-bottom:1px solid rgba(255,255,255,.07)}
+.wahead .av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--forest2),var(--forest));
+  display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--gold2);font-size:14px}
+.wahead b{font-size:13px;color:#e9f2ec}
+.wahead small{display:block;font-size:10.5px;color:#7fd7a8}
+.wabody{padding:12px 4px 6px; display:flex; flex-direction:column; gap:8px}
+.wab{max-width:88%; padding:9px 12px; border-radius:14px; font-size:12.5px; line-height:1.45; position:relative;
+  box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.wab.in{background:#1f3a2f; color:#e5efe8; border-top-left-radius:4px; align-self:flex-start}
+.wab .tm{display:block; text-align:right; font-size:9px; color:#8fae9d; margin-top:3px}
 
-  /* property card */
-  .prop{
-    width:100%; max-width:320px; background:#fff; border-radius:20px; overflow:hidden;
-    border:1px solid var(--line); box-shadow:0 10px 26px rgba(14,59,46,.12);
-    margin-bottom:12px; animation:rise .45s both;
-  }
-  .prop .art{height:150px; position:relative; overflow:hidden}
-  .prop .art svg{width:100%; height:100%; display:block}
-  .prop .tag{
-    position:absolute; top:10px; left:10px; background:rgba(14,59,46,.88); color:#ffe9a8;
-    font-size:10.5px; font-weight:700; letter-spacing:.6px; text-transform:uppercase;
-    padding:5px 10px; border-radius:999px; backdrop-filter:blur(3px);
-  }
-  .prop .pbody{padding:13px 15px 14px}
-  .prop h3{font-family:'Playfair Display',serif; font-size:16.5px; font-weight:700; color:var(--forest)}
-  .prop .loc{font-size:12px; color:var(--ink-soft); margin:3px 0 8px; display:flex; align-items:center; gap:4px}
-  .prop .price{font-size:15px; font-weight:700; color:#8a6d10}
-  .prop .price small{font-weight:500; color:var(--ink-soft); font-size:11px}
-  .prop .facts{display:flex; gap:6px; flex-wrap:wrap; margin-top:9px}
-  .prop .facts span{font-size:10.5px; background:var(--cream-2); color:var(--ink-soft); padding:4px 9px; border-radius:999px; font-weight:600}
-  .prop .pactions{display:flex; gap:8px; margin-top:12px}
-  .pbtn{
-    flex:1; border:0; cursor:pointer; font-family:inherit; font-size:12.5px; font-weight:700;
-    padding:10px 0; border-radius:12px; transition:all .2s;
-  }
-  .pbtn.primary{background:linear-gradient(135deg,var(--forest),var(--forest-2)); color:#fff; box-shadow:0 4px 12px rgba(14,59,46,.3)}
-  .pbtn.primary:hover{transform:translateY(-1px); box-shadow:0 6px 16px rgba(14,59,46,.38)}
-  .pbtn.ghost{background:transparent; border:1.5px solid var(--line); color:var(--ink-soft)}
-  .pbtn.ghost:hover{border-color:var(--forest); color:var(--forest)}
-  .pbtn:active{transform:scale(.97)}
+/* scene 3 - floating answers */
+.floatzone{position:relative; margin-top:36px; min-height:340px}
+.fcard{position:absolute; border-radius:20px; overflow:hidden;
+  background:rgba(246,242,234,.97); color:var(--ink); box-shadow:0 22px 60px rgba(0,0,0,.5)}
+.fcard.f-price{padding:16px 20px; top:0; left:4%}
+.fcard.f-price small{font-size:10px; letter-spacing:2px; text-transform:uppercase; color:#8a6d10; font-weight:700}
+.fcard.f-price b{display:block; font-family:'Playfair Display',serif; font-size:26px; color:var(--forest); margin-top:2px}
+.fcard.f-price span{font-size:11px; color:var(--soft)}
+.fcard.f-prop{top:110px; right:0; width:250px}
+.fcard .art{height:104px; position:relative}
+.fcard .art svg{width:100%;height:100%;display:block}
+.fcard .pb{padding:11px 14px 13px}
+.fcard .pb h4{font-family:'Playfair Display',serif; font-size:15px; color:var(--forest)}
+.fcard .pb p{font-size:10.5px; color:#5c6660; margin-top:2px}
+.fcard .pb .pr{font-size:13px; font-weight:700; color:#8a6d10; margin-top:6px}
+.fcard.f-te{top:230px; left:10%; max-width:250px; padding:13px 16px; background:#1f3a2f; color:#e5efe8}
+.fcard.f-te p{font-size:13px; line-height:1.5}
+.fcard.f-te span{display:block; margin-top:5px; font-size:10px; color:#7fd7a8}
 
-  /* photo strip */
-  .photos{display:flex; gap:8px; margin-bottom:12px; animation:rise .4s both}
-  .ph{width:96px; height:72px; border-radius:14px; flex:0 0 auto; border:1px solid var(--line); box-shadow:0 3px 10px rgba(14,59,46,.1); position:relative; overflow:hidden}
-  .ph svg{width:100%; height:100%}
-  .ph b{position:absolute; bottom:4px; left:6px; font-size:9px; color:#fff; text-shadow:0 1px 3px rgba(0,0,0,.6); font-weight:600}
+/* scene 4 - lead assembly */
+.leadstage{margin-top:36px; display:flex; flex-direction:column; gap:12px; max-width:400px}
+.right .leadstage{margin-left:auto}
+.pill{display:flex; align-items:center; gap:10px; padding:12px 18px; border-radius:999px;
+  background:rgba(246,242,234,.08); border:1px solid rgba(255,233,168,.22); font-size:13.5px; font-weight:600}
+.pill .ico{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--gold2),var(--gold));
+  color:var(--forest); display:flex;align-items:center;justify-content:center; font-size:12px; font-weight:800}
+.pill small{color:#9fb5aa; font-weight:500; margin-left:auto; font-size:12px}
 
-  /* lead card */
-  .lead{
-    width:100%; max-width:330px; border-radius:20px; overflow:hidden; margin-bottom:12px;
-    background:#fff; border:1px solid var(--line); box-shadow:0 12px 30px rgba(14,59,46,.14);
-    animation:rise .5s both;
-  }
-  .lead .ltop{background:linear-gradient(135deg,#0b3d2c,#126347); color:#fff; padding:12px 15px; display:flex; align-items:center; gap:10px}
-  .lead .ltop .tick{width:26px;height:26px;border-radius:50%;background:var(--green-tick); display:flex;align-items:center;justify-content:center; flex:0 0 auto; box-shadow:0 0 0 4px rgba(37,211,102,.25)}
-  .lead .ltop b{font-size:13.5px}
-  .lead .ltop small{display:block; font-size:11px; color:#bfe3d4; font-weight:400; margin-top:1px}
-  .lead .rows{padding:10px 15px 6px}
-  .lead .row{display:flex; justify-content:space-between; gap:10px; padding:7px 0; border-bottom:1px dashed var(--line); font-size:12.5px}
-  .lead .row:last-child{border:0}
-  .lead .row span{color:var(--ink-soft); font-weight:500}
-  .lead .row b{color:var(--ink); font-weight:600; text-align:right}
-  .wa{
-    margin:10px 12px 13px; background:#e7f6e9; border:1px solid #cdeed3; border-radius:14px; padding:10px 12px;
-    font-size:11.5px; color:#1c4d33; line-height:1.55;
-  }
-  .wa .wh{display:flex; align-items:center; gap:6px; font-weight:700; color:#128c4b; font-size:11px; margin-bottom:5px; text-transform:uppercase; letter-spacing:.5px}
+/* scene 5 - handoff */
+.handoff{display:flex; flex-wrap:wrap; gap:22px; margin-top:36px; align-items:center}
+.center .handoff{justify-content:center}
+.leadcard{width:320px; max-width:86vw; background:var(--cream); color:var(--ink); border-radius:20px; overflow:hidden;
+  box-shadow:0 26px 70px rgba(0,0,0,.5)}
+.leadcard .lt{background:linear-gradient(135deg,#0b3d2c,#126347); color:#fff; padding:12px 16px; display:flex; gap:10px; align-items:center}
+.leadcard .lt .tk{width:26px;height:26px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center}
+.leadcard .lt b{font-size:13.5px}
+.leadcard .lt small{display:block;font-size:10.5px;color:#bfe3d4}
+.leadcard .rr{padding:8px 16px 12px}
+.leadcard .row{display:flex; justify-content:space-between; gap:10px; padding:7px 0; border-bottom:1px dashed var(--line); font-size:12.5px}
+.leadcard .row:last-child{border:0}
+.leadcard .row span{color:#5c6660}
+.leadcard .row b{text-align:right}
+.wanote{width:300px; max-width:84vw; background:#0b141a; border-radius:18px; padding:16px;
+  border:1px solid rgba(37,211,102,.25); box-shadow:0 26px 70px rgba(0,0,0,.55)}
+.wanote .wh{display:flex; align-items:center; gap:8px; margin-bottom:10px}
+.wanote .wh .wi{width:30px;height:30px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center}
+.wanote .wh b{font-size:12.5px; color:#e9f2ec}
+.wanote .wh small{display:block; font-size:10px; color:#8696a0}
+.wanote .wb{background:#1f3a2f; border-radius:12px; border-top-left-radius:4px; padding:11px 13px;
+  font-size:12px; color:#e5efe8; line-height:1.6; white-space:pre-line}
+.cta-big{display:inline-block; margin-top:34px; font-size:15px; font-weight:700; color:var(--forest);
+  background:linear-gradient(135deg,var(--gold2),var(--gold)); padding:16px 34px; border-radius:999px;
+  text-decoration:none; box-shadow:0 14px 40px rgba(201,162,39,.4); transition:transform .2s}
+.cta-big:hover{transform:translateY(-3px) scale(1.02)}
 
-  /* input */
-  form{
-    flex:0 0 auto; display:flex; gap:9px; padding:11px 12px calc(11px + env(safe-area-inset-bottom));
-    background:rgba(246,242,234,.92); backdrop-filter:blur(8px); border-top:1px solid var(--line);
-  }
-  #in{
-    flex:1; border:1.5px solid var(--line); background:#fff; border-radius:999px;
-    padding:12px 17px; font-family:inherit; font-size:14px; color:var(--ink); outline:none; transition:border .2s;
-  }
-  #in:focus{border-color:var(--forest)}
-  #in::placeholder{color:#a3ada8}
-  #send{
-    width:47px; height:47px; border-radius:50%; border:0; cursor:pointer; flex:0 0 auto;
-    background:linear-gradient(135deg,var(--forest),var(--forest-2)); display:flex; align-items:center; justify-content:center;
-    box-shadow:0 5px 14px rgba(14,59,46,.35); transition:transform .18s;
-  }
-  #send:hover{transform:scale(1.06)}
-  #send:active{transform:scale(.94)}
-  #send svg{width:20px;height:20px}
+/* scene 6 - live chat */
+.chatwrap{display:flex; flex-direction:column; align-items:center; gap:26px; width:100%}
+.chatbox{width:100%; max-width:420px; height:640px; max-height:78vh; background:var(--cream); color:var(--ink);
+  border-radius:28px; overflow:hidden; display:flex; flex-direction:column; position:relative;
+  box-shadow:0 30px 90px rgba(0,0,0,.6); border:1px solid rgba(255,233,168,.2)}
 
-  .foot{
-    flex:0 0 auto; text-align:center; font-size:9.5px; color:#9aa59f; padding:0 12px 7px;
-    background:rgba(246,242,234,.92);
-  }
+footer{position:relative; z-index:2; padding:60px 6vw 40px; text-align:center; color:#71867b; font-size:11.5px; line-height:1.8}
+footer b{color:#a9bfb2; font-weight:600}
+
+@media(max-width:720px){
+  .scene{padding:12vh 7vw}
+  .fcard.f-prop{width:210px}
+  .floatzone{min-height:360px}
+  .handoff{gap:16px}
+}
+</style>
+<style>
+/* ---------- embedded live assistant (scoped to .chatbox) ---------- */
+.chatbox header{
+  background:linear-gradient(135deg,var(--forest) 0%,var(--forest2) 100%);
+  color:#fff; padding:13px 15px 11px; display:flex; align-items:center; gap:11px; flex:0 0 auto; position:relative}
+.chatbox header::after{content:""; position:absolute; inset:auto 0 0 0; height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent); opacity:.7}
+.chatbox .logo{width:40px;height:40px;border-radius:13px;flex:0 0 auto;
+  background:linear-gradient(145deg,#fdf6df,#e9d488); display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 12px rgba(0,0,0,.25)}
+.chatbox .logo svg{width:23px;height:23px}
+.chatbox .h-title{flex:1;min-width:0}
+.chatbox .h-title h1{font-family:'Playfair Display',serif;font-size:15.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chatbox .h-title p{font-size:10.5px;color:#bfe3d4;display:flex;align-items:center;gap:5px;margin-top:2px}
+.chatbox .dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 3px rgba(74,222,128,.25);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+.chatbox .lang{flex:0 0 auto;display:flex;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:3px;gap:2px}
+.chatbox .lang button{border:0;cursor:pointer;font-family:inherit;font-size:11px;font-weight:600;padding:5px 9px;border-radius:999px;color:#d7ece2;background:transparent;transition:all .25s}
+.chatbox .lang button.on{background:var(--gold);color:var(--forest)}
+.chatbox #chat{flex:1;overflow-y:auto;padding:16px 13px 8px;scroll-behavior:smooth;
+  background:radial-gradient(circle at 85% 8%, rgba(201,162,39,.07), transparent 42%),
+             radial-gradient(circle at 8% 92%, rgba(14,59,46,.06), transparent 45%), var(--cream)}
+.chatbox #chat::-webkit-scrollbar{width:0}
+.chatbox .msg{max-width:84%;margin-bottom:11px;display:flex;flex-direction:column;animation:rise .38s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes rise{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+.chatbox .msg.user{align-items:flex-end;margin-left:auto}
+.chatbox .bubble{padding:10px 13px;border-radius:17px;font-size:13.5px;line-height:1.5;white-space:pre-line;box-shadow:0 2px 8px rgba(28,36,32,.07)}
+.chatbox .msg.bot .bubble{background:#fff;border:1px solid var(--line);border-top-left-radius:6px}
+.chatbox .msg.user .bubble{background:linear-gradient(135deg,var(--forest),var(--forest2));color:#fff;border-top-right-radius:6px}
+.chatbox .time{font-size:9.5px;color:#5c6660;margin-top:4px;padding:0 4px}
+.chatbox .msg.user .time{text-align:right}
+.chatbox .typing{display:inline-flex;gap:5px;padding:12px 15px;background:#fff;border:1px solid var(--line);border-radius:17px;border-top-left-radius:6px}
+.chatbox .typing i{width:7px;height:7px;border-radius:50%;background:#9aa5a0;animation:tp 1.2s infinite}
+.chatbox .typing i:nth-child(2){animation-delay:.18s}.chatbox .typing i:nth-child(3){animation-delay:.36s}
+@keyframes tp{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-5px);opacity:1}}
+.chatbox .chips{display:flex;flex-wrap:wrap;gap:7px;margin:2px 0 12px;animation:rise .4s .1s both}
+.chatbox .chip{border:1.5px solid var(--forest);color:var(--forest);background:rgba(255,255,255,.75);font-family:inherit;
+  font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:999px;cursor:pointer;transition:all .22s}
+.chatbox .chip:hover{background:var(--forest);color:#fff}
+.chatbox .chip:active{transform:scale(.96)}
+.chatbox .chip.gold{border-color:var(--gold);color:#8a6d10;background:linear-gradient(135deg,#fdf6dd,#f3e5ae)}
+.chatbox .prop{width:100%;max-width:300px;background:#fff;border-radius:18px;overflow:hidden;border:1px solid var(--line);
+  box-shadow:0 10px 26px rgba(14,59,46,.12);margin-bottom:11px;animation:rise .45s both}
+.chatbox .prop .art{height:130px;position:relative;overflow:hidden}
+.chatbox .prop .art svg{width:100%;height:100%;display:block}
+.chatbox .prop .tag{position:absolute;top:9px;left:9px;background:rgba(14,59,46,.88);color:#ffe9a8;font-size:10px;
+  font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:4px 9px;border-radius:999px}
+.chatbox .prop .pbody{padding:12px 14px 13px}
+.chatbox .prop h3{font-family:'Playfair Display',serif;font-size:15.5px;color:var(--forest)}
+.chatbox .prop .loc{font-size:11.5px;color:#5c6660;margin:3px 0 7px}
+.chatbox .prop .price{font-size:14px;font-weight:700;color:#8a6d10}
+.chatbox .prop .price small{font-weight:500;color:#5c6660;font-size:10.5px}
+.chatbox .prop .facts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.chatbox .prop .facts span{font-size:10px;background:#efe9dd;color:#5c6660;padding:4px 8px;border-radius:999px;font-weight:600}
+.chatbox .prop .pactions{display:flex;gap:8px;margin-top:11px}
+.chatbox .pbtn{flex:1;border:0;cursor:pointer;font-family:inherit;font-size:12px;font-weight:700;padding:9px 0;border-radius:11px;transition:all .2s}
+.chatbox .pbtn.primary{background:linear-gradient(135deg,var(--forest),var(--forest2));color:#fff}
+.chatbox .pbtn.ghost{background:transparent;border:1.5px solid var(--line);color:#5c6660}
+.chatbox .pbtn:active{transform:scale(.97)}
+.chatbox .photos{display:flex;gap:8px;margin-bottom:11px;animation:rise .4s both}
+.chatbox .ph{width:92px;height:70px;border-radius:13px;flex:0 0 auto;border:1px solid var(--line);position:relative;overflow:hidden}
+.chatbox .ph svg{width:100%;height:100%}
+.chatbox .ph b{position:absolute;bottom:4px;left:6px;font-size:9px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.chatbox .lead{width:100%;max-width:310px;border-radius:18px;overflow:hidden;margin-bottom:11px;background:#fff;
+  border:1px solid var(--line);box-shadow:0 12px 30px rgba(14,59,46,.14);animation:rise .5s both}
+.chatbox .lead .ltop{background:linear-gradient(135deg,#0b3d2c,#126347);color:#fff;padding:11px 14px;display:flex;align-items:center;gap:10px}
+.chatbox .lead .ltop .tick{width:24px;height:24px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.chatbox .lead .ltop b{font-size:12.5px}
+.chatbox .lead .ltop small{display:block;font-size:10px;color:#bfe3d4;margin-top:1px}
+.chatbox .lead .rows{padding:8px 14px 4px}
+.chatbox .lead .row{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dashed var(--line);font-size:12px}
+.chatbox .lead .row:last-child{border:0}
+.chatbox .lead .row span{color:#5c6660}
+.chatbox .lead .row b{text-align:right}
+.chatbox .wa{margin:9px 11px 12px;background:#e7f6e9;border:1px solid #cdeed3;border-radius:13px;padding:9px 11px;font-size:11px;color:#1c4d33;line-height:1.55}
+.chatbox .wa .wh{display:flex;align-items:center;gap:6px;font-weight:700;color:#128c4b;font-size:10.5px;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+.chatbox form{flex:0 0 auto;display:flex;gap:8px;padding:10px 11px;background:rgba(246,242,234,.94);border-top:1px solid var(--line)}
+.chatbox #in{flex:1;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:11px 16px;
+  font-family:inherit;font-size:13.5px;color:var(--ink);outline:none}
+.chatbox #in:focus{border-color:var(--forest)}
+.chatbox #in::placeholder{color:#a3ada8}
+.chatbox #send{width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;flex:0 0 auto;
+  background:linear-gradient(135deg,var(--forest),var(--forest2));display:flex;align-items:center;justify-content:center;
+  box-shadow:0 5px 14px rgba(14,59,46,.35)}
+.chatbox #send:active{transform:scale(.94)}
+.chatbox #send svg{width:19px;height:19px}
+.chatbox .foot{flex:0 0 auto;text-align:center;font-size:9px;color:#9aa59f;padding:0 10px 7px;background:rgba(246,242,234,.94)}
 </style>
 </head>
 <body>
-<div class="phone">
-  <header>
-    <div class="logo" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M3 21h18M5 21V8l7-5 7 5v13" stroke="#0e3b2e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 21v-5h6v5M9 11h.01M15 11h.01" stroke="#0e3b2e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </div>
-    <div class="h-title">
-      <h1 id="brand">Surya Grand Developers</h1>
-      <p><span class="dot"></span><span id="status">AI Assistant · replies in 30 sec</span></p>
-    </div>
-    <div class="lang" role="group" aria-label="Language">
-      <button id="bEn" class="on" type="button">EN</button>
-      <button id="bTe" type="button">తెలుగు</button>
-    </div>
-  </header>
+<canvas id="bg3d"></canvas>
+<div class="vignette"></div>
+<div class="progress" id="progress"></div>
+<nav>
+  <div class="brand">
+    <div class="mk"><svg viewBox="0 0 24 24" fill="none"><path d="M3 21h18M5 21V8l7-5 7 5v13" stroke="#0e3b2e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 21v-5h6v5M9 11h.01M15 11h.01" stroke="#0e3b2e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    Surya Grand Developers
+  </div>
+  <a class="cta" href="#try">Try the live demo</a>
+</nav>
 
-  <div id="chat" aria-live="polite"></div>
+<main>
+  <!-- 1 · hero -->
+  <section class="scene center" id="s1">
+    <div class="panel">
+      <div class="kicker" data-anim>Visakhapatnam · Real Estate</div>
+      <h2 data-anim>Every buyer enquiry.<br><em>Answered in 30 seconds.</em></h2>
+      <p class="sub" data-anim>An AI receptionist that talks to your buyers on WhatsApp - day or night, in Telugu or English - and hands your sales team a ready lead.</p>
+    </div>
+    <div class="hint" data-anim><div class="wheel"></div>Scroll to dive in</div>
+  </section>
 
-  <form id="f" autocomplete="off">
-    <input id="in" type="text" placeholder="Type a message…" aria-label="Message">
-    <button id="send" type="submit" aria-label="Send">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M4 12l16-7-5 16-3.5-6.5L4 12z" fill="#fff" stroke="#fff" stroke-width="1" stroke-linejoin="round"/></svg>
-    </button>
-  </form>
-  <div class="foot" id="foot">A free demo concept for Visakhapatnam builders · No payment, no sign-up</div>
-</div>
+  <!-- 2 · midnight enquiry -->
+  <section class="scene" id="s2">
+    <div class="panel">
+      <div class="kicker" data-anim>The problem</div>
+      <h2 data-anim>11:47 PM.<br>A buyer <em>asks about a 2 BHK.</em></h2>
+      <p class="sub" data-anim>No receptionist is awake. By morning, the buyer has already spoken to three other builders.</p>
+      <div class="phone3d" data-anim>
+        <div class="notch"></div>
+        <div class="wahead">
+          <div class="av">SG</div>
+          <div><b>Surya Grand Developers</b><small>online</small></div>
+        </div>
+        <div class="wabody">
+          <div class="wab in" data-bubble>Namaskaramandi 🙏 Surya Sky Heights lo 2 BHK available unda?<span class="tm">11:47 PM</span></div>
+          <div class="wab in" data-bubble>Madhurawada side. Budget 60 lakhs varaku.<span class="tm">11:47 PM</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- 3 · AI answers -->
+  <section class="scene right" id="s3">
+    <div class="panel">
+      <div class="kicker" data-anim>The answer</div>
+      <h2 data-anim>30 seconds later,<br><em>the AI answers.</em></h2>
+      <p class="sub" data-anim>Price, location, photos, amenities - from your own project details. In the buyer's language.</p>
+      <div class="floatzone">
+        <div class="fcard f-price" data-float><small>2 BHK · Madhurawada</small><b>₹58 L</b><span>onwards · near IT SEZ</span></div>
+        <div class="fcard f-prop" data-float>
+          <div class="art"><svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="s1g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd98a"/><stop offset="1" stop-color="#f2a65a"/></linearGradient></defs><rect width="320" height="150" fill="url(#s1g)"/><circle cx="268" cy="34" r="20" fill="#fff3d6"/><rect x="30" y="40" width="60" height="110" rx="4" fill="#0e3b2e"/><rect x="100" y="18" width="74" height="132" rx="4" fill="#14503e"/><rect x="184" y="56" width="52" height="94" rx="4" fill="#0a2c22"/><rect x="112" y="30" width="16" height="12" rx="2" fill="#ffe9a8"/><rect x="142" y="30" width="16" height="12" rx="2" fill="#ffe9a8" opacity=".8"/><rect x="112" y="54" width="16" height="12" rx="2" fill="#ffe9a8" opacity=".8"/><rect x="142" y="54" width="16" height="12" rx="2" fill="#ffe9a8"/><rect x="112" y="78" width="16" height="12" rx="2" fill="#ffe9a8"/><rect x="142" y="78" width="16" height="12" rx="2" fill="#ffe9a8" opacity=".75"/><rect x="42" y="52" width="36" height="11" rx="2" fill="#ffe9a8" opacity=".8"/><rect x="42" y="74" width="36" height="11" rx="2" fill="#ffe9a8" opacity=".7"/><rect x="42" y="96" width="36" height="11" rx="2" fill="#ffe9a8" opacity=".8"/><rect y="142" width="320" height="8" fill="#08251d"/></svg></div>
+          <div class="pb"><h4>Surya Sky Heights</h4><p>📍 Madhurawada · Gated community</p><div class="pr">₹58 L onwards</div></div>
+        </div>
+        <div class="fcard f-te" data-float><p>ధర ₹58 లక్షల నుండి. ఫోటోలు పంపాలా?</p><span>AI · Telugu · 11:47 PM ✓✓</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · collects details -->
+  <section class="scene" id="s4">
+    <div class="panel">
+      <div class="kicker" data-anim>The details</div>
+      <h2 data-anim>It collects what your<br><em>sales team needs.</em></h2>
+      <p class="sub" data-anim>Four questions, asked politely, one at a time. No forms. No apps to install.</p>
+      <div class="leadstage">
+        <div class="pill" data-pill><span class="ico">1</span>Name<small>Ravi Kumar</small></div>
+        <div class="pill" data-pill><span class="ico">2</span>Phone<small>+91 98481 23456</small></div>
+        <div class="pill" data-pill><span class="ico">3</span>Budget<small>₹60–90 lakhs</small></div>
+        <div class="pill" data-pill><span class="ico">4</span>Visit time<small>This Sunday</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · handoff -->
+  <section class="scene center" id="s5">
+    <div class="panel">
+      <div class="kicker" data-anim>The handoff</div>
+      <h2 data-anim>One ready lead,<br><em>on WhatsApp.</em></h2>
+      <p class="sub" data-anim>The AI answers and collects. Your sales person still closes - with everything they need, within 30 minutes.</p>
+      <div class="handoff">
+        <div class="leadcard" data-anim>
+          <div class="lt"><div class="tk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div><b>Lead sent to sales team</b><small>WhatsApp + call, within 30 minutes</small></div></div>
+          <div class="rr">
+            <div class="row"><span>Name</span><b>Ravi Kumar</b></div>
+            <div class="row"><span>Phone</span><b>+91 98481 23456</b></div>
+            <div class="row"><span>Interest</span><b>Surya Sky Heights (2 BHK)</b></div>
+            <div class="row"><span>Budget</span><b>₹60–90 L</b></div>
+            <div class="row"><span>Visit time</span><b>This Sunday</b></div>
+          </div>
+        </div>
+        <div class="wanote" data-anim>
+          <div class="wh">
+            <div class="wi"><svg width="17" height="17" viewBox="0 0 24 24" fill="#0b141a"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.6-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.1 2.2-.2 3.9a11.6 11.6 0 0 0 4.5 4.3c1.7.9 2.4.9 3.2.8.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2 0 0-.2-.1-.5-.2z"/></svg></div>
+            <div><b>AI Assistant</b><small>to Sales · now</small></div>
+          </div>
+          <div class="wb">🔔 New buyer lead
+Name: Ravi Kumar
+Phone: +91 98481 23456
+Interest: Surya Sky Heights (2 BHK)
+Budget: ₹60–90 L
+Visit: This Sunday</div>
+        </div>
+      </div>
+      <a class="cta-big" href="#try" data-anim>Try it yourself ↓</a>
+    </div>
+  </section>
+
+  <!-- 6 · live demo -->
+  <section class="scene center" id="try">
+    <div class="chatwrap">
+      <div class="panel">
+        <div class="kicker" data-anim>Live demo</div>
+        <h2 data-anim>Talk to it. <em>Right now.</em></h2>
+        <p class="sub" data-anim style="margin-left:auto;margin-right:auto">This is the real working assistant. Ask about a flat, a plot, prices - or book a site visit.</p>
+      </div>
+      <div class="chatbox" data-anim>
+        <header>
+          <div class="logo"><svg viewBox="0 0 24 24" fill="none"><path d="M3 21h18M5 21V8l7-5 7 5v13" stroke="#0e3b2e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 21v-5h6v5M9 11h.01M15 11h.01" stroke="#0e3b2e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="h-title"><h1>Surya Grand Developers</h1><p><span class="dot"></span><span id="status">AI Assistant · replies in 30 sec</span></p></div>
+          <div class="lang"><button id="bEn" class="on" type="button">EN</button><button id="bTe" type="button">తెలుగు</button></div>
+        </header>
+        <div id="chat" aria-live="polite"></div>
+        <form id="f" autocomplete="off">
+          <input id="in" type="text" placeholder="Type a message…" aria-label="Message">
+          <button id="send" type="submit" aria-label="Send"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l16-7-5 16-3.5-6.5L4 12z" fill="#fff"/></svg></button>
+        </form>
+        <div class="foot">A free demo concept for Visakhapatnam builders · No payment, no sign-up</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <b>Every Enquiry Answered</b> - an AI receptionist concept for Visakhapatnam real estate.<br>
+  Buyer chats are simulated in this demo. No real enquiry is sent anywhere.<br>
+  Built as a free demo. Three.js + GSAP, no paid services.
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  gsap.registerPlugin(ScrollTrigger);
+  const mobile = window.innerWidth < 720;
+
+  /* ============ three.js world ============ */
+  const canvas = document.getElementById('bg3d');
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:!mobile, alpha:false});
+  renderer.setPixelRatio(Math.min(devicePixelRatio, mobile?1.5:2));
+  renderer.setSize(innerWidth, innerHeight);
+  renderer.setClearColor(0x081712);
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(0x081712, 34, 130);
+  const camera = new THREE.PerspectiveCamera(55, innerWidth/innerHeight, .1, 300);
+
+  scene.add(new THREE.HemisphereLight(0x9fd8c0, 0x06100c, .35));
+  const moonLight = new THREE.DirectionalLight(0xbfd8ff, .5);
+  moonLight.position.set(-40, 50, -30); scene.add(moonLight);
+  const warm = new THREE.PointLight(0xffd98a, .9, 90); warm.position.set(0, 10, 14); scene.add(warm);
+
+  // window textures
+  function winTex(){
+    const c = document.createElement('canvas'); c.width=64; c.height=160;
+    const g = c.getContext('2d');
+    g.fillStyle = '#000'; g.fillRect(0,0,64,160);
+    for(let y=0;y<16;y++) for(let x=0;x<6;x++){
+      if(Math.random()<.42){
+        const warm = Math.random()<.8;
+        g.fillStyle = warm ? `rgba(255,${205+Math.random()*40|0},${120+Math.random()*60|0},1)` : '#bfe3ff';
+        g.globalAlpha = .5 + Math.random()*.5;
+        g.fillRect(4+x*10, 6+y*10, 5, 4);
+      }
+    }
+    g.globalAlpha = 1;
+    const t = new THREE.CanvasTexture(c); return t;
+  }
+  const texes = []; for(let i=0;i<6;i++) texes.push(winTex());
+
+  // ground
+  const gc = document.createElement('canvas'); gc.width=gc.height=256;
+  const gg = gc.getContext('2d');
+  const grad = gg.createRadialGradient(128,128,10,128,128,128);
+  grad.addColorStop(0,'#0d2620'); grad.addColorStop(.6,'#091a15'); grad.addColorStop(1,'#081712');
+  gg.fillStyle=grad; gg.fillRect(0,0,256,256);
+  const ground = new THREE.Mesh(
+    new THREE.CircleGeometry(120, 48),
+    new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(gc)})
+  );
+  ground.rotation.x = -Math.PI/2; scene.add(ground);
+
+  // city
+  const city = new THREE.Group();
+  const N = mobile ? 42 : 72;
+  for(let i=0;i<N;i++){
+    const a = (i/N)*Math.PI*2 + Math.random()*.35;
+    const r = 16 + Math.random()*46;
+    const w = 2+Math.random()*3.4, d = 2+Math.random()*3.4, h = 3+Math.random()*(Math.random()<.18?19:9);
+    const tex = texes[i%6];
+    const mat = new THREE.MeshLambertMaterial({color:0x0b1a15, emissive:0xffffff, emissiveMap:tex, emissiveIntensity:.9});
+    const b = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), mat);
+    b.position.set(Math.cos(a)*r, h/2, Math.sin(a)*r);
+    b.rotation.y = Math.random()*Math.PI;
+    city.add(b);
+  }
+  // hero towers
+  [[0,12,-6,4,26,4],[-6,9,-2,3,18,3],[7,10,-8,3.6,21,3.6]].forEach(([x,y,z,w,h,d],i)=>{
+    const m = new THREE.MeshLambertMaterial({color:0x0d221b, emissive:0xffffff, emissiveMap:texes[i%6], emissiveIntensity:1});
+    const b = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), m);
+    b.position.set(x,h/2,z); city.add(b);
+  });
+  scene.add(city);
+
+  // moon
+  const mc = document.createElement('canvas'); mc.width=mc.height=128;
+  const mg = mc.getContext('2d');
+  const mgrad = mg.createRadialGradient(64,64,8,64,64,64);
+  mgrad.addColorStop(0,'rgba(255,243,214,1)'); mgrad.addColorStop(.35,'rgba(255,226,150,.55)'); mgrad.addColorStop(1,'rgba(255,226,150,0)');
+  mg.fillStyle=mgrad; mg.fillRect(0,0,128,128);
+  const moon = new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(mc), blending:THREE.AdditiveBlending, depthWrite:false}));
+  moon.position.set(-38, 30, -70); moon.scale.set(26,26,1); scene.add(moon);
+
+  // particles
+  const pN = mobile?130:280;
+  const pos = new Float32Array(pN*3);
+  for(let i=0;i<pN;i++){ pos[i*3]=(Math.random()-.5)*130; pos[i*3+1]=Math.random()*42; pos[i*3+2]=(Math.random()-.5)*130; }
+  const pGeo = new THREE.BufferGeometry();
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pos,3));
+  const pts = new THREE.Points(pGeo, new THREE.PointsMaterial({color:0xffe9a8, size:.32, transparent:true, opacity:.75, blending:THREE.AdditiveBlending, depthWrite:false}));
+  scene.add(pts);
+
+  // camera journey
+  const camCurve = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(0, 16, 54),
+    new THREE.Vector3(17, 9, 33),
+    new THREE.Vector3(-7, 6, 22),
+    new THREE.Vector3(-19, 10, 31),
+    new THREE.Vector3(6, 13, 37),
+    new THREE.Vector3(0, 24, 62),
+  ]);
+  const tgtCurve = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(0, 9, 0),
+    new THREE.Vector3(0, 7, 0),
+    new THREE.Vector3(4, 6, 0),
+    new THREE.Vector3(0, 8, 0),
+    new THREE.Vector3(0, 9, 0),
+    new THREE.Vector3(0, 11, 0),
+  ]);
+  let p = 0, mx = 0, my = 0;
+  function place(){
+    const cp = camCurve.getPoint(p), tp = tgtCurve.getPoint(p);
+    camera.position.set(cp.x + mx, cp.y + my, cp.z);
+    camera.lookAt(tp);
+  }
+  place();
+
+  const clock = new THREE.Clock();
+  (function loop(){
+    requestAnimationFrame(loop);
+    const t = clock.getElapsedTime();
+    city.children.forEach((b,i)=>{ if(b.material.emissiveIntensity!==undefined) b.material.emissiveIntensity = .82 + Math.sin(t*.9 + i)*0.12; });
+    pts.rotation.y = t*.008;
+    moon.material.opacity = .9 + Math.sin(t*.6)*.08;
+    place();
+    renderer.render(scene, camera);
+  })();
+
+  addEventListener('resize', ()=>{
+    camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+  });
+  if(!mobile) addEventListener('mousemove', e=>{
+    mx = (e.clientX/innerWidth - .5)*1.6; my = -(e.clientY/innerHeight - .5)*1.0;
+  });
+
+  // scroll drives camera + progress bar
+  ScrollTrigger.create({
+    trigger: document.body, start:'top top', end:'bottom bottom', scrub:1.1,
+    onUpdate(self){ p = self.progress; document.getElementById('progress').style.width = (p*100)+'%'; }
+  });
+
+  /* ============ DOM storytelling ============ */
+  document.querySelectorAll('.scene').forEach(sec=>{
+    const items = sec.querySelectorAll('[data-anim]');
+    if(items.length) gsap.fromTo(items, {y:46, opacity:0}, {
+      y:0, opacity:1, duration:1.1, stagger:.14, ease:'power3.out',
+      scrollTrigger:{trigger:sec, start:'top 68%', toggleActions:'play none none reverse'}
+    });
+    const bubbles = sec.querySelectorAll('[data-bubble]');
+    if(bubbles.length) gsap.fromTo(bubbles, {x:-30, opacity:0, scale:.92}, {
+      x:0, opacity:1, scale:1, duration:.7, stagger:.35, ease:'back.out(1.6)',
+      scrollTrigger:{trigger:sec, start:'top 55%', toggleActions:'play none none reverse'}
+    });
+    const floats = sec.querySelectorAll('[data-float]');
+    if(floats.length){
+      gsap.fromTo(floats, {y:70, opacity:0, rotate:2}, {
+        y:0, opacity:1, rotate:0, duration:1.1, stagger:.22, ease:'power3.out',
+        scrollTrigger:{trigger:sec, start:'top 60%', toggleActions:'play none none reverse'}
+      });
+      floats.forEach((f,i)=> gsap.to(f, {y:'+=' + (8+i*4), duration:2.6+i*.5, yoyo:true, repeat:-1, ease:'sine.inOut', delay:i*.3}));
+    }
+    const pills = sec.querySelectorAll('[data-pill]');
+    if(pills.length) gsap.fromTo(pills, {x:sec.classList.contains('right')?60:-60, opacity:0}, {
+      x:0, opacity:1, duration:.8, stagger:.22, ease:'power3.out',
+      scrollTrigger:{trigger:sec, start:'top 58%', toggleActions:'play none none reverse'}
+    });
+  });
+})();
+</script>
 <script>
 /* ============================== content ============================== */
 const T = {
