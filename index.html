@@ -244,6 +244,29 @@ footer b{color:#a9bfb2; font-weight:600}
 .chatbox #send:active{transform:scale(.94)}
 .chatbox #send svg{width:19px;height:19px}
 .chatbox .foot{flex:0 0 auto;text-align:center;font-size:9px;color:#9aa59f;padding:0 10px 7px;background:rgba(246,242,234,.94)}
+
+/* mic + voice */
+.chatbox #mic{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:#fff;cursor:pointer;flex:0 0 auto;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.chatbox #mic svg{width:18px;height:18px}
+.chatbox #mic.rec{background:#d33;border-color:#d33;animation:recp 1s infinite}
+@keyframes recp{0%,100%{box-shadow:0 0 0 0 rgba(221,51,51,.4)}50%{box-shadow:0 0 0 8px rgba(221,51,51,0)}}
+.chatbox .spk{border:0;cursor:pointer;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#d7ece2;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.chatbox .spk.on{background:var(--gold);color:var(--forest)}
+.chatbox .spk svg{width:15px;height:15px}
+.chatbox .divider{text-align:center;font-size:10px;color:#8a948e;margin:2px 0 12px}
+.chatbox .divider span{background:#eee7d8;padding:4px 12px;border-radius:999px}
+.chatbox .msg.user .time .tk{color:#34b7f1;font-weight:700}
+.chatbox .ph{cursor:zoom-in;padding:0;background:#efe9dd;border:0}
+.chatbox .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.chatbox .prop .art img{width:100%;height:100%;object-fit:cover;display:block}
+.chatbox .prop .art{cursor:zoom-in}
+.fcard .art img{width:100%;height:100%;object-fit:cover;display:block}
+#zoom{position:fixed;inset:0;z-index:100;background:rgba(4,10,8,.93);display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:20px}
+#zoom.open{display:flex}
+#zoom img{max-width:92vw;max-height:76vh;border-radius:16px;box-shadow:0 30px 90px rgba(0,0,0,.6);cursor:zoom-in;transition:transform .35s}
+#zoom img.big{transform:scale(1.7);cursor:zoom-out}
+#zoom .cap{color:#e9f2ec;font-size:13px;font-weight:600}
+#zoom .x{position:absolute;top:16px;right:16px;width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:18px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -298,7 +321,7 @@ footer b{color:#a9bfb2; font-weight:600}
       <div class="floatzone">
         <div class="fcard f-price" data-float><small>2 BHK · Madhurawada</small><b>₹58 L</b><span>onwards · near IT SEZ</span></div>
         <div class="fcard f-prop" data-float>
-          <div class="art"><svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="s1g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd98a"/><stop offset="1" stop-color="#f2a65a"/></linearGradient></defs><rect width="320" height="150" fill="url(#s1g)"/><circle cx="268" cy="34" r="20" fill="#fff3d6"/><rect x="30" y="40" width="60" height="110" rx="4" fill="#0e3b2e"/><rect x="100" y="18" width="74" height="132" rx="4" fill="#14503e"/><rect x="184" y="56" width="52" height="94" rx="4" fill="#0a2c22"/><rect x="112" y="30" width="16" height="12" rx="2" fill="#ffe9a8"/><rect x="142" y="30" width="16" height="12" rx="2" fill="#ffe9a8" opacity=".8"/><rect x="112" y="54" width="16" height="12" rx="2" fill="#ffe9a8" opacity=".8"/><rect x="142" y="54" width="16" height="12" rx="2" fill="#ffe9a8"/><rect x="112" y="78" width="16" height="12" rx="2" fill="#ffe9a8"/><rect x="142" y="78" width="16" height="12" rx="2" fill="#ffe9a8" opacity=".75"/><rect x="42" y="52" width="36" height="11" rx="2" fill="#ffe9a8" opacity=".8"/><rect x="42" y="74" width="36" height="11" rx="2" fill="#ffe9a8" opacity=".7"/><rect x="42" y="96" width="36" height="11" rx="2" fill="#ffe9a8" opacity=".8"/><rect y="142" width="320" height="8" fill="#08251d"/></svg></div>
+          <div class="art"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/Apartments%2C_Vizag_%284412310837%29.jpg/960px-Apartments%2C_Vizag_%284412310837%29.jpg" alt="Surya Sky Heights" loading="lazy"></div>
           <div class="pb"><h4>Surya Sky Heights</h4><p>📍 Madhurawada · Gated community</p><div class="pr">₹58 L onwards</div></div>
         </div>
         <div class="fcard f-te" data-float><p>ధర ₹58 లక్షల నుండి. ఫోటోలు పంపాలా?</p><span>AI · Telugu · 11:47 PM ✓✓</span></div>
@@ -368,11 +391,13 @@ Visit: This Sunday</div>
         <header>
           <div class="logo"><svg viewBox="0 0 24 24" fill="none"><path d="M3 21h18M5 21V8l7-5 7 5v13" stroke="#0e3b2e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 21v-5h6v5M9 11h.01M15 11h.01" stroke="#0e3b2e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="h-title"><h1>Surya Grand Developers</h1><p><span class="dot"></span><span id="status">AI Assistant · replies in 30 sec</span></p></div>
+          <button id="spk" class="spk on" type="button" aria-label="Voice replies on/off"><svg viewBox="0 0 24 24" fill="none"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
           <div class="lang"><button id="bEn" class="on" type="button">EN</button><button id="bTe" type="button">తెలుగు</button></div>
         </header>
         <div id="chat" aria-live="polite"></div>
         <form id="f" autocomplete="off">
           <input id="in" type="text" placeholder="Type a message…" aria-label="Message">
+          <button id="mic" type="button" aria-label="Talk to the assistant"><svg viewBox="0 0 24 24" fill="none"><rect x="9" y="3" width="6" height="11" rx="3" fill="#0e3b2e"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" stroke="#0e3b2e" stroke-width="1.8" stroke-linecap="round"/></svg></button>
           <button id="send" type="submit" aria-label="Send"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l16-7-5 16-3.5-6.5L4 12z" fill="#fff"/></svg></button>
         </form>
         <div class="foot">A free demo concept for Visakhapatnam builders · No payment, no sign-up</div>
@@ -384,8 +409,9 @@ Visit: This Sunday</div>
 <footer>
   <b>Every Enquiry Answered</b> - an AI receptionist concept for Visakhapatnam real estate.<br>
   Buyer chats are simulated in this demo. No real enquiry is sent anywhere.<br>
-  Built as a free demo. Three.js + GSAP, no paid services.
+  Built as a free demo. Three.js + GSAP, no paid services.<br>Photos: Wikimedia Commons contributors (CC BY). The logo is a placeholder - your company logo goes here.
 </footer>
+<div id="zoom" role="dialog" aria-label="Photo viewer"><button class="x" type="button" aria-label="Close">&#10005;</button><img alt=""><div class="cap"></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -641,19 +667,37 @@ const PROJECTS = [
   },
 ];
 
-/* ============================== svg art ============================== */
-function art(kind){
-  if(kind==="towers") return `<svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="s1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd98a"/><stop offset="1" stop-color="#f2a65a"/></linearGradient></defs><rect width="320" height="150" fill="url(#s1)"/><circle cx="268" cy="34" r="20" fill="#fff3d6"/><rect x="30" y="40" width="60" height="110" rx="4" fill="#0e3b2e"/><rect x="100" y="18" width="74" height="132" rx="4" fill="#14503e"/><rect x="184" y="56" width="52" height="94" rx="4" fill="#0a2c22"/>${[0,1,2,3,4].map(r=>[0,1].map(c=>`<rect x="${112+c*30}" y="${30+r*24}" width="16" height="12" rx="2" fill="#ffe9a8" opacity="${r%2?0.95:0.75}"/>`).join("")).join("")}${[0,1,2,3].map(r=>`<rect x="${42}" y="${52+r*22}" width="36" height="11" rx="2" fill="#ffe9a8" opacity=".8"/>`).join("")}<rect y="142" width="320" height="8" fill="#08251d"/></svg>`;
-  if(kind==="villa") return `<svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="s2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#aee3ff"/><stop offset="1" stop-color="#d8f0e3"/></linearGradient></defs><rect width="320" height="150" fill="url(#s2)"/><path d="M0 108 Q80 88 160 104 T320 98 V150 H0 Z" fill="#8fc9a8"/><path d="M60 96 L110 58 L160 96 Z" fill="#7a4a21"/><rect x="70" y="96" width="80" height="46" fill="#f5ead6"/><rect x="84" y="108" width="18" height="20" rx="2" fill="#0e3b2e"/><rect x="118" y="108" width="18" height="20" rx="2" fill="#0e3b2e"/><rect x="176" y="70" width="10" height="72" fill="#5d3a1a"/><circle cx="181" cy="58" r="26" fill="#1d6b4a"/><circle cx="206" cy="70" r="18" fill="#2c8a5f"/><rect x="228" y="84" width="8" height="58" fill="#5d3a1a"/><circle cx="232" cy="74" r="20" fill="#1d6b4a"/><path d="M0 140 Q160 128 320 140 V150 H0Z" fill="#0e3b2e" opacity=".25"/></svg>`;
-  return `<svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="s3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe8ff"/><stop offset="1" stop-color="#eef7e8"/></linearGradient></defs><rect width="320" height="150" fill="url(#s3)"/><path d="M0 96 H320 V150 H0Z" fill="#b7d9a8"/><path d="M-10 118 H330" stroke="#8f8570" stroke-width="16"/><path d="M-10 118 H330" stroke="#fff" stroke-width="2" stroke-dasharray="14 12"/>${[0,1,2].map(i=>`<g><rect x="${30+i*98}" y="86" width="70" height="10" fill="#7c9a6d" rx="2"/><circle cx="${46+i*98}" cy="72" r="13" fill="#2c8a5f"/><rect x="${43+i*98}" y="80" width="5" height="10" fill="#5d3a1a"/></g>`).join("")}<circle cx="280" cy="30" r="16" fill="#fff3d6"/></svg>`;
-}
-const THUMBS = {
-  towers:["#f2a65a","#0e3b2e","#ffe9a8"], villa:["#aee3ff","#1d6b4a","#7a4a21"], plots:["#eef7e8","#2c8a5f","#8f8570"]
+/* ============================== photos (free-licensed, real Vizag) ============================== */
+const IMGS = {
+  skyExt:"https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/Apartments%2C_Vizag_%284412310837%29.jpg/960px-Apartments%2C_Vizag_%284412310837%29.jpg",
+  palmExt:"https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/An_apartment_during_sunset_near_Mubarak_Colony.jpg/960px-An_apartment_during_sunset_near_Mubarak_Colony.jpg",
+  plotAer:"https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Aerial_view_of_Rushikonda_beach_and_road.jpg/960px-Aerial_view_of_Rushikonda_beach_and_road.jpg",
+  rk:"https://upload.wikimedia.org/wikipedia/commons/b/bc/A_building_at_RK_Beach_road_2013-12-15_10-55.jpg",
+  living:"https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Modern_living_room_with_stylish_furniture_and_a_view_of_the_outdoors_in_a_cozy_apartment_setting.jpg/960px-Modern_living_room_with_stylish_furniture_and_a_view_of_the_outdoors_in_a_cozy_apartment_setting.jpg",
+  living2:"https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d6/New_Orleans_French_Quarter_Apartment_Living_Room.jpg/960px-New_Orleans_French_Quarter_Apartment_Living_Room.jpg",
+  plan:"https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/3d-design-floor-plan-coloured.jpg/960px-3d-design-floor-plan-coloured.jpg",
+  beach:"https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Aerial_view_of_Rushikonda_beach.jpg/960px-Aerial_view_of_Rushikonda_beach.jpg"
 };
-function thumb(kind,label){
-  const c = THUMBS[kind];
-  return `<svg viewBox="0 0 96 72" preserveAspectRatio="xMidYMid slice"><rect width="96" height="72" fill="${c[0]}"/><rect x="10" y="18" width="30" height="54" rx="3" fill="${c[1]}"/><rect x="48" y="8" width="38" height="64" rx="3" fill="${c[1]}" opacity=".82"/><rect x="56" y="18" width="10" height="8" fill="${c[2]}"/><rect x="72" y="18" width="10" height="8" fill="${c[2]}" opacity=".8"/><rect x="56" y="34" width="10" height="8" fill="${c[2]}" opacity=".7"/><rect x="16" y="28" width="18" height="8" fill="${c[2]}" opacity=".8"/></svg><b>${label}</b>`;
+const MAIN_IMG = {towers:IMGS.skyExt, villa:IMGS.palmExt, plots:IMGS.plotAer};
+const PICS = {
+  towers:[["beach","Rushikonda aerial","రుషికొండ ఏరియల్"],["living","Living room","లివింగ్ రూమ్"],["plan","Floor plan","ఫ్లోర్ ప్లాన్"]],
+  villa:[["rk","Beach road view","బీచ్ రోడ్ వ్యూ"],["living2","Living room","లివింగ్ రూమ్"],["plan","Floor plan","ఫ్లోర్ ప్లాన్"]],
+  plots:[["plotAer","Layout aerial","లేఅవుట్ ఏరియల్"],["beach","Beach nearby","దగ్గర బీచ్"],["rk","Approach road","అప్రోచ్ రోడ్"]]
+};
+/* photo zoom popup - works for any photo, any company */
+function openZoom(src,label){
+  const z=document.getElementById('zoom');
+  const im=z.querySelector('img');
+  im.src=src; im.classList.remove('big');
+  z.querySelector('.cap').textContent=label||'';
+  z.classList.add('open');
 }
+document.getElementById('zoom').addEventListener('click', e=>{
+  const z=document.getElementById('zoom');
+  if(e.target.id==='zoom' || e.target.classList.contains('x')) z.classList.remove('open');
+  else if(e.target.tagName==='IMG') e.target.classList.toggle('big');
+});
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') document.getElementById('zoom').classList.remove('open'); });
 
 /* ============================== engine ============================== */
 const chat = document.getElementById('chat');
@@ -699,11 +743,13 @@ function chips(list, cls){
 async function say(text, ms){
   await typing(ms ?? Math.min(600 + text.length*14, 1600));
   addMsg('bot', text, true);
+  chat.querySelectorAll('.msg.user .time').forEach(t=>{ if(!t.querySelector('.tk')){ const s=document.createElement('span'); s.className='tk'; s.textContent=' \u2713\u2713'; t.appendChild(s); } });
+  speak(text);
 }
 function propCard(p){
   const w = document.createElement('div'); w.className='prop';
   w.innerHTML = `
-    <div class="art">${art(p.art)}<span class="tag">${p.tag[lang]}</span></div>
+    <div class="art"><img src="${MAIN_IMG[p.art]}" alt="${p.name}" loading="lazy"><span class="tag">${p.tag[lang]}</span></div>
     <div class="pbody">
       <h3>${p.name}</h3>
       <div class="loc">📍 ${p.loc}</div>
@@ -714,6 +760,8 @@ function propCard(p){
         <button class="pbtn ghost" type="button">${t().photos}</button>
       </div>
     </div>`;
+  const artEl = w.querySelector('.art');
+  artEl.onclick = ()=>openZoom(MAIN_IMG[p.art], p.name);
   const [bi, bp] = w.querySelectorAll('.pbtn');
   bi.onclick = ()=>{ userEcho(t().interested + " · " + p.type[lang]); currentProject = p; lead.interest = p.name + " (" + p.type[lang] + ")"; startLead(); };
   bp.onclick = ()=>{ userEcho(t().photos + " · " + p.name); showPhotos(p); };
@@ -722,8 +770,8 @@ function propCard(p){
 async function showPhotos(p){
   await typing(700);
   const w = document.createElement('div'); w.className='photos';
-  const labels = lang==='en' ? ['View','Living','Plan'] : ['వ్యూ','హాలు','ప్లాన్'];
-  w.innerHTML = [0,1,2].map(i=>`<div class="ph">${thumb(p.art, labels[i])}</div>`).join('');
+  w.innerHTML = PICS[p.art].map(([k,en,te])=>`<div class="ph" data-src="${IMGS[k]}" data-label="${lang==='en'?en:te}"><img src="${IMGS[k]}" alt="${en}" loading="lazy"><b>${lang==='en'?en:te}</b></div>`).join('');
+  w.querySelectorAll('.ph').forEach(ph=> ph.onclick=()=>openZoom(ph.dataset.src, ph.dataset.label));
   addNode(w);
   afterCard(p);
 }
@@ -882,9 +930,45 @@ function setLang(l){
 document.getElementById('bEn').onclick = ()=>setLang('en');
 document.getElementById('bTe').onclick = ()=>setLang('te');
 
+/* --------- voice mode --------- */
+let speakerOn = true, recActive = false, userGestured = false;
+addEventListener('pointerdown', ()=>userGestured=true, {once:true});
+function speak(text){
+  if(!speakerOn || !userGestured || !('speechSynthesis' in window)) return;
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text.replace(/[\u{1F300}-\u{1FAFF}\u{2700}-\u{27BF}\u{2600}-\u{26FF}]/gu,''));
+    u.lang = lang==='te' ? 'te-IN' : 'en-IN';
+    const vs = speechSynthesis.getVoices();
+    const v = vs.find(x=>x.lang && x.lang.toLowerCase().startsWith(lang==='te'?'te':'en-in')) || vs.find(x=>x.lang && x.lang.toLowerCase().startsWith('en'));
+    if(v) u.voice = v;
+    u.rate = 1.03;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+const spkBtn = document.getElementById('spk');
+spkBtn.onclick = ()=>{ speakerOn=!speakerOn; spkBtn.classList.toggle('on', speakerOn); if(!speakerOn && 'speechSynthesis' in window) speechSynthesis.cancel(); };
+const micBtn = document.getElementById('mic');
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+if(!SR){ micBtn.style.display='none'; }
+else{
+  const rec = new SR();
+  rec.interimResults = false; rec.maxAlternatives = 1;
+  micBtn.onclick = ()=>{
+    if(recActive){ try{rec.stop();}catch(e){} return; }
+    rec.lang = lang==='te' ? 'te-IN' : 'en-IN';
+    try{ rec.start(); recActive=true; micBtn.classList.add('rec'); }catch(e){}
+  };
+  rec.onresult = e=>{ input.value = e.results[0][0].transcript; document.getElementById('f').requestSubmit(); };
+  rec.onend = ()=>{ recActive=false; micBtn.classList.remove('rec'); };
+  rec.onerror = rec.onend;
+}
+
 /* --------- boot --------- */
+function addDivider(txt){ const d=document.createElement('div'); d.className='divider'; d.innerHTML='<span>'+txt+'</span>'; chat.appendChild(d); }
 (async function(){
   input.placeholder = t().placeholder;
+  addDivider(lang==='te'?'\u0c08\u0c30\u0c4b\u0c1c\u0c41':'Today');
   await typing(900);
   addMsg('bot', t().welcome, true);
   mainChips();
