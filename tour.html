@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Walkthrough — Surya Grand, Visakhapatnam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Familjen Grotesk',sans-serif;background:#171615;color:#EDE6D6;overflow:hidden;height:100svh}
+video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover}
+.brand{position:fixed;top:16px;left:24px;z-index:5;font-size:20px;font-weight:500;color:#C9B476;text-decoration:none;mix-blend-mode:normal}
+.pill{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:5;background:rgba(237,230,214,.92);color:#2A2725;font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:10px 18px;border-radius:999px}
+.back{position:fixed;bottom:22px;left:24px;z-index:5;background:rgba(237,230,214,.92);color:#2A2725;font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:12px 20px;border-radius:999px;text-decoration:none}
+.back:hover,.pill:hover{background:#fff}
+.sound{position:fixed;bottom:22px;right:24px;z-index:5;background:rgba(23,22,21,.5);border:1px solid rgba(237,230,214,.5);color:#EDE6D6;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:11px 18px;border-radius:999px;cursor:pointer;font-family:inherit}
+#loader{position:fixed;inset:0;z-index:10;background:#171615;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .7s}
+#loader .lbl{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#C9B476}
+#loader h1{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(2rem,6vw,3.6rem)}
+#loader .pct{font-size:13px;letter-spacing:.2em;color:rgba(237,230,214,.7)}
+#loader .bar{width:min(300px,60vw);height:1px;background:rgba(237,230,214,.2)}
+#loader .bar i{display:block;height:100%;width:0;background:#C9B476;transition:width .2s}
+#enter{display:none;background:#EDE6D6;color:#2A2725;border:0;font-family:inherit;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:14px 26px;border-radius:999px;cursor:pointer}
+</style>
+</head>
+<body>
+<video id="v" muted loop playsinline preload="auto" poster="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/UE4Arch.com_-_Viennese_apartment.webm/960px--UE4Arch.com_-_Viennese_apartment.webm.jpg">
+  <source src="https://upload.wikimedia.org/wikipedia/commons/transcoded/f/fa/UE4Arch.com_-_Viennese_apartment.webm/UE4Arch.com_-_Viennese_apartment.webm.480p.vp9.webm" type="video/webm">
+</video>
+<a class="brand" href="index.html">SURYA / GRAND</a>
+<div class="pill" id="pill">Click to look around</div>
+<a class="back" href="index.html">&larr; Back to site</a>
+<button class="sound" id="snd" type="button">Sound: off</button>
+<div id="loader">
+  <span class="lbl">Private residence tour</span>
+  <h1>Step inside.</h1>
+  <div class="bar"><i id="bar"></i></div>
+  <div class="pct" id="pct">Preparing your tour experience · 0%</div>
+  <button id="enter" type="button">Enter the walkthrough &#9654;</button>
+</div>
+<script>
+var v=document.getElementById('v'), loader=document.getElementById('loader'),
+    bar=document.getElementById('bar'), pct=document.getElementById('pct'),
+    enter=document.getElementById('enter'), pill=document.getElementById('pill'), snd=document.getElementById('snd');
+var p=0, ready=false;
+v.addEventListener('canplaythrough', function(){ ready=true; }, {once:true});
+var iv=setInterval(function(){
+  p=Math.min(ready?100:92, p+Math.random()*9);
+  bar.style.width=p+'%';
+  pct.textContent='Preparing your tour experience · '+Math.floor(p)+'%';
+  if(p>=100){ clearInterval(iv); pct.style.display='none'; enter.style.display='block'; }
+},120);
+enter.addEventListener('click', function(){
+  loader.style.opacity='0'; setTimeout(function(){ loader.style.display='none'; },700);
+  v.play(); pill.textContent='Drag or scroll to look around';
+});
+pill.addEventListener('click', function(){ v.paused?v.play():v.pause(); pill.textContent=v.paused?'Click to play':'Click to pause'; });
+snd.addEventListener('click', function(){ v.muted=!v.muted; snd.textContent='Sound: '+(v.muted?'off':'on'); });
+</script>
+</body>
+</html>
