@@ -1174,8 +1174,13 @@ function addDivider(txt){ const d=document.createElement('div'); d.className='di
   requestAnimationFrame(tick);
 
   // chat openers
+  var panel=document.getElementById('chatPanel'), fab=document.getElementById('fab'), pill=document.getElementById('fabPill');
+  function openPanel(){ panel.classList.add('open'); if(pill) pill.style.display='none'; }
+  fab.addEventListener('click', function(){ panel.classList.contains('open')?panel.classList.remove('open'):openPanel(); });
+  if(pill) pill.addEventListener('click', openPanel);
+  panel.querySelectorAll('.cx').forEach(function(x){ x.addEventListener('click', function(){ panel.classList.remove('open'); }); });
   window.openChat=function(msg){
-    var panel=document.getElementById('chatPanel'); if(!panel.classList.contains('open')) document.getElementById('fab').click();
+    openPanel();
     if(msg){ var inp=document.getElementById('in'); inp.value=msg; setTimeout(function(){ inp.closest('form').requestSubmit(); },450); }
   };
   document.querySelectorAll('[data-ask]').forEach(function(b){ b.addEventListener('click', function(){ window.openChat(b.dataset.ask); }); });
