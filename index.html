@@ -1058,7 +1058,7 @@ function addDivider(txt){ const d=document.createElement('div'); d.className='di
   menuBtn.addEventListener('click', function(){
     var open=menu.classList.toggle('open'); menuBtn.classList.toggle('open',open);
     menuBtn.setAttribute('aria-expanded', open);
-    menu.style.height = open ? menu.querySelector('ul').offsetHeight+'px' : '0px';
+    menu.style.height = open ? (menu.querySelector('ul').offsetHeight+14)+'px' : '0px';
     if(open) menu.removeAttribute('inert'); else menu.setAttribute('inert','');
   });
   menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ menuBtn.click(); }); });
@@ -1133,10 +1133,10 @@ function addDivider(txt){ const d=document.createElement('div'); d.className='di
     aTitle.style.opacity=String(Math.max(0,1-p*3.2));
     aTitle.style.transform='scale('+(1-p*0.12)+')';
     var tp=Math.max(0,Math.min(1,(p-0.06)/0.3)); // tiles in
+    var bp=Math.max(0,Math.min(1,(p-0.42)/0.2)); // body in
     tiles.forEach(function(t){ var dir=+t.dataset.t;
       t.style.transform='translateX('+(dir*(1-tp)*60)+'vw) rotate('+(dir*(1-tp)*8)+'deg)';
-      t.style.opacity=String(Math.min(1,tp*1.6)); });
-    var bp=Math.max(0,Math.min(1,(p-0.42)/0.2)); // body in
+      t.style.opacity=String(Math.min(1,tp*1.6)*(1-bp)); });
     aBody.style.opacity=String(bp);
     aBody.style.transform='translateY('+((1-bp)*40)+'px)';
     var wp=Math.max(0,Math.min(1,(p-0.5)/0.35)); // words
