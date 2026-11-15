@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Surya Grand AI - Every Enquiry Answered | Vizag Real Estate Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f6f2ea; --cream-2:#efe9dd; --ink:#1c2420; --ink-soft:#5c6660;
+    --forest:#0e3b2e; --forest-2:#14503e; --gold:#c9a227; --gold-soft:#e7d9a7;
+    --card:#ffffff; --line:#e4ddcf; --green-tick:#25d366;
+    --shadow:0 18px 50px rgba(14,59,46,.14);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{
+    font-family:'Inter','Noto Sans Telugu',system-ui,sans-serif;
+    background:linear-gradient(160deg,#0e3b2e 0%,#14503e 45%,#0a2c22 100%);
+    color:var(--ink); display:flex; align-items:center; justify-content:center;
+    min-height:100dvh; padding:0;
+  }
+  .phone{
+    width:100%; max-width:430px; height:100dvh; max-height:100dvh;
+    background:var(--cream); display:flex; flex-direction:column; position:relative; overflow:hidden;
+  }
+  @media(min-width:520px){
+    body{padding:28px}
+    .phone{height:min(880px,94dvh); border-radius:34px; box-shadow:var(--shadow); border:1px solid rgba(255,255,255,.25)}
+  }
+
+  /* ---------- header ---------- */
+  header{
+    background:linear-gradient(135deg,var(--forest) 0%,var(--forest-2) 100%);
+    color:#fff; padding:14px 16px 12px; display:flex; align-items:center; gap:12px;
+    flex:0 0 auto; position:relative; z-index:5;
+  }
+  header::after{content:""; position:absolute; inset:auto 0 0 0; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); opacity:.7}
+  .logo{
+    width:44px; height:44px; border-radius:14px; flex:0 0 auto;
+    background:linear-gradient(145deg,#fdf6df,#e9d488);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 4px 12px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.7);
+  }
+  .logo svg{width:26px;height:26px}
+  .h-title{flex:1; min-width:0}
+  .h-title h1{font-family:'Playfair Display',serif; font-size:17px; font-weight:600; letter-spacing:.2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .h-title p{font-size:11.5px; color:#bfe3d4; display:flex; align-items:center; gap:5px; margin-top:2px}
+  .dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 3px rgba(74,222,128,.25); animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+  .lang{
+    flex:0 0 auto; display:flex; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22);
+    border-radius:999px; padding:3px; gap:2px;
+  }
+  .lang button{
+    border:0; cursor:pointer; font-family:inherit; font-size:11.5px; font-weight:600;
+    padding:5px 10px; border-radius:999px; color:#d7ece2; background:transparent; transition:all .25s;
+  }
+  .lang button.on{background:var(--gold); color:var(--forest); box-shadow:0 2px 8px rgba(0,0,0,.25)}
+
+  /* ---------- chat ---------- */
+  #chat{
+    flex:1; overflow-y:auto; padding:18px 14px 10px; scroll-behavior:smooth;
+    background:
+      radial-gradient(circle at 85% 8%, rgba(201,162,39,.07), transparent 42%),
+      radial-gradient(circle at 8% 92%, rgba(14,59,46,.06), transparent 45%),
+      var(--cream);
+  }
+  #chat::-webkit-scrollbar{width:0}
+  .msg{max-width:82%; margin-bottom:12px; display:flex; flex-direction:column; animation:rise .38s cubic-bezier(.2,.9,.3,1.2) both}
+  @keyframes rise{from{opacity:0; transform:translateY(14px) scale(.97)} to{opacity:1; transform:none}}
+  .msg.bot{align-items:flex-start}
+  .msg.user{align-items:flex-end; margin-left:auto}
+  .bubble{
+    padding:11px 14px; border-radius:18px; font-size:14px; line-height:1.5; white-space:pre-line;
+    box-shadow:0 2px 8px rgba(28,36,32,.07); position:relative;
+  }
+  .msg.bot .bubble{background:var(--card); border:1px solid var(--line); border-top-left-radius:6px}
+  .msg.user .bubble{
+    background:linear-gradient(135deg,var(--forest),var(--forest-2)); color:#fff; border-top-right-radius:6px;
+  }
+  .time{font-size:10px; color:var(--ink-soft); margin-top:4px; padding:0 4px}
+  .msg.user .time{text-align:right}
+
+  /* typing */
+  .typing{display:inline-flex; gap:5px; padding:13px 16px; background:#fff; border:1px solid var(--line); border-radius:18px; border-top-left-radius:6px; box-shadow:0 2px 8px rgba(28,36,32,.07)}
+  .typing i{width:7px;height:7px;border-radius:50%;background:#9aa5a0; animation:tp 1.2s infinite}
+  .typing i:nth-child(2){animation-delay:.18s}.typing i:nth-child(3){animation-delay:.36s}
+  @keyframes tp{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-5px);opacity:1}}
+
+  /* chips */
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin:2px 0 14px; animation:rise .4s .1s both}
+  .chip{
+    border:1.5px solid var(--forest); color:var(--forest); background:rgba(255,255,255,.75);
+    font-family:inherit; font-size:13px; font-weight:600; padding:9px 15px; border-radius:999px;
+    cursor:pointer; transition:all .22s; backdrop-filter:blur(2px);
+  }
+  .chip:hover{background:var(--forest); color:#fff; transform:translateY(-1px)}
+  .chip:active{transform:scale(.96)}
+  .chip.gold{border-color:var(--gold); color:#8a6d10; background:linear-gradient(135deg,#fdf6dd,#f3e5ae)}
+  .chip.gold:hover{background:var(--gold); color:var(--forest)}
+
+  /* property card */
+  .prop{
+    width:100%; max-width:320px; background:#fff; border-radius:20px; overflow:hidden;
+    border:1px solid var(--line); box-shadow:0 10px 26px rgba(14,59,46,.12);
+    margin-bottom:12px; animation:rise .45s both;
+  }
+  .prop .art{height:150px; position:relative; overflow:hidden}
+  .prop .art svg{width:100%; height:100%; display:block}
+  .prop .tag{
+    position:absolute; top:10px; left:10px; background:rgba(14,59,46,.88); color:#ffe9a8;
+    font-size:10.5px; font-weight:700; letter-spacing:.6px; text-transform:uppercase;
+    padding:5px 10px; border-radius:999px; backdrop-filter:blur(3px);
+  }
+  .prop .pbody{padding:13px 15px 14px}
+  .prop h3{font-family:'Playfair Display',serif; font-size:16.5px; font-weight:700; color:var(--forest)}
+  .prop .loc{font-size:12px; color:var(--ink-soft); margin:3px 0 8px; display:flex; align-items:center; gap:4px}
+  .prop .price{font-size:15px; font-weight:700; color:#8a6d10}
+  .prop .price small{font-weight:500; color:var(--ink-soft); font-size:11px}
+  .prop .facts{display:flex; gap:6px; flex-wrap:wrap; margin-top:9px}
+  .prop .facts span{font-size:10.5px; background:var(--cream-2); color:var(--ink-soft); padding:4px 9px; border-radius:999px; font-weight:600}
+  .prop .pactions{display:flex; gap:8px; margin-top:12px}
+  .pbtn{
+    flex:1; border:0; cursor:pointer; font-family:inherit; font-size:12.5px; font-weight:700;
+    padding:10px 0; border-radius:12px; transition:all .2s;
+  }
+  .pbtn.primary{background:linear-gradient(135deg,var(--forest),var(--forest-2)); color:#fff; box-shadow:0 4px 12px rgba(14,59,46,.3)}
+  .pbtn.primary:hover{transform:translateY(-1px); box-shadow:0 6px 16px rgba(14,59,46,.38)}
+  .pbtn.ghost{background:transparent; border:1.5px solid var(--line); color:var(--ink-soft)}
+  .pbtn.ghost:hover{border-color:var(--forest); color:var(--forest)}
+  .pbtn:active{transform:scale(.97)}
+
+  /* photo strip */
+  .photos{display:flex; gap:8px; margin-bottom:12px; animation:rise .4s both}
+  .ph{width:96px; height:72px; border-radius:14px; flex:0 0 auto; border:1px solid var(--line); box-shadow:0 3px 10px rgba(14,59,46,.1); position:relative; overflow:hidden}
+  .ph svg{width:100%; height:100%}
+  .ph b{position:absolute; bottom:4px; left:6px; font-size:9px; color:#fff; text-shadow:0 1px 3px rgba(0,0,0,.6); font-weight:600}
+
+  /* lead card */
+  .lead{
+    width:100%; max-width:330px; border-radius:20px; overflow:hidden; margin-bottom:12px;
+    background:#fff; border:1px solid var(--line); box-shadow:0 12px 30px rgba(14,59,46,.14);
+    animation:rise .5s both;
+  }
+  .lead .ltop{background:linear-gradient(135deg,#0b3d2c,#126347); color:#fff; padding:12px 15px; display:flex; align-items:center; gap:10px}
+  .lead .ltop .tick{width:26px;height:26px;border-radius:50%;background:var(--green-tick); display:flex;align-items:center;justify-content:center; flex:0 0 auto; box-shadow:0 0 0 4px rgba(37,211,102,.25)}
+  .lead .ltop b{font-size:13.5px}
+  .lead .ltop small{display:block; font-size:11px; color:#bfe3d4; font-weight:400; margin-top:1px}
+  .lead .rows{padding:10px 15px 6px}
+  .lead .row{display:flex; justify-content:space-between; gap:10px; padding:7px 0; border-bottom:1px dashed var(--line); font-size:12.5px}
+  .lead .row:last-child{border:0}
+  .lead .row span{color:var(--ink-soft); font-weight:500}
+  .lead .row b{color:var(--ink); font-weight:600; text-align:right}
+  .wa{
+    margin:10px 12px 13px; background:#e7f6e9; border:1px solid #cdeed3; border-radius:14px; padding:10px 12px;
+    font-size:11.5px; color:#1c4d33; line-height:1.55;
+  }
+  .wa .wh{display:flex; align-items:center; gap:6px; font-weight:700; color:#128c4b; font-size:11px; margin-bottom:5px; text-transform:uppercase; letter-spacing:.5px}
+
+  /* input */
+  form{
+    flex:0 0 auto; display:flex; gap:9px; padding:11px 12px calc(11px + env(safe-area-inset-bottom));
+    background:rgba(246,242,234,.92); backdrop-filter:blur(8px); border-top:1px solid var(--line);
+  }
+  #in{
+    flex:1; border:1.5px solid var(--line); background:#fff; border-radius:999px;
+    padding:12px 17px; font-family:inherit; font-size:14px; color:var(--ink); outline:none; transition:border .2s;
+  }
+  #in:focus{border-color:var(--forest)}
+  #in::placeholder{color:#a3ada8}
+  #send{
+    width:47px; height:47px; border-radius:50%; border:0; cursor:pointer; flex:0 0 auto;
+    background:linear-gradient(135deg,var(--forest),var(--forest-2)); display:flex; align-items:center; justify-content:center;
+    box-shadow:0 5px 14px rgba(14,59,46,.35); transition:transform .18s;
+  }
+  #send:hover{transform:scale(1.06)}
+  #send:active{transform:scale(.94)}
+  #send svg{width:20px;height:20px}
+
+  .foot{
+    flex:0 0 auto; text-align:center; font-size:9.5px; color:#9aa59f; padding:0 12px 7px;
+    background:rgba(246,242,234,.92);
+  }
+</style>
+</head>
+<body>
+<div class="phone">
+  <header>
+    <div class="logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M3 21h18M5 21V8l7-5 7 5v13" stroke="#0e3b2e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 21v-5h6v5M9 11h.01M15 11h.01" stroke="#0e3b2e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="h-title">
+      <h1 id="brand">Surya Grand Developers</h1>
+      <p><span class="dot"></span><span id="status">AI Assistant · replies in 30 sec</span></p>
+    </div>
+    <div class="lang" role="group" aria-label="Language">
+      <button id="bEn" class="on" type="button">EN</button>
+      <button id="bTe" type="button">తెలుగు</button>
+    </div>
+  </header>
+
+  <div id="chat" aria-live="polite"></div>
+
+  <form id="f" autocomplete="off">
+    <input id="in" type="text" placeholder="Type a message…" aria-label="Message">
+    <button id="send" type="submit" aria-label="Send">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M4 12l16-7-5 16-3.5-6.5L4 12z" fill="#fff" stroke="#fff" stroke-width="1" stroke-linejoin="round"/></svg>
+    </button>
+  </form>
+  <div class="foot" id="foot">A free demo concept for Visakhapatnam builders · No payment, no sign-up</div>
+</div>
+
+<script>
+/* ============================== content ============================== */
+const T = {
+  en: {
+    status:"AI Assistant · replies in 30 sec",
+    placeholder:"Type a message…",
+    welcome:"Namaste! 🙏 I'm the Surya Grand AI assistant.\nLooking for a home in Visakhapatnam? Ask me about flats, plots, prices or a free site visit - any time, day or night.",
+    chips:["2 BHK flats","3 BHK flats","VUDA plots","Book a site visit"],
+    price:"Price", from:"onwards",
+    photos:"Photos", interested:"I'm interested",
+    leadName:"Great choice! 🎉 To arrange your free site visit, may I have your name?",
+    leadPhone:n=>`Thanks ${n}! What is your mobile number? Our sales person will call you on this number.`,
+    phoneBad:"That doesn't look like a 10-digit mobile number. Please type it again.",
+    leadBudget:"Noted 👍 What budget should I keep in mind?",
+    budgets:["₹40–60 L","₹60–90 L","₹90 L +"],
+    leadWhen:"Last step - when would you like to visit the site?",
+    times:["Tomorrow morning","Tomorrow evening","This Sunday","Just call me first"],
+    done:"All done, {n}! ✅ I've passed your details to our sales team. A real person will call you within 30 minutes (9am-9pm) to confirm your visit.",
+    leadTitle:"Lead sent to sales team",
+    leadSub:"WhatsApp + call, within 30 minutes",
+    waTitle:"WhatsApp to sales person",
+    waBody:l=>`🔔 New buyer lead\nName: ${l.name}\nPhone: ${l.phone}\nInterest: ${l.interest}\nBudget: ${l.budget}\nVisit: ${l.when}\nSource: AI assistant (web)`,
+    anything:"You can ask me about price, location, photos, amenities or a site visit. What would you like to know?",
+    loc:"Location", visit:"Visit",
+    rName:"Name", rPhone:"Phone", rInterest:"Interest", rBudget:"Budget", rWhen:"Visit time",
+    again:"Start again",
+  },
+  te: {
+    status:"AI అసిస్టెంట్ · 30 సెకన్లలో సమాధానం",
+    placeholder:"ఇక్కడ టైప్ చేయండి…",
+    welcome:"నమస్కారం! 🙏 నేను సూర్య గ్రాండ్ AI అసిస్టెంట్‌ని.\nవిశాఖపట్నంలో ఇల్లు వెతుకుతున్నారా? ఫ్లాట్లు, ప్లాట్లు, ధరలు లేదా ఉచిత సైట్ విజిట్ గురించి అడగండి - పగలు లేదా రాత్రి, ఎప్పుడైనా.",
+    chips:["2 BHK ఫ్లాట్లు","3 BHK ఫ్లాట్లు","VUDA ప్లాట్లు","సైట్ విజిట్ బుక్ చేయండి"],
+    price:"ధర", from:"నుండి",
+    photos:"ఫోటోలు", interested:"నాకు ఇష్టం",
+    leadName:"మంచి ఎంపిక! 🎉 మీ ఉచిత సైట్ విజిట్ ఏర్పాటు చేయడానికి, మీ పేరు చెప్పగలరా?",
+    leadPhone:n=>`ధన్యవాదాలు ${n}! మీ మొబైల్ నంబర్ ఏమిటి? మా సేల్స్ వ్యక్తి ఈ నంబర్‌కే కాల్ చేస్తారు.`,
+    phoneBad:"ఇది 10 అంకెల మొబైల్ నంబర్‌లా లేదు. దయచేసి మళ్లీ టైప్ చేయండి.",
+    leadBudget:"నోట్ చేసాను 👍 మీ బడ్జెట్ ఎంత పరిధిలో ఉంటుంది?",
+    budgets:["₹40–60 లక్షలు","₹60–90 లక్షలు","₹90 లక్షలు +"],
+    leadWhen:"చివరి అడుగు - సైట్ ఎప్పుడు చూడాలనుకుంటున్నారు?",
+    times:["రేపు ఉదయం","రేపు సాయంత్రం","ఈ ఆదివారం","ముందు కాల్ చేయండి"],
+    done:"పూర్తయింది, {n}! ✅ మీ వివరాలు మా సేల్స్ టీమ్‌కు పంపాను. మీ విజిట్ నిర్ధారించడానికి నిజమైన వ్యక్తి 30 నిమిషాల్లో (ఉదయం 9 - రాత్రి 9) మీకు కాల్ చేస్తారు.",
+    leadTitle:"లీడ్ సేల్స్ టీమ్‌కు పంపబడింది",
+    leadSub:"WhatsApp + కాల్, 30 నిమిషాల్లో",
+    waTitle:"సేల్స్ వ్యక్తికి WhatsApp",
+    waBody:l=>`🔔 కొత్త కొనుగోలుదారు లీడ్\nపేరు: ${l.name}\nఫోన్: ${l.phone}\nఆసక్తి: ${l.interest}\nబడ్జెట్: ${l.budget}\nవిజిట్: ${l.when}\nమూలం: AI అసిస్టెంట్ (వెబ్)`,
+    anything:"ధర, ప్రాంతం, ఫోటోలు, సదుపాయాలు లేదా సైట్ విజిట్ గురించి అడగవచ్చు. ఏమి తెలుసుకోవాలనుకుంటున్నారు?",
+    loc:"ప్రాంతం", visit:"విజిట్",
+    rName:"పేరు", rPhone:"ఫోన్", rInterest:"ఆసక్తి", rBudget:"బడ్జెట్", rWhen:"విజిట్ సమయం",
+    again:"మళ్లీ మొదలుపెట్టండి",
+  }
+};
+
+const PROJECTS = [
+  {
+    id:"sky", match:/2\s*bhk|2bhk|2 బేడ్|sky/i,
+    name:"Surya Sky Heights", loc:"Madhurawada, near IT SEZ & Rushikonda",
+    price:"₹58 L", type:{en:"2 BHK flats", te:"2 BHK ఫ్లాట్లు"},
+    facts:{en:["1150-1250 sft","Gated community","Ready 2027"], te:["1150-1250 sft","గేటెడ్ కమ్యూనిటీ","2027లో రెడీ"]},
+    blurb:{en:"2 BHK in Madhurawada, 5 min from the IT SEZ and Rushikonda beach road. Gated community with clubhouse and children's park.",
+           te:"మాధురవాడలో 2 BHK - IT SEZ మరియు రుషికొండ బీచ్ రోడ్‌కు 5 నిమిషాలు. క్లబ్ హౌస్, పిల్లల పార్కుతో గేటెడ్ కమ్యూనిటీ."},
+    art:"towers", tag:{en:"Bestseller", te:"బెస్ట్ సెల్లర్"},
+  },
+  {
+    id:"palm", match:/3\s*bhk|3bhk|3 బేడ్|palm|villa/i,
+    name:"Palm Enclave", loc:"Yendada, sea-facing hill side",
+    price:"₹85 L", type:{en:"3 BHK flats", te:"3 BHK ఫ్లాట్లు"},
+    facts:{en:["1650-2100 sft","Private deck","Only 48 homes"], te:["1650-2100 sft","ప్రైవేట్ డెక్","కేవలం 48 ఇళ్లు"]},
+    blurb:{en:"Premium 3 BHK at Yendada with sea-breeze decks, just off the beach road. Low-density project - only 48 homes.",
+           te:"యెందాడలో ప్రీమియం 3 BHK - బీచ్ రోడ్ పక్కనే, సముద్ర గాలి వేసే డెక్‌లతో. కేవలం 48 ఇళ్లే ఉన్న ప్రత్యేక ప్రాజెక్ట్."},
+    art:"villa", tag:{en:"Premium", te:"ప్రీమియం"},
+  },
+  {
+    id:"green", match:/plot|vuda|ప్లాట్|green|land|స్థలం/i,
+    name:"Green Valley Plots", loc:"Anandapuram, on NH-16 growth corridor",
+    price:"₹22 L", type:{en:"VUDA plots", te:"VUDA ప్లాట్లు"},
+    facts:{en:["167-267 sq yd","VUDA approved","Clear title"], te:["167-267 గజాలు","VUDA ఆమోదం","క్లియర్ టైటిల్"]},
+    blurb:{en:"VUDA-approved open plots at Anandapuram on the NH-16 corridor. Compound wall, 40-ft blacktop roads, avenue plantation.",
+           te:"NH-16 కారిడార్‌పై ఆనందపురంలో VUDA ఆమోదిత ఓపెన్ ప్లాట్లు. కంపౌండ్ వాల్, 40 అడుగుల రోడ్లు, వృక్షాలతో లేఅవుట్."},
+    art:"plots", tag:{en:"VUDA approved", te:"VUDA ఆమోదం"},
+  },
+];
+
+/* ============================== svg art ============================== */
+function art(kind){
+  if(kind==="towers") return `<svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="s1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd98a"/><stop offset="1" stop-color="#f2a65a"/></linearGradient></defs><rect width="320" height="150" fill="url(#s1)"/><circle cx="268" cy="34" r="20" fill="#fff3d6"/><rect x="30" y="40" width="60" height="110" rx="4" fill="#0e3b2e"/><rect x="100" y="18" width="74" height="132" rx="4" fill="#14503e"/><rect x="184" y="56" width="52" height="94" rx="4" fill="#0a2c22"/>${[0,1,2,3,4].map(r=>[0,1].map(c=>`<rect x="${112+c*30}" y="${30+r*24}" width="16" height="12" rx="2" fill="#ffe9a8" opacity="${r%2?0.95:0.75}"/>`).join("")).join("")}${[0,1,2,3].map(r=>`<rect x="${42}" y="${52+r*22}" width="36" height="11" rx="2" fill="#ffe9a8" opacity=".8"/>`).join("")}<rect y="142" width="320" height="8" fill="#08251d"/></svg>`;
+  if(kind==="villa") return `<svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="s2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#aee3ff"/><stop offset="1" stop-color="#d8f0e3"/></linearGradient></defs><rect width="320" height="150" fill="url(#s2)"/><path d="M0 108 Q80 88 160 104 T320 98 V150 H0 Z" fill="#8fc9a8"/><path d="M60 96 L110 58 L160 96 Z" fill="#7a4a21"/><rect x="70" y="96" width="80" height="46" fill="#f5ead6"/><rect x="84" y="108" width="18" height="20" rx="2" fill="#0e3b2e"/><rect x="118" y="108" width="18" height="20" rx="2" fill="#0e3b2e"/><rect x="176" y="70" width="10" height="72" fill="#5d3a1a"/><circle cx="181" cy="58" r="26" fill="#1d6b4a"/><circle cx="206" cy="70" r="18" fill="#2c8a5f"/><rect x="228" y="84" width="8" height="58" fill="#5d3a1a"/><circle cx="232" cy="74" r="20" fill="#1d6b4a"/><path d="M0 140 Q160 128 320 140 V150 H0Z" fill="#0e3b2e" opacity=".25"/></svg>`;
+  return `<svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="s3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe8ff"/><stop offset="1" stop-color="#eef7e8"/></linearGradient></defs><rect width="320" height="150" fill="url(#s3)"/><path d="M0 96 H320 V150 H0Z" fill="#b7d9a8"/><path d="M-10 118 H330" stroke="#8f8570" stroke-width="16"/><path d="M-10 118 H330" stroke="#fff" stroke-width="2" stroke-dasharray="14 12"/>${[0,1,2].map(i=>`<g><rect x="${30+i*98}" y="86" width="70" height="10" fill="#7c9a6d" rx="2"/><circle cx="${46+i*98}" cy="72" r="13" fill="#2c8a5f"/><rect x="${43+i*98}" y="80" width="5" height="10" fill="#5d3a1a"/></g>`).join("")}<circle cx="280" cy="30" r="16" fill="#fff3d6"/></svg>`;
+}
+const THUMBS = {
+  towers:["#f2a65a","#0e3b2e","#ffe9a8"], villa:["#aee3ff","#1d6b4a","#7a4a21"], plots:["#eef7e8","#2c8a5f","#8f8570"]
+};
+function thumb(kind,label){
+  const c = THUMBS[kind];
+  return `<svg viewBox="0 0 96 72" preserveAspectRatio="xMidYMid slice"><rect width="96" height="72" fill="${c[0]}"/><rect x="10" y="18" width="30" height="54" rx="3" fill="${c[1]}"/><rect x="48" y="8" width="38" height="64" rx="3" fill="${c[1]}" opacity=".82"/><rect x="56" y="18" width="10" height="8" fill="${c[2]}"/><rect x="72" y="18" width="10" height="8" fill="${c[2]}" opacity=".8"/><rect x="56" y="34" width="10" height="8" fill="${c[2]}" opacity=".7"/><rect x="16" y="28" width="18" height="8" fill="${c[2]}" opacity=".8"/></svg><b>${label}</b>`;
+}
+
+/* ============================== engine ============================== */
+const chat = document.getElementById('chat');
+const input = document.getElementById('in');
+let lang = 'en';
+let stage = 'browse';           // browse | name | phone | budget | when | done
+let lead = {name:"", phone:"", interest:"", budget:"", when:""};
+let currentProject = PROJECTS[0];
+const t = () => T[lang];
+
+function now(){ const d=new Date(); return d.toLocaleTimeString([], {hour:'numeric', minute:'2-digit'}); }
+function scrollDown(){ chat.scrollTop = chat.scrollHeight; }
+function addMsg(who, html, raw){
+  const m = document.createElement('div');
+  m.className = 'msg ' + who;
+  const b = document.createElement('div');
+  b.className = 'bubble';
+  if(raw){ b.textContent = html; } else { b.innerHTML = html; }
+  const tm = document.createElement('div'); tm.className='time'; tm.textContent = now();
+  m.appendChild(b); m.appendChild(tm);
+  chat.appendChild(m); scrollDown();
+  return m;
+}
+function addNode(node){ chat.appendChild(node); scrollDown(); }
+function typing(ms){
+  return new Promise(res=>{
+    const w = document.createElement('div'); w.className='msg bot';
+    w.innerHTML = '<div class="typing"><i></i><i></i><i></i></div>';
+    chat.appendChild(w); scrollDown();
+    setTimeout(()=>{ w.remove(); res(); }, ms);
+  });
+}
+function chips(list, cls){
+  const w = document.createElement('div'); w.className='chips';
+  list.forEach(c=>{
+    const b = document.createElement('button');
+    b.type='button'; b.className='chip'+(cls?' '+cls:''); b.textContent=c.label;
+    b.onclick=()=>{ w.remove(); c.fn(); };
+    w.appendChild(b);
+  });
+  addNode(w);
+}
+async function say(text, ms){
+  await typing(ms ?? Math.min(600 + text.length*14, 1600));
+  addMsg('bot', text, true);
+}
+function propCard(p){
+  const w = document.createElement('div'); w.className='prop';
+  w.innerHTML = `
+    <div class="art">${art(p.art)}<span class="tag">${p.tag[lang]}</span></div>
+    <div class="pbody">
+      <h3>${p.name}</h3>
+      <div class="loc">📍 ${p.loc}</div>
+      <div class="price">${p.price} <small>${t().from}</small></div>
+      <div class="facts">${p.facts[lang].map(f=>`<span>${f}</span>`).join('')}</div>
+      <div class="pactions">
+        <button class="pbtn primary" type="button">${t().interested}</button>
+        <button class="pbtn ghost" type="button">${t().photos}</button>
+      </div>
+    </div>`;
+  const [bi, bp] = w.querySelectorAll('.pbtn');
+  bi.onclick = ()=>{ userEcho(t().interested + " · " + p.type[lang]); currentProject = p; lead.interest = p.name + " (" + p.type[lang] + ")"; startLead(); };
+  bp.onclick = ()=>{ userEcho(t().photos + " · " + p.name); showPhotos(p); };
+  addNode(w);
+}
+async function showPhotos(p){
+  await typing(700);
+  const w = document.createElement('div'); w.className='photos';
+  const labels = lang==='en' ? ['View','Living','Plan'] : ['వ్యూ','హాలు','ప్లాన్'];
+  w.innerHTML = [0,1,2].map(i=>`<div class="ph">${thumb(p.art, labels[i])}</div>`).join('');
+  addNode(w);
+  afterCard(p);
+}
+function afterCard(p){
+  chips([
+    {label:t().interested, fn:()=>{ userEcho(t().interested); currentProject=p; lead.interest = p.name + " (" + p.type[lang] + ")"; startLead(); }},
+    {label:lang==='en'?'Show all projects':'అన్ని ప్రాజెక్ట్లు', fn:()=>{ userEcho(lang==='en'?'Show all projects':'అన్ని ప్రాజెక్ట్లు'); showAll(); }},
+  ]);
+}
+async function showAll(){
+  await say(lang==='en' ? "Here are our three projects in Visakhapatnam:" : "విశాఖపట్నంలో మా మూడు ప్రాజెక్ట్లు ఇవి:");
+  for(const p of PROJECTS){ propCard(p); }
+}
+async function startLead(){
+  stage='name';
+  await say(t().leadName);
+}
+async function finishLead(){
+  stage='done';
+  await say(t().done.replace('{n}', lead.name.split(' ')[0]));
+  const w = document.createElement('div'); w.className='lead';
+  w.innerHTML = `
+    <div class="ltop">
+      <div class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div><b>${t().leadTitle}</b><small>${t().leadSub}</small></div>
+    </div>
+    <div class="rows">
+      <div class="row"><span>${t().rName}</span><b>${esc(lead.name)}</b></div>
+      <div class="row"><span>${t().rPhone}</span><b>${esc(lead.phone)}</b></div>
+      <div class="row"><span>${t().rInterest}</span><b>${esc(lead.interest)}</b></div>
+      <div class="row"><span>${t().rBudget}</span><b>${esc(lead.budget)}</b></div>
+      <div class="row"><span>${t().rWhen}</span><b>${esc(lead.when)}</b></div>
+    </div>
+    <div class="wa"><div class="wh">▣ ${t().waTitle}</div>${esc(t().waBody(lead)).replace(/\n/g,'<br>')}</div>`;
+  addNode(w);
+  chips([{label:t().again, fn:()=>{ userEcho(t().again); restart(); }}], 'gold');
+}
+function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+function userEcho(text){ addMsg('user', text, true); }
+
+/* --------- understanding --------- */
+function understand(raw){
+  const q = raw.toLowerCase();
+  const te = lang==='te';
+  for(const p of PROJECTS){ if(p.match.test(q)) return {kind:'project', p}; }
+  if(/plot|vuda|ప్లాట్|స్థలం/.test(q)) return {kind:'project', p:PROJECTS[2]};
+  if(/price|cost|ధర|రేటు/.test(q)) return {kind:'price'};
+  if(/where|location|ఎక్కడ|ప్రాంతం|ఏ ఏరియా/.test(q)) return {kind:'loc'};
+  if(/photo|image|picture|ఫోటో|చిత్రం/.test(q)) return {kind:'photos'};
+  if(/visit|సైట్|విజిట్|చూడ|book/.test(q)) return {kind:'visit'};
+  if(/loan|emi|బ్యాంకు|లోన్/.test(q)) return {kind:'loan'};
+  if(/hi$|hello|hey|నమస్కారం|హాయ్/.test(q)) return {kind:'hi'};
+  if(/all|projects|అన్ని|ప్రాజెక్ట్/.test(q)) return {kind:'all'};
+  return {kind:'?'};
+}
+async function respond(raw){
+  const u = understand(raw);
+  const te = lang==='te';
+  switch(u.kind){
+    case 'project': {
+      currentProject = u.p;
+      await say(u.p.blurb[lang] + "\n\n" + (te?"ధర":"Price") + ": " + u.p.price + " " + t().from);
+      propCard(u.p);
+      afterCard(u.p);
+      break;
+    }
+    case 'price': {
+      const p = currentProject;
+      await say(te ? `${p.name} ధర ${p.price} ${t().from}. ఫ్లోర్, ఫేసింగ్ మీద కొద్దిగా మారుతుంది.` : `${p.name} starts at ${p.price} ${t().from}. It varies a little by floor and facing.`);
+      afterCard(p);
+      break;
+    }
+    case 'loc': {
+      const p = currentProject;
+      await say("📍 " + p.loc);
+      afterCard(p);
+      break;
+    }
+    case 'photos': showPhotos(currentProject); break;
+    case 'visit': startVisit(); break;
+    case 'loan':
+      await say(te ? "అన్ని ప్రధాన బ్యాంకుల నుండి హోమ్ లోన్ సదుపాయం ఉంది (SBI, HDFC, ICICI). మా టీమ్ డాక్యుమెంట్స్‌లో సహాయం చేస్తుంది." : "Home loans are available from all major banks (SBI, HDFC, ICICI). Our team helps with the paperwork.");
+      afterCard(currentProject);
+      break;
+    case 'hi':
+      await say(t().welcome); mainChips(); break;
+    case 'all': showAll(); break;
+    default: {
+      await say(t().anything);
+      mainChips();
+    }
+  }
+}
+function startVisit(){
+  currentProject = currentProject || PROJECTS[0];
+  if(!lead.interest) lead.interest = currentProject.name + " (" + currentProject.type[lang] + ")";
+  startLead();
+}
+function mainChips(){
+  chips(t().chips.map(c=>({label:c, fn:()=>{ userEcho(c); routeChip(c); }})));
+}
+function routeChip(c){
+  if(/2/.test(c)) respond('2 bhk');
+  else if(/3/.test(c)) respond('3 bhk');
+  else if(/plot|ప్లాట్/i.test(c)) respond('plots');
+  else startVisit();
+}
+async function restart(){
+  stage='browse'; lead={name:"",phone:"",interest:"",budget:"",when:""};
+  await say(t().welcome, 700); mainChips();
+}
+
+/* --------- form handling --------- */
+document.getElementById('f').addEventListener('submit', async e=>{
+  e.preventDefault();
+  const v = input.value.trim();
+  if(!v) return;
+  input.value='';
+  userEcho(v);
+
+  if(stage==='name'){
+    lead.name = v.replace(/\s+/g,' ');
+    stage='phone';
+    await say(t().leadPhone(lead.name.split(' ')[0]));
+    return;
+  }
+  if(stage==='phone'){
+    const d = v.replace(/\D/g,'').replace(/^(91|0)/,'');
+    if(d.length!==10){ await say(t().phoneBad, 600); return; }
+    lead.phone = '+91 ' + d.slice(0,5) + ' ' + d.slice(5);
+    stage='budget';
+    await say(t().leadBudget);
+    chips(t().budgets.map(b=>({label:b, fn:()=>{ userEcho(b); lead.budget=b; askWhen(); }})));
+    return;
+  }
+  if(stage==='budget'){ lead.budget=v; askWhen(); return; }
+  if(stage==='when'){ lead.when=v; finishLead(); return; }
+  respond(v);
+});
+async function askWhen(){
+  stage='when';
+  await say(t().leadWhen);
+  chips(t().times.map(x=>({label:x, fn:()=>{ userEcho(x); lead.when=x; finishLead(); }})));
+}
+
+/* --------- language toggle --------- */
+function setLang(l){
+  if(l===lang) return;
+  lang = l;
+  document.getElementById('bEn').classList.toggle('on', l==='en');
+  document.getElementById('bTe').classList.toggle('on', l==='te');
+  document.getElementById('status').textContent = t().status;
+  input.placeholder = t().placeholder;
+  if(stage==='browse'){ say(t().welcome, 500).then(mainChips); }
+}
+document.getElementById('bEn').onclick = ()=>setLang('en');
+document.getElementById('bTe').onclick = ()=>setLang('te');
+
+/* --------- boot --------- */
+(async function(){
+  input.placeholder = t().placeholder;
+  await typing(900);
+  addMsg('bot', t().welcome, true);
+  mainChips();
+})();
+</script>
+</body>
+</html>
