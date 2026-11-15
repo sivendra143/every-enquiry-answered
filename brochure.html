@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Brochure — Real Estate Demo, Visakhapatnam</title>
+<title>Brochure - Real Estate Demo, Visakhapatnam</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
@@ -54,7 +54,7 @@
   .backcover p{font-size:12px;line-height:1.8;opacity:.8}
   .backcover .bc-brand{font-weight:700;letter-spacing:.16em;font-size:13px;margin-bottom:26px}
   .note{position:absolute;bottom:16px;left:22px;font-size:9px;opacity:.45;letter-spacing:.05em}
-  @media (max-width:520px){ .controls{gap:9px} .cbtn{padding:10px 14px;font-size:11px} }
+  @media (max-width:520px){ .controls{gap:9px} .cbtn{padding:10px 12px;font-size:11px;min-height:44px;min-width:44px} }
 </style>
 </head>
 <body>
@@ -80,9 +80,9 @@
     <div class="inner">
       <div class="kicker">Welcome</div>
       <h2 class="pt">Not every home<br>needs to shout.</h2>
-      <p class="body">We build quiet, well-made homes in Visakhapatnam — apartments close to the IT corridor and the beach road, and clear-title plots in fast-growing layouts. This brochure walks you through our three current projects, their plans, prices and the practical details: loans, approvals and site visits.</p>
+      <p class="body">We build quiet, well-made homes in Visakhapatnam - apartments close to the IT corridor and the beach road, and clear-title plots in fast-growing layouts. This brochure walks you through our three current projects, their plans, prices and the practical details: loans, approvals and site visits.</p>
       <div class="imgr" style="flex:1;min-height:120px"><img src="https://images.pexels.com/photos/30925020/pexels-photo-30925020.jpeg?auto=compress&cs=tinysrgb&w=1400" alt=""></div>
-      <p class="body" style="font-size:11px;opacity:.7">Everything here is a free demo concept — real answers, sample data.</p>
+      <p class="body" style="font-size:11px;opacity:.7">Everything here is a free demo concept - real answers, sample data.</p>
       <div class="p-num">02</div>
     </div>
   </div>
@@ -202,7 +202,7 @@
       <div class="bc-brand">REAL ESTATE / DEMO</div>
       <h2>Come and see it.</h2>
       <p>Free site visits every day, 9am – 6pm.<br>Pick-up from Madhurawada junction.<br><br>📞 +91 90000 12345 (demo)<br>✉️ sales@realestatedemo.example<br>📍 Madhurawada, Visakhapatnam</p>
-      <p style="margin-top:26px;font-size:10px;opacity:.5">RERA nos. available at site office.<br>A free demo concept — not a real company.<br>Photos: Pexels (free license).</p>
+      <p style="margin-top:26px;font-size:10px;opacity:.5">RERA nos. available at site office.<br>A free demo concept - not a real company.<br>Photos: Pexels (free license).</p>
     </div>
   </div>
 
@@ -225,7 +225,7 @@
     var a=document.createElement('a'); a.href=url; a.download='Real-Estate-Demo-Brochure.pdf';
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){URL.revokeObjectURL(url);},4000);
   };
-  var book=document.getElementById('book');var zoomed=false;document.getElementById('zoom').onclick=function(){zoomed=!zoomed;book.style.transform=zoomed?'scale(1.5)':'scale(1)';document.getElementById('zoom').textContent=zoomed?'−':'＋';document.getElementById('stage').style.overflow=zoomed?'auto':'hidden';};
+  var book=document.getElementById('book');var zoomed=false;document.getElementById('zoom').onclick=function(){zoomed=!zoomed;book.style.transform=zoomed?'scale(1.5)':'scale(1)';document.getElementById('zoom').textContent=zoomed?'−':'＋';var st=document.getElementById('stage');st.style.overflow=zoomed?'auto':'hidden';st.style.justifyContent=zoomed?'flex-start':'center';st.style.alignItems=zoomed?'flex-start':'center';book.style.transformOrigin='top left';};
   var portrait = window.innerWidth < 780;
   var W = portrait ? Math.min(window.innerWidth-24, 460) : Math.min((window.innerWidth-60)/2, 430);
   var H = Math.min(window.innerHeight-170, W*1.38);
@@ -234,10 +234,16 @@
     width: W, height: Math.round(H),
     size:'fixed', showCover:true, usePortrait:portrait,
     maxShadowOpacity:.45, flippingTime:700,
-    mobileScrollSupport:true, swipeDistance:28,
+    mobileScrollSupport:true, useMouseEvents:!portrait, swipeDistance:28,
     showPageCorners:true, disableFlipByClick:false
   });
   flip.loadFromHTML(document.querySelectorAll('.page'));
+  if(portrait){
+    var sx=0,sy=0;book.style.touchAction='pan-y';
+    book.addEventListener('pointerdown',function(e){sx=e.clientX;sy=e.clientY;book.setPointerCapture(e.pointerId);});
+    book.addEventListener('pointerup',function(e){if(zoomed)return;var dx=e.clientX-sx,dy=e.clientY-sy;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){if(dx<0)flip.flipNext();else flip.flipPrev();}});
+  }
+
   var total = flip.getPageCount();
   var pg=document.getElementById('pg');
   function upd(){ pg.textContent=(flip.getCurrentPageIndex()+1)+' / '+total; }
@@ -251,4 +257,4 @@
 })();
 </script>
 </body>
-</html>
+  </html>
