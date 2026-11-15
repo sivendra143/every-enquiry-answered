@@ -2,146 +2,176 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Surya Grand Developers | Flats & VUDA Plots in Visakhapatnam</title>
-<meta name="description" content="2 & 3 BHK flats and VUDA-approved plots across Visakhapatnam. Ask our AI assistant anything - price, photos, videos, floor plans, site visits - in Telugu or English.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surya Grand Developers - Homes by the coast, Visakhapatnam</title>
+<meta name="description" content="2 & 3 BHK flats and VUDA plots in Madhurawada, Visakhapatnam. Ask our AI assistant anything - Telugu or English, day or night.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --forest:#0e3b2e; --forest2:#14503e; --gold:#c9a227; --gold2:#e9cf8a;
-  --cream:#f6f2ea; --ink:#1c2420; --soft:#5c6660; --line:#e4ddcf; --paper:#ffffff;
+  --forest:#23231f; --forest2:#3a3a33; --gold:#b78a2e; --gold2:#e9cf8a;
+  --cream:#f5f1e8; --ink:#23231f; --soft:#6f6f66; --line:#e3ddcf; --paper:#f5f1e8;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'Inter','Noto Sans Telugu',sans-serif;color:var(--ink);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased}
-img{max-width:100%}
-h1,h2,h3,.serif{font-family:'Playfair Display','Noto Sans Telugu',serif}
-.wrap{max-width:1140px;margin:0 auto;padding:0 22px}
-.kicker{font-size:11px;letter-spacing:2.6px;text-transform:uppercase;color:var(--gold);font-weight:700}
-.kicker::before{content:"";display:inline-block;width:26px;height:2px;background:var(--gold);vertical-align:middle;margin-right:9px}
-h2.sec{font-size:clamp(26px,3.6vw,40px);font-weight:600;line-height:1.15;margin:10px 0 8px}
-.sub{color:var(--soft);font-size:15px;max-width:640px}
-section{padding:84px 0}
-section.alt{background:var(--cream)}
-[data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+body{font-family:'Inter','Noto Sans Telugu',sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,.serif{font-family:'Playfair Display','Noto Sans Telugu',serif;font-weight:500}
+img{display:block;max-width:100%}
+button{font-family:inherit}
+::selection{background:var(--gold);color:#fff}
+
+.kick{font-size:11px;letter-spacing:3.5px;text-transform:uppercase;font-weight:600;color:var(--soft)}
+.kick::before{content:"";display:inline-block;width:26px;height:1px;background:var(--gold);vertical-align:middle;margin-right:10px}
+.ulink{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;font-weight:600;color:inherit;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:4px;cursor:pointer;background:none;border-top:0;border-left:0;border-right:0;transition:opacity .25s}
+.ulink:hover{opacity:.6}
+
+/* reveal on scroll */
+[data-reveal]{opacity:0;transform:translateY(36px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
 [data-reveal].in{opacity:1;transform:none}
 
-/* ---------- nav ---------- */
-nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-nav .bar{max-width:1140px;margin:0 auto;padding:12px 22px;display:flex;align-items:center;gap:26px}
-.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink)}
-.brand .mk{width:42px;height:42px;border-radius:11px;background:var(--forest);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
-.brand .bt{line-height:1.15}
-.brand .bt b{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;letter-spacing:.2px}
-.brand .bt small{display:block;font-size:9px;letter-spacing:2.2px;text-transform:uppercase;color:var(--soft);font-weight:600}
-nav .links{display:flex;gap:24px;margin-left:auto}
-nav .links a{text-decoration:none;color:var(--ink);font-size:13.5px;font-weight:600;opacity:.85}
-nav .links a:hover{color:var(--forest);opacity:1}
-nav .cta{margin-left:6px;border:0;cursor:pointer;background:var(--forest);color:#fff;font-family:inherit;font-weight:600;font-size:13px;padding:10px 18px;border-radius:999px;display:flex;align-items:center;gap:7px;transition:background .25s}
-nav .cta:hover{background:var(--forest2)}
-@media(max-width:860px){ nav .links{display:none} nav .cta{margin-left:auto} }
+/* ---------- top bar ---------- */
+.top{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;justify-content:space-between;align-items:center;padding:20px 32px;mix-blend-mode:difference;color:#fff}
+.top .wm{font-weight:700;font-size:15px;letter-spacing:1.5px;text-decoration:none;color:#fff}
+.top .wm span{opacity:.55;font-weight:500}
+#menuBtn{background:none;border:0;color:#fff;font-size:12px;letter-spacing:3px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px}
+#menuBtn i{font-style:normal;letter-spacing:1px}
+#menu{position:fixed;inset:0;z-index:85;background:#1d1d19;color:var(--cream);display:flex;flex-direction:column;justify-content:center;padding:0 8vw;opacity:0;pointer-events:none;transition:opacity .45s}
+#menu.open{opacity:1;pointer-events:auto}
+#menu a{font-family:'Playfair Display',serif;font-size:clamp(34px,6vw,64px);color:var(--cream);text-decoration:none;line-height:1.35;display:flex;align-items:baseline;gap:18px;transition:padding-left .3s}
+#menu a:hover{padding-left:18px;color:var(--gold2)}
+#menu a small{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2.5px;color:#8d8d84}
+#menu .mx{position:absolute;top:20px;right:32px;background:none;border:0;color:#fff;font-size:13px;letter-spacing:3px;font-weight:700;cursor:pointer}
 
 /* ---------- hero ---------- */
-.hero{position:relative;min-height:92vh;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
-.hero .bg{position:absolute;inset:0;background:url('https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Aerial_view_of_Rushikonda_beach_and_road.jpg/1280px-Aerial_view_of_Rushikonda_beach_and_road.jpg') center 38%/cover no-repeat}
+.hero{position:relative;min-height:100vh;color:#fff;overflow:hidden;display:flex;flex-direction:column}
 .hero .bgv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,26,20,.42),rgba(10,26,20,.18) 40%,rgba(10,26,20,.78))}
-.hero .inner{position:relative;width:100%;max-width:1140px;margin:0 auto;padding:130px 22px 64px}
-.hero .kicker{color:var(--gold2)}
-.hero h1{font-size:clamp(34px,5.6vw,60px);font-weight:600;line-height:1.08;max-width:640px;margin:14px 0 14px}
-.hero h1 em{font-style:italic;color:var(--gold2)}
-.hero p{max-width:520px;font-size:15.5px;color:rgba(255,255,255,.88)}
-.hero .cta-row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;font-family:inherit;font-weight:600;font-size:14px;padding:14px 24px;border-radius:999px;text-decoration:none;transition:all .25s}
-.btn.gold{background:var(--gold);color:var(--forest)}
-.btn.gold:hover{background:var(--gold2)}
-.btn.ghost{background:rgba(255,255,255,.14);color:#fff;border:1.5px solid rgba(255,255,255,.5)}
-.btn.ghost:hover{background:rgba(255,255,255,.24)}
-.hero .stats{position:relative;border-top:1px solid rgba(255,255,255,.25);display:grid;grid-template-columns:repeat(4,1fr);max-width:1140px;margin:0 auto}
-.hero .stats div{padding:16px 18px 22px}
-.hero .stats b{font-family:'Playfair Display',serif;font-size:21px;display:block;white-space:nowrap}
-.hero .stats span{font-size:11.5px;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.72)}
-@media(max-width:720px){ .hero .stats{grid-template-columns:repeat(2,1fr)} }
+.hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,12,10,.45),rgba(10,12,10,.12) 45%,rgba(10,12,10,.55))}
+.hero .hwrap{position:relative;z-index:2;padding:110px 32px 0}
+.hero h1{font-size:clamp(56px,10vw,140px);line-height:.98;letter-spacing:-1px}
+.hero h1 em{font-style:italic;font-weight:400}
+.hero .ctas{display:flex;gap:34px;margin-top:34px;flex-wrap:wrap}
+.hero .meta{position:relative;z-index:2;margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:0 32px;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:600;flex-wrap:wrap}
+.hero .himg{position:relative;z-index:2;margin:18px 0 0;height:46vh;overflow:hidden}
+.hero .himg img{width:100%;height:100%;object-fit:cover;object-position:center 40%}
+.hero .himg .cap{position:absolute;inset:auto 0 0 0;display:flex;justify-content:space-between;padding:16px 32px;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:600;background:linear-gradient(0deg,rgba(10,12,10,.5),transparent)}
+.hero .botline{position:relative;z-index:2;text-align:center;font-size:13.5px;color:#efe9db;padding:14px 20px 22px;background:linear-gradient(0deg,rgba(10,12,10,.35),transparent)}
 
-/* ---------- projects ---------- */
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
-@media(max-width:920px){ .grid3{grid-template-columns:1fr;max-width:480px} }
-.pcard{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 30px rgba(24,38,30,.07);transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column}
-.pcard:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(24,38,30,.13)}
-.pcard .ph{position:relative;aspect-ratio:4/3;overflow:hidden;cursor:zoom-in}
-.pcard .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
-.pcard:hover .ph img{transform:scale(1.05)}
-.pcard .tag{position:absolute;top:12px;left:12px;background:rgba(14,59,46,.92);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:6px 12px;border-radius:999px}
-.pcard .pb{padding:20px 20px 18px;display:flex;flex-direction:column;gap:7px;flex:1}
-.pcard .pb h3{font-size:21px;font-weight:600}
-.pcard .pl{font-size:12.5px;color:var(--soft)}
-.pcard .pp{font-size:19px;font-weight:700;color:var(--forest);font-family:'Playfair Display',serif}
-.pcard .pp small{font-family:'Inter',sans-serif;font-weight:500;color:var(--soft);font-size:11.5px}
-.pcard .pf{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px}
-.pcard .pf span{font-size:11px;font-weight:600;background:var(--cream);border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:#3d4a43}
-.pcard .ask{margin-top:auto;align-self:flex-start;border:1.5px solid var(--forest);background:transparent;color:var(--forest);cursor:pointer;font-family:inherit;font-weight:600;font-size:12.5px;padding:9px 16px;border-radius:999px;transition:all .25s}
-.pcard .ask:hover{background:var(--forest);color:#fff}
+/* ---------- image slider card ---------- */
+.slide{padding:9vh 32px 0}
+.slide .frame{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:16/8.2;background:#ddd}
+.slide .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s}
+.slide .frame img.on{opacity:1}
+.slide .arrows{position:absolute;inset:auto 22px 22px auto;display:flex;gap:10px}
+.slide .arrows button{width:46px;height:46px;border-radius:50%;border:0;background:rgba(255,255,255,.92);font-size:17px;cursor:pointer;transition:transform .2s}
+.slide .arrows button:hover{transform:scale(1.08)}
+.slide .capline{display:flex;justify-content:space-between;margin-top:14px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--soft);font-weight:600}
 
-/* ---------- amenities ---------- */
-.amen{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
-@media(max-width:920px){ .amen{grid-template-columns:repeat(2,1fr)} }
-.amen .a{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 18px;text-align:center}
-.amen .ic{width:52px;height:52px;margin:0 auto 12px;border-radius:14px;background:var(--cream);display:flex;align-items:center;justify-content:center}
-.amen b{display:block;font-size:14px;margin-bottom:3px}
-.amen span{font-size:12px;color:var(--soft)}
+/* ---------- about ---------- */
+.about{padding:16vh 8vw;max-width:1150px;margin:0 auto}
+.about .big{font-size:clamp(26px,3.6vw,44px);line-height:1.28;font-weight:500;letter-spacing:-.3px;margin:26px 0 34px}
+.about .big img{display:inline-block;width:74px;height:48px;object-fit:cover;border-radius:10px;vertical-align:middle;margin:0 6px}
+.about .cols{display:flex;gap:60px;flex-wrap:wrap}
+.about .cols p{font-size:14px;color:var(--soft);max-width:420px}
 
-/* ---------- gallery ---------- */
-.gal{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:40px}
-@media(max-width:920px){ .gal{grid-template-columns:repeat(2,1fr)} }
-.gal .g{position:relative;border-radius:14px;overflow:hidden;cursor:zoom-in;aspect-ratio:1}
-.gal .g:nth-child(1){grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
-@media(max-width:920px){ .gal .g:nth-child(1){grid-column:span 2;grid-row:auto;aspect-ratio:16/10} }
-.gal img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
-.gal .g:hover img{transform:scale(1.06)}
-.gal .g span{position:absolute;left:0;right:0;bottom:0;padding:22px 12px 10px;font-size:11.5px;font-weight:600;color:#fff;background:linear-gradient(transparent,rgba(8,20,15,.7))}
+/* ---------- marquee ---------- */
+.marq{overflow:hidden;white-space:nowrap;padding:6vh 0 2vh;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:8vh}
+.marq div{display:inline-block;font-family:'Playfair Display',serif;font-size:clamp(40px,7vw,90px);color:var(--ink);opacity:.14;animation:marq 26s linear infinite}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* ---------- floor plans ---------- */
-.fp{display:grid;grid-template-columns:1.1fr 1fr;gap:44px;margin-top:40px;align-items:center}
-@media(max-width:920px){ .fp{grid-template-columns:1fr} }
-.fp .plan{border:1px solid var(--line);border-radius:18px;overflow:hidden;cursor:zoom-in;background:#fff;box-shadow:0 10px 34px rgba(24,38,30,.08)}
-.fp .plan img{display:block;width:100%}
-.fp .rows{display:flex;flex-direction:column;gap:0;margin-top:18px}
-.fp .row{display:flex;justify-content:space-between;gap:12px;padding:13px 2px;border-bottom:1px solid var(--line);font-size:14px}
-.fp .row span{color:var(--soft)}
-.fp .row b{font-weight:600;text-align:right}
+/* ---------- structure (scroll-scrubbed video) ---------- */
+.struct{position:relative;height:320vh;background:#111}
+.struct .sticky{position:sticky;top:0;height:100vh;overflow:hidden}
+.struct video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.struct .vin{position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,10,8,.62),transparent 40%),linear-gradient(180deg,rgba(8,10,8,.4),transparent 30%)}
+.struct .tl{position:absolute;left:32px;bottom:44px;color:#fff}
+.struct .tl .kick{color:#d9d2bf}
+.struct .tl h3{font-size:clamp(30px,4vw,52px);margin-top:10px}
+.struct .tl .sub{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#cfc8b4;margin-top:6px;font-weight:600}
+.struct .num{position:absolute;right:40px;bottom:36px;font-family:'Playfair Display',serif;font-size:clamp(54px,7vw,96px);color:#fff;line-height:1}
+.struct .num small{display:block;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:2.5px;color:#cfc8b4;margin-top:6px;text-align:right}
+.struct .head{position:absolute;top:88px;left:32px;color:#fff}
+.struct .head .kick{color:#d9d2bf}
+.struct .head p{font-size:11px;letter-spacing:3px;text-transform:uppercase;margin-top:8px;color:#cfc8b4;font-weight:600}
+.struct .rail{position:absolute;right:26px;top:50%;transform:translateY(-50%);width:2px;height:130px;background:rgba(255,255,255,.25);border-radius:2px}
+.struct .rail span{display:block;width:100%;height:100%;background:#fff;transform:scaleY(0);transform-origin:top}
+.struct .hint{position:absolute;top:88px;right:40px;color:#d9d2bf;font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;font-weight:600;animation:fadeP 2.4s infinite}
+@keyframes fadeP{0%,100%{opacity:.5}50%{opacity:1}}
 
-/* ---------- video ---------- */
-.video .vwrap{position:relative;max-width:860px;margin:40px auto 0;border-radius:20px;overflow:hidden;cursor:pointer;box-shadow:0 24px 60px rgba(24,38,30,.22)}
-.video .vwrap img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
-.video .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(10,26,20,.3);transition:background .3s}
-.video .vwrap:hover .play{background:rgba(10,26,20,.45)}
-.video .play .pbtn{width:76px;height:76px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.35)}
-.video .vlabel{position:absolute;left:0;right:0;bottom:0;padding:18px 20px;color:#fff;background:linear-gradient(transparent,rgba(8,20,15,.75));display:flex;justify-content:space-between;align-items:flex-end;font-size:13px}
-.video .vlabel small{opacity:.75;font-size:10.5px}
+/* ---------- split feature (projects) ---------- */
+.split{padding:14vh 32px;display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:26px;margin:0 32px;background:#fff}
+.split .ph{border-radius:22px 0 0 22px;overflow:hidden;min-height:480px}
+.split .ph img{width:100%;height:100%;object-fit:cover;transition:opacity .5s}
+.split .tx{padding:7vh 5vw;display:flex;flex-direction:column}
+.split .tx h2{font-size:clamp(30px,3.4vw,46px);line-height:1.12;margin:22px 0 18px}
+.split .tx .price{font-size:13px;letter-spacing:1.5px;font-weight:700;color:var(--gold);text-transform:uppercase}
+.split .tx p{font-size:14px;color:var(--soft);max-width:400px;margin-top:14px}
+.split .dots{display:flex;gap:12px;margin:34px 0 26px;align-items:center}
+.split .dots button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:none;font-size:12px;font-weight:600;cursor:pointer;color:var(--soft);transition:all .25s}
+.split .dots button.on{border-color:var(--ink);color:var(--ink);background:var(--cream)}
 
-/* ---------- contact ---------- */
-.contact .cgrid{display:grid;grid-template-columns:1fr 1.15fr;gap:26px;margin-top:40px}
-@media(max-width:920px){ .contact .cgrid{grid-template-columns:1fr} }
-.contact .cc{background:var(--forest);color:#fff;border-radius:18px;padding:30px 28px;display:flex;flex-direction:column;gap:16px}
-.contact .cc h3{font-size:23px;font-weight:600}
-.contact .crow{display:flex;gap:13px;align-items:flex-start;font-size:14px}
-.contact .crow svg{flex:0 0 auto;margin-top:2px}
-.contact .crow span{opacity:.92}
-.contact .crow small{display:block;opacity:.6;font-size:11.5px}
-.contact .cc .btn{align-self:flex-start;margin-top:6px}
-.contact .map{border-radius:18px;overflow:hidden;border:1px solid var(--line);min-height:340px}
-.contact .map iframe{width:100%;height:100%;min-height:340px;border:0;display:block}
+/* ---------- statement ---------- */
+.state{padding:20vh 8vw;text-align:center}
+.state .kick{justify-content:center}
+.state h2{font-size:clamp(36px,6vw,84px);line-height:1.08;margin-top:26px;letter-spacing:-1px}
+
+/* ---------- amenity blocks ---------- */
+.amen{padding:4vh 32px 0;display:flex;flex-direction:column;gap:14vh}
+.amen .row{display:grid;grid-template-columns:1.15fr 1fr;gap:5vw;align-items:center}
+.amen .row:nth-child(even) .pic{order:2}
+.amen .pic{border-radius:22px;overflow:hidden;aspect-ratio:4/3;cursor:zoom-in}
+.amen .pic img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.amen .pic:hover img{transform:scale(1.05)}
+.amen h3{font-size:clamp(28px,3.2vw,44px);margin:20px 0 12px;line-height:1.15}
+.amen .tx p{font-size:14px;color:var(--soft);max-width:400px}
+.amen .meta2{margin-top:22px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;font-weight:600;color:var(--ink)}
+.amen .meta2 b{color:var(--gold);margin:0 8px;font-weight:400}
+
+/* ---------- numbered cards ---------- */
+.plans{padding:16vh 32px 8vh}
+.plans .phead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6vh;flex-wrap:wrap;gap:10px}
+.plans .phead .count{font-family:'Playfair Display',serif;font-size:15px;color:var(--soft)}
+.plans .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.plans .card{border-top:1.5px solid var(--ink);padding-top:18px;cursor:pointer}
+.plans .card .n{font-size:12px;letter-spacing:2px;color:var(--soft);font-weight:600}
+.plans .card h4{font-family:'Playfair Display',serif;font-size:26px;font-weight:500;margin:14px 0 8px}
+.plans .card .sq{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:700}
+.plans .card p{font-size:13px;color:var(--soft);margin-top:12px}
+.plans .card img{margin-top:20px;border-radius:14px;aspect-ratio:4/3;object-fit:cover;width:100%;transition:transform .5s}
+.plans .card:hover img{transform:translateY(-6px)}
+
+/* ---------- step inside / CTA ---------- */
+.step{padding:18vh 8vw;text-align:center;border-top:1px solid var(--line)}
+.step h2{font-size:clamp(34px,5vw,64px);margin:24px 0 18px}
+.step p{font-size:14.5px;color:var(--soft);max-width:480px;margin:0 auto 34px}
+.step .meta3{margin-top:26px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--soft);font-weight:600}
 
 /* ---------- footer ---------- */
-footer{background:var(--forest);color:rgba(255,255,255,.8);padding:44px 0 34px;font-size:13px}
-footer .frow{display:flex;justify-content:space-between;gap:26px;flex-wrap:wrap;align-items:flex-start}
-footer .brand .bt b{color:#fff}
-footer .brand .bt small{color:rgba(255,255,255,.6)}
-footer a{color:var(--gold2);text-decoration:none}
-footer .fine{margin-top:26px;padding-top:18px;border-top:1px solid rgba(255,255,255,.14);font-size:11.5px;color:rgba(255,255,255,.55);line-height:1.7}
+footer{background:#1d1d19;color:var(--cream);padding:12vh 32px 30px;margin-top:14vh}
+footer .wm{font-family:'Playfair Display',serif;font-size:clamp(44px,8vw,110px);line-height:1;letter-spacing:-1px}
+footer .tag{font-size:13px;color:#9c968a;margin-top:14px}
+footer .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;margin:8vh 0 6vh;max-width:900px}
+footer .grid h5{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#8d877a;margin-bottom:18px;font-weight:600}
+footer .grid a,footer .grid button{display:block;background:none;border:0;text-align:left;color:var(--cream);font-size:14px;text-decoration:none;margin-bottom:12px;cursor:pointer;padding:0;transition:color .25s}
+footer .grid a:hover,footer .grid button:hover{color:var(--gold2)}
+footer .fine{border-top:1px solid #3a382f;padding-top:24px;font-size:10.5px;color:#8d877a;line-height:1.8}
+footer .totop{float:right;background:none;border:1px solid #3a382f;color:var(--cream);border-radius:999px;padding:10px 20px;font-size:11px;letter-spacing:2px;cursor:pointer}
 
+@media(max-width:820px){
+  .split{grid-template-columns:1fr;margin:0 16px}
+  .split .ph{border-radius:22px 22px 0 0;min-height:300px}
+  .amen .row{grid-template-columns:1fr}
+  .amen .row:nth-child(even) .pic{order:0}
+  .plans .cards{grid-template-columns:1fr}
+  footer .grid{grid-template-columns:1fr 1fr}
+  .hero .himg{height:34vh}
+  .slide,.amen,.plans{padding-left:16px;padding-right:16px}
+  .struct .tl,.struct .head{left:18px}
+  .struct .num{right:22px}
+  .struct .hint{display:none}
+}
+</style>
+<style>
 /* ---------- chat widget ---------- */
 #fab{position:fixed;right:20px;bottom:20px;z-index:90;width:60px;height:60px;border-radius:50%;border:0;cursor:pointer;background:var(--forest);box-shadow:0 12px 32px rgba(14,59,46,.4);display:flex;align-items:center;justify-content:center;transition:transform .25s}
 #fab:hover{transform:scale(1.07)}
@@ -158,37 +188,8 @@ footer .fine{margin-top:26px;padding-top:18px;border-top:1px solid rgba(255,255,
   #fabPill{display:none}
 }
 
-/* ---------- 3D tour section ---------- */
-.tour{position:relative;height:340vh;background:linear-gradient(180deg,#fdf0da 0%,#f7e8ce 26%,#eee9d6 52%,#e3e9e0 78%,#d9e4e2 100%);padding:0}
-.tourSticky{position:sticky;top:0;height:100vh;overflow:hidden}
-#tourVideo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.tourVig{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(247,243,234,.88) 0%,rgba(247,243,234,.55) 38%,rgba(247,243,234,0) 62%),linear-gradient(0deg,rgba(20,30,24,.34),transparent 34%)}
-.tourCap{position:absolute;left:6%;bottom:12%;max-width:520px;opacity:0;transform:translateY(34px);filter:blur(8px);transition:opacity .55s ease,transform .75s cubic-bezier(.2,.75,.25,1),filter .55s ease;pointer-events:none}
-.tourCap.on{opacity:1;transform:none;filter:blur(0)}
-.tourCap .kicker{color:#a07d10;font-size:11px;letter-spacing:2.6px;text-transform:uppercase;font-weight:700}
-.tourCap h2{font-size:clamp(34px,5vw,58px);font-weight:600;line-height:1.06;color:var(--forest);margin:12px 0 10px;letter-spacing:-.5px}
-.tourCap p{font-size:15px;color:#3d4a43;max-width:420px}
-.tourHint{position:absolute;right:5%;bottom:6%;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#5c6660;font-weight:700;animation:pulse 2.2s infinite}
-.tourProg{position:absolute;right:26px;top:50%;transform:translateY(-50%);width:2px;height:120px;background:rgba(60,50,30,.18);border-radius:2px;overflow:hidden}
-.tourProg span{display:block;width:100%;height:100%;background:var(--forest);transform:scaleY(0);transform-origin:top;border-radius:2px}
-@media(max-width:720px){ .tourCap{left:6%;right:14%;max-width:none;bottom:9%} .tourProg{right:12px} }
-.tilt{transition:transform .2s ease-out;will-change:transform}
-
-/* ---------- embedded live assistant (scoped to .chatbox) ---------- */
-.chatbox{width:100%; max-width:420px; height:640px; max-height:78vh; background:var(--cream); color:var(--ink);
-  border-radius:28px; overflow:hidden; display:flex; flex-direction:column; position:relative;
-  box-shadow:0 30px 90px rgba(0,0,0,.6); border:1px solid rgba(255,233,168,.2)}
-
-footer{position:relative; z-index:2; padding:60px 6vw 40px; text-align:center; color:#71867b; font-size:11.5px; line-height:1.8}
-footer b{color:#a9bfb2; font-weight:600}
-
-@media(max-width:720px){
-  .scene{padding:12vh 7vw}
-  .fcard.f-prop{width:210px}
-  .floatzone{min-height:360px}
-  .handoff{gap:16px}
-}
 </style>
+<style>
 <style>
 /* ---------- embedded live assistant (scoped to .chatbox) ---------- */
 .chatbox header{
@@ -310,227 +311,174 @@ footer b{color:#a9bfb2; font-weight:600}
 </head>
 <body>
 
-<nav>
-  <div class="bar">
-    <a class="brand" href="#top">
-      <span class="mk"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 21h18" stroke="#e9cf8a" stroke-width="1.7" stroke-linecap="round"/><path d="M6 21V9.5L12 5l6 4.5V21" stroke="#e9cf8a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 21v-4.5h4V21M10 10.5h.01M14 10.5h.01" stroke="#e9cf8a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      <span class="bt"><b>Surya Grand</b><small>Developers · Visakhapatnam</small></span>
-    </a>
-    <div class="links">
-      <a href="#tour">3D Tour</a>
-      <a href="#projects">Projects</a>
-      <a href="#amenities">Amenities</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#floorplans">Floor Plans</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <button class="cta" type="button" data-chat><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M21 12a8 8 0 0 1-8 8c-1.3 0-2.6-.3-3.7-.9L4 20l1-4.9A8 8 0 1 1 21 12z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg>Ask AI Assistant</button>
-  </div>
-</nav>
-
 <header class="hero" id="top">
-  <div class="bg"></div>
   <video class="bgv" autoplay muted loop playsinline preload="metadata" poster="https://images.pexels.com/videos/15612409/pexels-photo-15612409.jpeg">
     <source src="https://videos.pexels.com/video-files/15612409/15612409-hd_1920_1080_30fps.mp4" type="video/mp4">
   </video>
   <div class="shade"></div>
-  <div class="inner">
-    <div class="kicker">Flats & VUDA Plots · Visakhapatnam</div>
-    <h1>Homes by the coast,<br>built for <em>Vizag life.</em></h1>
-    <p>2 &amp; 3 BHK flats and VUDA-approved plots across Madhurawada, Yendada and Anandapuram. Our AI assistant answers every question - day or night, in Telugu or English.</p>
-    <div class="cta-row">
-      <a class="btn gold" href="#projects">View projects</a>
-      <button class="btn ghost" type="button" data-chat><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12a8 8 0 0 1-8 8c-1.3 0-2.6-.3-3.7-.9L4 20l1-4.9A8 8 0 1 1 21 12z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg>Ask the AI assistant</button>
+  <div class="hwrap">
+    <h1 data-reveal>Homes,<br><em>by the sea.</em></h1>
+    <div class="ctas" data-reveal>
+      <a class="ulink" href="#projects" style="color:#fff">Explore projects →</a>
+      <button class="ulink" data-ask="Show all projects" style="color:#fff">Ask the AI →</button>
     </div>
   </div>
-  <div class="stats">
-    <div><b>3</b><span>Ongoing projects</span></div>
-    <div><b>2 &amp; 3 BHK</b><span>+ VUDA plots</span></div>
-    <div><b>24×7</b><span>AI assistant</span></div>
-    <div><b>30 min</b><span>Sales callback</span></div>
+  <div class="meta" data-reveal>
+    <span>Featured project</span><span>Surya Sky Heights</span><span>2026</span>
+    <a class="ulink" href="#projects" style="color:#fff;border-color:#fff">Explore</a>
   </div>
+  <div class="himg" data-reveal>
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Madhurawada_from_Panorama_Hills.jpg/1280px-Madhurawada_from_Panorama_Hills.jpg" alt="Madhurawada skyline, Visakhapatnam">
+    <div class="cap"><span>Madhurawada</span><span>Visakhapatnam</span></div>
+  </div>
+  <div class="botline">A flat is more than square feet.<br>It is morning light and sea air.</div>
 </header>
 
-<section class="tour" id="tour">
-  <div class="tourSticky">
-    <video id="tourVideo" muted playsinline preload="auto" poster="https://images.pexels.com/videos/19195472/aerial-video-aerial-view-apartment-buildings-decathlon-19195472.jpeg">
+<section class="slide" id="gallery">
+  <div class="frame" data-reveal>
+    <img class="on" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Madhurawada_from_Panorama_Hills.jpg/960px-Madhurawada_from_Panorama_Hills.jpg" alt="Madhurawada suburb">
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Modern_living_room_with_stylish_furniture_and_a_view_of_the_outdoors_in_a_cozy_apartment_setting.jpg/960px-Modern_living_room_with_stylish_furniture_and_a_view_of_the_outdoors_in_a_cozy_apartment_setting.jpg" alt="Living room">
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a9/Sunrise_view_from_an_apartment_balcony_in_Visakhapatnam.jpg/960px-Sunrise_view_from_an_apartment_balcony_in_Visakhapatnam.jpg" alt="Balcony sunrise, Visakhapatnam">
+    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/An_apartment_during_sunset_near_Mubarak_Colony.jpg/960px-An_apartment_during_sunset_near_Mubarak_Colony.jpg" alt="Apartment at sunset">
+    <div class="arrows"><button type="button" id="slPrev" aria-label="Previous">←</button><button type="button" id="slNext" aria-label="Next">→</button></div>
+  </div>
+  <div class="capline"><span id="slCap">Madhurawada, from Panorama Hills</span><span id="slNum">01 / 04</span></div>
+</section>
+
+<section class="about" id="about">
+  <div class="kick" data-reveal>About</div>
+  <div class="big" data-reveal><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/Apartments%2C_Vizag_%284412310837%29.jpg/960px-Apartments%2C_Vizag_%284412310837%29.jpg" alt=""> We build homes where light, air and honest material come together - a quieter way of living, ten minutes from the sea.</div>
+  <div class="cols" data-reveal>
+    <p>Surya Grand Developers is a Visakhapatnam studio with three ongoing projects across Madhurawada, Yendada and Anandapuram - 2 &amp; 3 BHK flats and VUDA-approved plots.</p>
+    <p>Every enquiry is answered by our AI receptionist in under 30 seconds, in Telugu or English, day or night. Prices, photos, videos, floor plans, site visits - just ask.</p>
+  </div>
+</section>
+
+<div class="marq" aria-hidden="true"><div>SURYA / GRAND&nbsp;&nbsp;&nbsp;SURYA / GRAND&nbsp;&nbsp;&nbsp;SURYA / GRAND&nbsp;&nbsp;&nbsp;SURYA / GRAND&nbsp;&nbsp;&nbsp;SURYA / GRAND&nbsp;&nbsp;&nbsp;SURYA / GRAND&nbsp;&nbsp;&nbsp;</div></div>
+
+<section class="struct" id="site">
+  <div class="sticky">
+    <video id="siteVideo" muted playsinline preload="auto" poster="https://images.pexels.com/videos/19195472/aerial-video-aerial-view-apartment-buildings-decathlon-19195472.jpeg">
       <source src="https://videos.pexels.com/video-files/19195472/19195472-hd_1920_1080_30fps.mp4" type="video/mp4">
     </video>
-    <div class="tourVig"></div>
-    <div class="tourProg"><span id="tourProgFill"></span></div>
-    <div class="tourCap on" data-cap="0">
-      <div class="kicker">Real drone footage</div>
-      <h2>See it from above.</h2>
-      <p>Scroll - the video flies you over the towers, the flyover and the IT corridor. Shot on camera, not rendered.</p>
+    <div class="vin"></div>
+    <div class="head"><div class="kick">The site</div><p>Real drone footage · scroll to fly</p></div>
+    <div class="hint">Scroll ↓</div>
+    <div class="tl">
+      <div class="kick" id="stKick">The towers</div>
+      <h3 id="stTitle">Madhurawada skyline.</h3>
+      <div class="sub" id="stSub">Apartment towers along the IT corridor</div>
     </div>
-    <div class="tourCap" data-cap="1">
-      <div class="kicker">The neighbourhood</div>
-      <h2>Apartments, roads, IT parks.</h2>
-      <p>Modern towers, wide roads and green pockets - everything around your future home, as it really looks.</p>
-    </div>
-    <div class="tourCap" data-cap="2">
-      <div class="kicker">The location</div>
-      <h2>Madhurawada, next to the IT SEZ.</h2>
-      <p>5 minutes to the SEZ gate, 10 to Rushikonda beach. Ask the assistant for the price sheet or a site visit.</p>
-    </div>
-    <div class="tourHint">Scroll ↓</div>
+    <div class="num"><span id="stNum">01</span><small>OF 03</small></div>
+    <div class="rail"><span id="stFill"></span></div>
   </div>
 </section>
 
-<section id="projects">
-  <div class="wrap">
-    <div class="kicker" data-reveal>Our projects</div>
-    <h2 class="sec" data-reveal>Three addresses. One standard.</h2>
-    <p class="sub" data-reveal>Every project is VUDA/RERA compliant with clear titles. Tap a photo to zoom, or ask the assistant anything about a project.</p>
-    <div class="grid3">
-      <article class="pcard" data-reveal>
-        <div class="ph" data-zoom="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/Apartments%2C_Vizag_%284412310837%29.jpg/960px-Apartments%2C_Vizag_%284412310837%29.jpg" data-label="Surya Sky Heights · Madhurawada">
-          <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/Apartments%2C_Vizag_%284412310837%29.jpg/960px-Apartments%2C_Vizag_%284412310837%29.jpg" alt="Surya Sky Heights apartments in Madhurawada, Visakhapatnam" loading="lazy">
-          <span class="tag">Bestseller</span>
-        </div>
-        <div class="pb">
-          <h3>Surya Sky Heights</h3>
-          <div class="pl">📍 Madhurawada, near IT SEZ &amp; Rushikonda</div>
-          <div class="pp">₹58 L <small>onwards · ₹5,040/sq ft</small></div>
-          <div class="pf"><span>2 BHK</span><span>1150-1250 sft</span><span>Gated community</span><span>Ready Dec 2027</span></div>
-          <button class="ask" type="button" data-ask="2 BHK flats">Ask about this project</button>
-        </div>
-      </article>
-      <article class="pcard" data-reveal>
-        <div class="ph" data-zoom="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/An_apartment_during_sunset_near_Mubarak_Colony.jpg/960px-An_apartment_during_sunset_near_Mubarak_Colony.jpg" data-label="Palm Enclave · Yendada">
-          <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/An_apartment_during_sunset_near_Mubarak_Colony.jpg/960px-An_apartment_during_sunset_near_Mubarak_Colony.jpg" alt="Palm Enclave premium apartments at Yendada, Visakhapatnam" loading="lazy">
-          <span class="tag">Premium</span>
-        </div>
-        <div class="pb">
-          <h3>Palm Enclave</h3>
-          <div class="pl">📍 Yendada, sea-facing hill side</div>
-          <div class="pp">₹85 L <small>onwards · ₹5,150/sq ft</small></div>
-          <div class="pf"><span>3 BHK</span><span>1650-2100 sft</span><span>Private deck</span><span>Ready to move</span></div>
-          <button class="ask" type="button" data-ask="3 BHK flats">Ask about this project</button>
-        </div>
-      </article>
-      <article class="pcard" data-reveal>
-        <div class="ph" data-zoom="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Aerial_view_of_Rushikonda_beach_and_road.jpg/960px-Aerial_view_of_Rushikonda_beach_and_road.jpg" data-label="Green Valley Plots · Anandapuram">
-          <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Aerial_view_of_Rushikonda_beach_and_road.jpg/960px-Aerial_view_of_Rushikonda_beach_and_road.jpg" alt="Green Valley Plots at Anandapuram near Rushikonda, Visakhapatnam" loading="lazy">
-          <span class="tag">VUDA approved</span>
-        </div>
-        <div class="pb">
-          <h3>Green Valley Plots</h3>
-          <div class="pl">📍 Anandapuram, NH-16 growth corridor</div>
-          <div class="pp">₹22 L <small>onwards · ₹13,170/sq yd</small></div>
-          <div class="pf"><span>Plots</span><span>167-267 sq yd</span><span>VUDA approved</span><span>Clear title</span></div>
-          <button class="ask" type="button" data-ask="VUDA plots">Ask about this project</button>
-        </div>
-      </article>
+<section class="split" id="projects">
+  <div class="ph" data-reveal><img id="pjImg" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Madhurawada_from_Panorama_Hills.jpg/960px-Madhurawada_from_Panorama_Hills.jpg" alt="Project photo"></div>
+  <div class="tx" data-reveal>
+    <div class="kick" id="pjKick">Residence 01</div>
+    <h2 id="pjName">Surya Sky Heights, Madhurawada.</h2>
+    <div class="price" id="pjPrice">2 BHK · from ₹58 L</div>
+    <p id="pjDesc">Two towers beside the IT SEZ gate. 1,150-1,250 sq ft, pool and clubhouse on a car-free podium, 10 minutes to Rushikonda beach.</p>
+    <div class="dots">
+      <button type="button" class="on" data-pj="0">01</button>
+      <button type="button" data-pj="1">02</button>
+      <button type="button" data-pj="2">03</button>
     </div>
+    <button class="ulink" id="pjAsk">Ask about this project →</button>
   </div>
 </section>
 
-<section class="alt" id="amenities">
-  <div class="wrap">
-    <div class="kicker" data-reveal>Amenities</div>
-    <h2 class="sec" data-reveal>Everyday comfort, built in.</h2>
-    <div class="amen">
-      <div class="a" data-reveal><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0e3b2e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0M2 20c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0M7 12V5a2 2 0 0 1 4 0M9 8h4"/></svg></div><b>Swimming pool</b><span>Adults + kids pool</span></div>
-      <div class="a" data-reveal><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0e3b2e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/></svg></div><b>Gym &amp; yoga deck</b><span>Fully equipped</span></div>
-      <div class="a" data-reveal><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0e3b2e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-5h6v5"/></svg></div><b>Clubhouse</b><span>Indoor games &amp; hall</span></div>
-      <div class="a" data-reveal><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0e3b2e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"/><path d="M9.5 12l2 2 3.5-4"/></svg></div><b>24×7 security</b><span>CCTV + gated entry</span></div>
-      <div class="a" data-reveal><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0e3b2e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg></div><b>Power backup</b><span>100% for common + homes</span></div>
-      <div class="a" data-reveal><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0e3b2e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M6 17l1.5-6h9L18 17M8 11V8.5A1.5 1.5 0 0 1 9.5 7h5A1.5 1.5 0 0 1 16 8.5V11M7 20v-3M17 20v-3"/></svg></div><b>Covered parking</b><span>1-2 slots per home</span></div>
-      <div class="a" data-reveal><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0e3b2e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 21c.8-4 3.5-6 7-6s6.2 2 7 6"/></svg></div><b>Kids' play area</b><span>Safe, open &amp; green</span></div>
-      <div class="a" data-reveal><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0e3b2e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-5-2-8-5.5-8-10V5.5L12 3l8 2.5V11c0 4.5-3 8-8 10z" opacity="0"/><path d="M7 20c1-5 4-8 9-9M7 20c0-3 1-5.5 3-7M7 20h13M12 3c-1 4-1 8 1 12"/></svg></div><b>Landscaped gardens</b><span>Avenue plantation</span></div>
+<section class="state">
+  <div class="kick" data-reveal style="display:inline-block">Residences</div>
+  <h2 data-reveal>Not every home<br>needs to <em>shout.</em></h2>
+</section>
+
+<section class="amen">
+  <div class="row" data-reveal>
+    <div class="pic" data-zoom="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/PAJASA_Service_Apartment_Mumbai.jpg/960px-PAJASA_Service_Apartment_Mumbai.jpg" data-label="Clubhouse interior"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/PAJASA_Service_Apartment_Mumbai.jpg/960px-PAJASA_Service_Apartment_Mumbai.jpg" alt="Clubhouse interior"></div>
+    <div class="tx"><div class="kick">The clubhouse</div><h3>Everything within reach.</h3><p>A considered space for everyday living - pool, gym and play area on a car-free podium between the towers.</p><div class="meta2">Pool <b>·</b> Gym <b>·</b> Play area <b>·</b> Gardens</div></div>
+  </div>
+  <div class="row" data-reveal>
+    <div class="pic" data-zoom="https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Sunrise_near_Rushikonda_beach_%28December_2018%29_%281%29.jpg/960px-Sunrise_near_Rushikonda_beach_%28December_2018%29_%281%29.jpg" data-label="Rushikonda sunrise"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Sunrise_near_Rushikonda_beach_%28December_2018%29_%281%29.jpg/960px-Sunrise_near_Rushikonda_beach_%28December_2018%29_%281%29.jpg" alt="Rushikonda beach sunrise"></div>
+    <div class="tx"><div class="kick">The mornings</div><h3>Slow light, sea air.</h3><p>East-facing balconies catch the first light off the Bay. Rushikonda beach is a ten-minute drive.</p><div class="meta2">East-facing <b>·</b> Cross-ventilation <b>·</b> Sea breeze</div></div>
+  </div>
+  <div class="row" data-reveal>
+    <div class="pic" data-zoom="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Aerial_view_of_Rushikonda_beach.jpg/960px-Aerial_view_of_Rushikonda_beach.jpg" data-label="Rushikonda from above"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Aerial_view_of_Rushikonda_beach.jpg/960px-Aerial_view_of_Rushikonda_beach.jpg" alt="Rushikonda beach aerial"></div>
+    <div class="tx"><div class="kick">The location</div><h3>Five minutes to the SEZ gate.</h3><p>Madhurawada sits on the IT corridor - schools, hospitals and the beach road all within easy reach.</p><div class="meta2">IT SEZ 5 min <b>·</b> Beach 10 min <b>·</b> Airport 45 min</div></div>
+  </div>
+</section>
+
+<section class="plans" id="plans">
+  <div class="phead" data-reveal>
+    <div class="kick">Floor plans &amp; plots</div>
+    <div class="count">01 02 03 / 03</div>
+  </div>
+  <div class="cards">
+    <div class="card" data-reveal data-zoom="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/3d-design-floor-plan-coloured.jpg/960px-3d-design-floor-plan-coloured.jpg" data-label="2 BHK floor plan">
+      <div class="n">01</div><h4>2 BHK</h4><div class="sq">1,150 - 1,250 sq ft</div>
+      <p>Two bedrooms, two balconies, east light. From ₹58 L.</p>
+      <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/3d-design-floor-plan-coloured.jpg/960px-3d-design-floor-plan-coloured.jpg" alt="2 BHK plan">
+    </div>
+    <div class="card" data-reveal data-zoom="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/3d-design-floor-plan-coloured.jpg/960px-3d-design-floor-plan-coloured.jpg" data-label="3 BHK floor plan">
+      <div class="n">02</div><h4>3 BHK</h4><div class="sq">1,650 - 2,100 sq ft</div>
+      <p>Corner homes with a family lounge and utility. From ₹85 L.</p>
+      <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Modern_living_room_with_stylish_furniture_and_a_view_of_the_outdoors_in_a_cozy_apartment_setting.jpg/960px-Modern_living_room_with_stylish_furniture_and_a_view_of_the_outdoors_in_a_cozy_apartment_setting.jpg" alt="3 BHK living">
+    </div>
+    <div class="card" data-reveal data-zoom="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/de/City_view_of_Visakhapatnam_from_hillock_at_Purnamarket.jpg/960px-City_view_of_Visakhapatnam_from_hillock_at_Purnamarket.jpg" data-label="Anandapuram plots">
+      <div class="n">03</div><h4>VUDA plots</h4><div class="sq">200 - 500 sq yd</div>
+      <p>Approved layouts at Anandapuram, compound and avenue lighting. From ₹32 L.</p>
+      <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/de/City_view_of_Visakhapatnam_from_hillock_at_Purnamarket.jpg/960px-City_view_of_Visakhapatnam_from_hillock_at_Purnamarket.jpg" alt="Anandapuram">
     </div>
   </div>
 </section>
 
-<section id="gallery">
-  <div class="wrap">
-    <div class="kicker" data-reveal>Gallery</div>
-    <h2 class="sec" data-reveal>Real places. Real views.</h2>
-    <p class="sub" data-reveal>Actual photographs from our project neighbourhoods in Visakhapatnam. Tap any photo to zoom.</p>
-    <div class="gal">
-      <div class="g" data-reveal data-zoom="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Madhurawada_from_Panorama_Hills.jpg/1280px-Madhurawada_from_Panorama_Hills.jpg" data-label="Madhurawada from Panorama Hills"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Madhurawada_from_Panorama_Hills.jpg/960px-Madhurawada_from_Panorama_Hills.jpg" alt="Madhurawada suburb view" loading="lazy"><span>Madhurawada · project neighbourhood</span></div>
-      <div class="g" data-reveal data-zoom="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a9/Sunrise_view_from_an_apartment_balcony_in_Visakhapatnam.jpg/960px-Sunrise_view_from_an_apartment_balcony_in_Visakhapatnam.jpg" data-label="Sunrise from an apartment balcony, Visakhapatnam"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a9/Sunrise_view_from_an_apartment_balcony_in_Visakhapatnam.jpg/960px-Sunrise_view_from_an_apartment_balcony_in_Visakhapatnam.jpg" alt="Balcony sunrise view" loading="lazy"><span>Balcony sunrise</span></div>
-      <div class="g" data-reveal data-zoom="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/PAJASA_Service_Apartment_Mumbai.jpg/960px-PAJASA_Service_Apartment_Mumbai.jpg" data-label="Sample home interior"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/PAJASA_Service_Apartment_Mumbai.jpg/960px-PAJASA_Service_Apartment_Mumbai.jpg" alt="Home interior" loading="lazy"><span>Home interior</span></div>
-      <div class="g" data-reveal data-zoom="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Aerial_view_of_Rushikonda_beach.jpg/960px-Aerial_view_of_Rushikonda_beach.jpg" data-label="Rushikonda beach aerial"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Aerial_view_of_Rushikonda_beach.jpg/960px-Aerial_view_of_Rushikonda_beach.jpg" alt="Rushikonda beach aerial" loading="lazy"><span>Rushikonda beach · 10 min</span></div>
-      <div class="g" data-reveal data-zoom="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Rushikonda_beach_view_001.jpg/960px-Rushikonda_beach_view_001.jpg" data-label="Rushikonda beach"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Rushikonda_beach_view_001.jpg/960px-Rushikonda_beach_view_001.jpg" alt="Rushikonda beach" loading="lazy"><span>Rushikonda shore</span></div>
-      <div class="g" data-reveal data-zoom="https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Sunrise_near_Rushikonda_beach_%28December_2018%29_%281%29.jpg/960px-Sunrise_near_Rushikonda_beach_%28December_2018%29_%281%29.jpg" data-label="Sunrise near Rushikonda"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Sunrise_near_Rushikonda_beach_%28December_2018%29_%281%29.jpg/960px-Sunrise_near_Rushikonda_beach_%28December_2018%29_%281%29.jpg" alt="Beach sunrise" loading="lazy"><span>Beach sunrise</span></div>
-      <div class="g" data-reveal data-zoom="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/de/City_view_of_Visakhapatnam_from_hillock_at_Purnamarket.jpg/960px-City_view_of_Visakhapatnam_from_hillock_at_Purnamarket.jpg" data-label="Visakhapatnam city view"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/de/City_view_of_Visakhapatnam_from_hillock_at_Purnamarket.jpg/960px-City_view_of_Visakhapatnam_from_hillock_at_Purnamarket.jpg" alt="Vizag city view" loading="lazy"><span>City view from Purna Market hill</span></div>
-    </div>
-  </div>
+<section class="step">
+  <div class="kick" data-reveal style="display:inline-block">Step inside</div>
+  <h2 data-reveal>Ask <em>anything.</em></h2>
+  <p data-reveal>Move beyond the brochure. Ask the assistant for prices, photos, the walkthrough video or a site visit - it answers in Telugu or English, day or night.</p>
+  <button class="ulink" data-ask="Show all projects" data-reveal>Open the assistant →</button>
+  <div class="meta3" data-reveal>Telugu or English <b>·</b> Voice or text <b>·</b> 24×7</div>
 </section>
 
-<section class="alt" id="floorplans">
-  <div class="wrap">
-    <div class="kicker" data-reveal>Floor plans</div>
-    <h2 class="sec" data-reveal>Thoughtful layouts, no wasted space.</h2>
-    <div class="fp">
-      <div class="plan" data-reveal data-zoom="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/3d-design-floor-plan-coloured.jpg/960px-3d-design-floor-plan-coloured.jpg" data-label="2 BHK floor plan">
-        <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/3d-design-floor-plan-coloured.jpg/960px-3d-design-floor-plan-coloured.jpg" alt="2 BHK floor plan" loading="lazy">
-      </div>
-      <div data-reveal>
-        <h3 class="serif" style="font-size:22px;font-weight:600">2 BHK · Surya Sky Heights</h3>
-        <div class="rows">
-          <div class="row"><span>Built-up area</span><b>1,150 - 1,250 sq ft</b></div>
-          <div class="row"><span>Bedrooms</span><b>2, both with attached bath</b></div>
-          <div class="row"><span>Balconies</span><b>2, east-facing options</b></div>
-          <div class="row"><span>Kitchen</span><b>Modular, with utility</b></div>
-          <div class="row"><span>Price</span><b>₹58 L onwards</b></div>
-        </div>
-        <p class="sub" style="margin-top:14px;font-size:13.5px">3 BHK layouts (1,650 - 2,100 sq ft) available at Palm Enclave. Ask the assistant for the full plan set.</p>
-        <button class="btn gold" style="margin-top:18px" type="button" data-ask="floor plan">Ask for floor plans</button>
-      </div>
+<footer id="contact">
+  <div class="wm" data-reveal>Surya Grand</div>
+  <div class="tag" data-reveal>Homes by the coast. Visakhapatnam.</div>
+  <div class="grid" data-reveal>
+    <div><h5>Explore</h5>
+      <a href="#projects">Projects</a><a href="#site">The site</a><a href="#plans">Floor plans</a><a href="#gallery">Gallery</a>
+    </div>
+    <div><h5>Assistant</h5>
+      <button data-ask="What is the price of 2 BHK?">Ask a price</button>
+      <button data-ask="Show video">Watch the walkthrough</button>
+      <button data-ask="Book a site visit">Book a site visit</button>
+    </div>
+    <div><h5>Contact</h5>
+      <a href="#contact">Madhurawada, Visakhapatnam</a>
+      <button data-ask="I want a callback">Request a callback</button>
+      <a href="#top">Back to top ↑</a>
     </div>
   </div>
-</section>
-
-<section class="video">
-  <div class="wrap">
-    <div class="kicker" data-reveal>Walkthrough</div>
-    <h2 class="sec" data-reveal>Step inside the sample flat.</h2>
-    <p class="sub" data-reveal>A full video walkthrough of the sample 2 BHK. Tap to play.</p>
-    <div class="vwrap" data-reveal id="heroVideo">
-      <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/UE4Arch.com_-_Viennese_apartment.webm/960px--UE4Arch.com_-_Viennese_apartment.webm.jpg" alt="Sample flat walkthrough video" loading="lazy">
-      <div class="play"><div class="pbtn"><svg width="26" height="26" viewBox="0 0 24 24" fill="#0e3b2e"><path d="M8 5.5v13l11-6.5z"/></svg></div></div>
-      <div class="vlabel"><b>Sample flat walkthrough</b><small>3:56 · UE4Arch (CC BY-SA 4.0)</small></div>
-    </div>
-  </div>
-</section>
-
-<section class="alt contact" id="contact">
-  <div class="wrap">
-    <div class="kicker" data-reveal>Contact</div>
-    <h2 class="sec" data-reveal>Talk to us - or to the AI.</h2>
-    <div class="cgrid">
-      <div class="cc" data-reveal>
-        <h3 class="serif">Surya Grand Developers</h3>
-        <div class="crow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e9cf8a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4-4.5-7-8-7-11a7 7 0 0 1 14 0c0 3-3 6.5-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg><span>Experience centre: Madhurawada Main Road,<br>Visakhapatnam 530048, Andhra Pradesh<small>Opposite IT SEZ gate 2</small></span></div>
-        <div class="crow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e9cf8a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><span>+91 98481 23456<small>Sales office · 9 am - 7 pm</small></span></div>
-        <div class="crow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e9cf8a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><span>AI assistant: 24×7, Telugu or English<small>Price, photos, videos, floor plans, site-visit booking</small></span></div>
-        <button class="btn gold" type="button" data-chat>Chat with the AI assistant</button>
-      </div>
-      <div class="map" data-reveal>
-        <iframe title="Map - Madhurawada, Visakhapatnam" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=83.28%2C17.72%2C83.45%2C17.88&amp;layer=mapnik&amp;marker=17.801%2C83.368"></iframe>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <div class="frow">
-      <a class="brand" href="#top">
-        <span class="mk"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 21h18" stroke="#e9cf8a" stroke-width="1.7" stroke-linecap="round"/><path d="M6 21V9.5L12 5l6 4.5V21" stroke="#e9cf8a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 21v-4.5h4V21M10 10.5h.01M14 10.5h.01" stroke="#e9cf8a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span class="bt"><b>Surya Grand</b><small>Developers · Visakhapatnam</small></span>
-      </a>
-      <div style="max-width:420px">Flats and VUDA-approved plots across Visakhapatnam, with an AI receptionist that answers every buyer enquiry in under 30 seconds - in Telugu or English.</div>
-    </div>
-    <div class="fine">
-      © 2026 Surya Grand Developers. A free demo concept for Visakhapatnam builders - not a real company. No payment, no sign-up. Buyer chats are simulated; no real enquiry is sent anywhere.<br>
-      Photos: Wikimedia Commons contributors (CC BY / CC BY-SA) · Walkthrough video: UE4Arch (CC BY-SA 4.0) · Aerial videos: Pexels - Hindustani Lens, Santhosh Peddi (free license) · Map: © OpenStreetMap contributors
-    </div>
+  <button class="totop" onclick="scrollTo({top:0,behavior:'smooth'})">Back to top</button>
+  <div class="fine">
+    © 2026 Surya Grand Developers. A free demo concept for Visakhapatnam builders - not a real company. No payment, no sign-up. Buyer chats are simulated; no real enquiry is sent anywhere.<br>
+    Photos: Wikimedia Commons contributors (CC BY / CC BY-SA) · Walkthrough video: UE4Arch (CC BY-SA 4.0) · Aerial &amp; skyline videos: Pexels - Hindustani Lens, Santhosh Peddi (free license)
   </div>
 </footer>
+
+<div class="top">
+  <a class="wm" href="#top">SURYA<span> / GRAND</span></a>
+  <button id="menuBtn" type="button">MENU <i>::</i></button>
+</div>
+<nav id="menu" aria-label="Menu">
+  <button class="mx" type="button">CLOSE ✕</button>
+  <a href="#projects"><small>01</small> Projects</a>
+  <a href="#site"><small>02</small> The site</a>
+  <a href="#plans"><small>03</small> Floor plans</a>
+  <a href="#gallery"><small>04</small> Gallery</a>
+  <a href="#contact"><small>05</small> Contact</a>
+</nav>
 
 <button id="fabPill" type="button">👋 Hi! Ask me about flats, prices, videos…<small>Telugu or English · replies instantly</small></button>
 <button id="fab" type="button" aria-label="Open chat"><span class="ping"></span><svg width="27" height="27" viewBox="0 0 24 24" fill="none"><path d="M21 12a8 8 0 0 1-8 8c-1.3 0-2.6-.3-3.7-.9L4 20l1-4.9A8 8 0 1 1 21 12z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg></button>
@@ -555,6 +503,7 @@ footer b{color:#a9bfb2; font-weight:600}
 </div>
 
 <div id="zoom" role="dialog" aria-label="Media viewer"><button class="x" type="button" aria-label="Close">&#10005;</button><img alt=""><video controls playsinline preload="none" style="display:none"></video><div class="cap"></div></div>
+
 
 <script>
 /* ============================== content ============================== */
@@ -1092,79 +1041,98 @@ function addDivider(txt){ const d=document.createElement('div'); d.className='di
 })();
 </script>
 <script>
-/* ---------- site interactions ---------- */
+/* ---------- page interactions ---------- */
 (function(){
   // reveal on scroll
-  const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold:.1});
+  const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold:.12});
   document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
 
-  // photo zoom for any [data-zoom]
+  // menu overlay
+  const menu=document.getElementById('menu');
+  document.getElementById('menuBtn').onclick=()=>menu.classList.add('open');
+  menu.querySelector('.mx').onclick=()=>menu.classList.remove('open');
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
+
+  // gallery slider
+  const imgs=[...document.querySelectorAll('.slide .frame img')];
+  const caps=['Madhurawada, from Panorama Hills','Living room, 3 BHK','Balcony sunrise, east-facing','The towers at dusk'];
+  let si=0;
+  function show(n){ si=(n+imgs.length)%imgs.length; imgs.forEach((im,i)=>im.classList.toggle('on',i===si));
+    document.getElementById('slCap').textContent=caps[si];
+    document.getElementById('slNum').textContent='0'+(si+1)+' / 04'; }
+  document.getElementById('slPrev').onclick=()=>show(si-1);
+  document.getElementById('slNext').onclick=()=>show(si+1);
+
+  // photo zoom
   document.querySelectorAll('[data-zoom]').forEach(el=>{
     el.addEventListener('click', ()=>openZoom(el.dataset.zoom, el.dataset.label));
   });
 
-  // walkthrough video
-  document.getElementById('heroVideo').addEventListener('click', openVideo);
-
-  // chat widget
-  const panel = document.getElementById('chatPanel');
-  const fab = document.getElementById('fab');
-  const pill = document.getElementById('fabPill');
-  function openChat(){ panel.classList.add('open'); fab.style.display='none'; pill.style.display='none'; document.body.classList.add('chat-open'); setTimeout(()=>document.getElementById('in').focus(), 250); }
-  function closeChat(){ panel.classList.remove('open'); fab.style.display='flex'; document.body.classList.remove('chat-open'); }
-  fab.onclick = ()=>{ pill.style.display='none'; openChat(); };
-  pill.onclick = openChat;
-  const cx = panel.querySelector('.cx'); panel.querySelector('.chatbox header').appendChild(cx); cx.onclick = closeChat;
-  document.querySelectorAll('[data-chat]').forEach(b=>b.addEventListener('click', openChat));
-  document.querySelectorAll('[data-ask]').forEach(b=>b.addEventListener('click', ()=>{
-    openChat(); userEcho(b.dataset.ask); respond(b.dataset.ask.toLowerCase());
-  }));
-  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && panel.classList.contains('open')) closeChat(); });
-})();
-
-/* ---------- Scroll-scrubbed real footage tour ---------- */
-(function(){
-  const sec = document.getElementById('tour');
-  const v = document.getElementById('tourVideo');
-  if(!sec || !v) return;
-  const progFill = document.getElementById('tourProgFill');
+  // structure: scroll-scrubbed drone footage
+  const sec=document.getElementById('site');
+  const v=document.getElementById('siteVideo');
+  const fill=document.getElementById('stFill');
+  const steps=[
+    {k:'The towers', t:'Madhurawada skyline.', s:'Apartment towers along the IT corridor'},
+    {k:'The corridor', t:'Flyover & IT park.', s:'Wide roads, ten minutes to the beach'},
+    {k:'The neighbourhood', t:'Green pockets.', s:'Schools, hospitals and parks nearby'},
+  ];
   v.pause();
-  let target = 0, prog = 0, dur = 0, ready = false;
-  v.addEventListener('loadedmetadata', ()=>{ dur = v.duration; ready = true; });
+  let target=0, prog=0, dur=0, ready=false, cur=-1;
+  v.addEventListener('loadedmetadata', ()=>{ dur=v.duration; ready=true; });
   function onScroll(){
-    const r = sec.getBoundingClientRect();
-    const total = sec.offsetHeight - innerHeight;
-    target = Math.min(1, Math.max(0, -r.top / total));
-    document.querySelectorAll('.tourCap').forEach(c=>{
-      const i = +c.dataset.cap;
-      c.classList.toggle('on', target >= i/3 && target < (i+1)/3 || (i===2 && target >= 2/3));
-    });
+    const r=sec.getBoundingClientRect();
+    const total=sec.offsetHeight-innerHeight;
+    target=Math.min(1,Math.max(0,-r.top/total));
+    const i=Math.min(2,Math.floor(target*3));
+    if(i!==cur){ cur=i; const s=steps[i];
+      document.getElementById('stKick').textContent=s.k;
+      document.getElementById('stTitle').textContent=s.t;
+      document.getElementById('stSub').textContent=s.s;
+      document.getElementById('stNum').textContent='0'+(i+1); }
   }
   addEventListener('scroll', onScroll, {passive:true}); onScroll();
   (function loop(){
     requestAnimationFrame(loop);
-    prog += (target - prog) * .12;
-    if(progFill) progFill.style.transform = 'scaleY(' + prog.toFixed(4) + ')';
-    if(ready && dur > 0){
-      const t = Math.min(dur - .04, Math.max(0, prog * dur));
-      if(Math.abs(v.currentTime - t) > .04){ try{ v.currentTime = t; }catch(e){} }
+    prog += (target-prog)*.12;
+    if(fill) fill.style.transform='scaleY('+prog.toFixed(4)+')';
+    if(ready && dur>0){
+      const t=Math.min(dur-.04, Math.max(0, prog*dur));
+      if(Math.abs(v.currentTime-t)>.04){ try{ v.currentTime=t; }catch(e){} }
     }
   })();
-})();
 
-/* ---------- 3D tilt on photo cards ---------- */
-(function(){
-  document.querySelectorAll('.pcard,.gal .g,.fp .plan,.video .vwrap').forEach(el=>{
-    el.classList.add('tilt');
-    el.addEventListener('pointermove', e=>{
-      const r = el.getBoundingClientRect();
-      const x = (e.clientX - r.left)/r.width - .5, y = (e.clientY - r.top)/r.height - .5;
-      el.style.transform = `perspective(900px) rotateX(${(-y*6).toFixed(2)}deg) rotateY(${(x*8).toFixed(2)}deg) translateY(-4px)`;
-    });
-    el.addEventListener('pointerleave', ()=>{ el.style.transform=''; });
-  });
-})();
+  // projects switcher
+  const pjs=[
+    {kick:'Residence 01', name:'Surya Sky Heights, Madhurawada.', price:'2 BHK · from ₹58 L', desc:'Two towers beside the IT SEZ gate. 1,150-1,250 sq ft, pool and clubhouse on a car-free podium, 10 minutes to Rushikonda beach.', img:'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Madhurawada_from_Panorama_Hills.jpg/960px-Madhurawada_from_Panorama_Hills.jpg', ask:'Tell me about Surya Sky Heights 2 BHK'},
+    {kick:'Residence 02', name:'Palm Enclave, Yendada.', price:'3 BHK · from ₹85 L', desc:'Corner homes with a family lounge, 1,650-2,100 sq ft. Evening light, cross-ventilation, five minutes to the beach road.', img:'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/An_apartment_during_sunset_near_Mubarak_Colony.jpg/960px-An_apartment_during_sunset_near_Mubarak_Colony.jpg', ask:'Tell me about Palm Enclave 3 BHK'},
+    {kick:'Plots 03', name:'VUDA layouts, Anandapuram.', price:'200-500 sq yd · from ₹32 L', desc:'Approved plots in a gated layout with compound wall, avenue lighting and water lines. Clear titles, bank loans arranged.', img:'https://thumb.wikimedia.org/wikipedia/commons/thumb/d/de/City_view_of_Visakhapatnam_from_hillock_at_Purnamarket.jpg/960px-City_view_of_Visakhapatnam_from_hillock_at_Purnamarket.jpg', ask:'Tell me about VUDA plots'},
+  ];
+  let pj=0;
+  function showPj(n){ pj=n; const p=pjs[n];
+    document.getElementById('pjKick').textContent=p.kick;
+    document.getElementById('pjName').textContent=p.name;
+    document.getElementById('pjPrice').textContent=p.price;
+    document.getElementById('pjDesc').textContent=p.desc;
+    const im=document.getElementById('pjImg'); im.style.opacity=0;
+    setTimeout(()=>{ im.src=p.img; im.onload=()=>im.style.opacity=1; },250);
+    document.querySelectorAll('.split .dots button').forEach((b,i)=>b.classList.toggle('on',i===n)); }
+  document.querySelectorAll('.split .dots button').forEach((b,i)=>b.onclick=()=>showPj(i));
+  document.getElementById('pjAsk').onclick=()=>{ openChat(); userEcho(pjs[pj].ask); respond(pjs[pj].ask.toLowerCase()); };
 
+  // chat widget
+  const panel=document.getElementById('chatPanel');
+  const fab=document.getElementById('fab');
+  const pill=document.getElementById('fabPill');
+  window.openChat=function(){ panel.classList.add('open'); fab.style.display='none'; pill.style.display='none'; document.body.classList.add('chat-open'); setTimeout(()=>document.getElementById('in').focus(),250); };
+  function closeChat(){ panel.classList.remove('open'); fab.style.display='flex'; document.body.classList.remove('chat-open'); }
+  fab.onclick=()=>{ pill.style.display='none'; openChat(); };
+  pill.onclick=openChat;
+  const cx=panel.querySelector('.cx'); panel.querySelector('.chatbox header').appendChild(cx); cx.onclick=closeChat;
+  document.querySelectorAll('[data-chat]').forEach(b=>b.addEventListener('click',openChat));
+  document.querySelectorAll('[data-ask]').forEach(b=>b.addEventListener('click',()=>{ openChat(); userEcho(b.dataset.ask); respond(b.dataset.ask.toLowerCase()); }));
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeChat(); menu.classList.remove('open'); } });
+})();
 </script>
 </body>
 </html>
