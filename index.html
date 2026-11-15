@@ -182,6 +182,7 @@ footer{background:var(--cream);color:var(--ink);min-height:100svh;display:flex;f
           <li><a href="#site">The Site</a></li>
           <li><a href="#projects">Residences</a></li>
           <li><a href="tour.html">Tour</a></li>
+          <li><a href="brochure.html">Brochure</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
@@ -340,7 +341,7 @@ footer{background:var(--cream);color:var(--ink);min-height:100svh;display:flex;f
     </div>
     <div class="f-cols">
       <div><span class="lbl">Explore</span>
-        <a href="#about">About</a><a href="#site">The site</a><a href="#projects">Residences</a><a href="tour.html">Walkthrough</a>
+        <a href="#about">About</a><a href="#site">The site</a><a href="#projects">Residences</a><a href="tour.html">Walkthrough</a><a href="brochure.html">Brochure</a>
       </div>
       <div><span class="lbl">Assistant</span>
         <button type="button" data-ask="What is the price of a 2 BHK?">Ask a price</button>
@@ -545,7 +546,7 @@ const T = {
     status:"AI Assistant · replies in 30 sec",
     placeholder:"Type a message…",
     welcome:"Namaste! 🙏 I'm the Real Estate Demo AI assistant.\nLooking for a home in Visakhapatnam? Ask me about flats, plots, prices, loans, approvals or a free site visit - any time, day or night.",
-    chips:["2 BHK flats","3 BHK flats","VUDA plots","💰 Loan & EMI","🎬 Videos","Book a site visit"],
+    chips:["2 BHK flats","3 BHK flats","VUDA plots","💰 Loan & EMI","📖 Brochure","Book a site visit"],
     price:"Price", from:"onwards",
     photos:"Photos", interested:"I'm interested",
     leadName:"Great choice! 🎉 To arrange your free site visit, may I have your name?",
@@ -573,7 +574,7 @@ const T = {
     status:"AI అసిస్టెంట్ · 30 సెకన్లలో సమాధానం",
     placeholder:"ఇక్కడ టైప్ చేయండి…",
     welcome:"నమస్కారం! 🙏 నేను సూర్య గ్రాండ్ AI అసిస్టెంట్‌ని.\nవిశాఖపట్నంలో ఇల్లు వెతుకుతున్నారా? ఫ్లాట్లు, ప్లాట్లు, ధరలు లేదా ఉచిత సైట్ విజిట్ గురించి అడగండి - పగలు లేదా రాత్రి, ఎప్పుడైనా.",
-    chips:["2 BHK ఫ్లాట్లు","3 BHK ఫ్లాట్లు","VUDA ప్లాట్లు","💰 లోన్ & EMI","🎬 వీడియోలు","సైట్ విజిట్ బుక్ చేయండి"],
+    chips:["2 BHK ఫ్లాట్లు","3 BHK ఫ్లాట్లు","VUDA ప్లాట్లు","💰 లోన్ & EMI","📖 బ్రోచర్","సైట్ విజిట్ బుక్ చేయండి"],
     price:"ధర", from:"నుండి",
     photos:"ఫోటోలు", interested:"నాకు ఇష్టం",
     leadName:"మంచి ఎంపిక! 🎉 మీ ఉచిత సైట్ విజిట్ ఏర్పాటు చేయడానికి, మీ పేరు చెప్పగలరా?",
@@ -915,9 +916,13 @@ async function respond(raw){
     }
     case 'brochure': {
       await say(te
-        ? "ఫుల్ బ్రోచర్ (ఫ్లోర్ ప్లాన్లు, ప్రైస్ షీట్, ఫొటోలు) WhatsAppలో పంపిస్తాము. మీ నంబర్ షేర్ చేయండి - సైట్ విజిట్ బుక్ చేస్తూ నంబర్ ఇవ్వండి."
-        : "I can send the full e-brochure - floor plans, price sheet and photos - on WhatsApp. Book a free site visit and share your number, and the brochure comes with the confirmation.");
-      startVisit(); break;
+        ? "ఇదిగోండి మా బ్రోచర్ 📖 - అన్ని ప్రాజెక్ట్లు, ఫ్లోర్ ప్లాన్లు, ప్రైస్ షీట్, లోన్ వివరాలు. పేజీలు తippడానికి స్వైప్ చేయండి, PDF డౌన్‌లోడ్ కూడా ఉంది."
+        : "Here is our brochure 📖 - all projects, floor plans, price sheet and loan details. Swipe to turn the pages; you can also download it as a PDF.");
+      const b = document.createElement('div'); b.className='vcard';
+      b.innerHTML = `<img src="https://images.pexels.com/photos/30781823/pexels-photo-30781823.jpeg?auto=compress&cs=tinysrgb&w=800" alt="brochure" loading="lazy"><span class="play">📖</span><b>${te?'బ్రోచర్ తెరవండి':'Open the brochure'} · PDF</b>`;
+      b.onclick = ()=>window.open('brochure.html','_blank');
+      addNode(b);
+      topicChips(); break;
     }
     case 'contact': {
       await say(te
@@ -983,6 +988,7 @@ function routeChip(c){
   else if(/plot|ప్లాట్/i.test(c)) respond('plots');
   else if(/loan|emi|లోన్/i.test(c)) respond('loan');
   else if(/rera|అప్రూవల్/i.test(c)) respond('rera');
+  else if(/brochure|బ్రోచర్/i.test(c)) respond('brochure');
   else if(/contact|కాంటాక్ట్/i.test(c)) respond('contact');
   else startVisit();
 }
