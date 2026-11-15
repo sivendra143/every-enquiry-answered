@@ -157,6 +157,19 @@ footer .fine{margin-top:26px;padding-top:18px;border-top:1px solid rgba(255,255,
   #fabPill{display:none}
 }
 
+/* ---------- 3D tour section ---------- */
+.tour{position:relative;height:300vh;background:linear-gradient(180deg,#eef4f7 0%,#e6eef1 55%,#dde8ea 100%);padding:0}
+.tourSticky{position:sticky;top:0;height:100vh;overflow:hidden}
+#tourCanvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.tourCap{position:absolute;left:6%;bottom:11%;max-width:430px;opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s;pointer-events:none}
+.tourCap.on{opacity:1;transform:none}
+.tourCap .kicker{color:#a07d10}
+.tourCap h2{font-size:clamp(26px,3.4vw,40px);font-weight:600;line-height:1.12;color:var(--forest);margin:10px 0 8px}
+.tourCap p{font-size:14.5px;color:#3d4a43;max-width:400px}
+.tourHint{position:absolute;right:5%;bottom:6%;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#5c6660;font-weight:700;animation:pulse 2.2s infinite}
+@media(max-width:720px){ .tourCap{left:6%;right:6%;max-width:none} }
+.tilt{transition:transform .2s ease-out;will-change:transform}
+
 /* ---------- embedded live assistant (scoped to .chatbox) ---------- */
 .chatbox{width:100%; max-width:420px; height:640px; max-height:78vh; background:var(--cream); color:var(--ink);
   border-radius:28px; overflow:hidden; display:flex; flex-direction:column; position:relative;
@@ -300,6 +313,7 @@ footer b{color:#a9bfb2; font-weight:600}
       <span class="bt"><b>Surya Grand</b><small>Developers · Visakhapatnam</small></span>
     </a>
     <div class="links">
+      <a href="#tour">3D Tour</a>
       <a href="#projects">Projects</a>
       <a href="#amenities">Amenities</a>
       <a href="#gallery">Gallery</a>
@@ -329,6 +343,28 @@ footer b{color:#a9bfb2; font-weight:600}
     <div><b>30 min</b><span>Sales callback</span></div>
   </div>
 </header>
+
+<section class="tour" id="tour">
+  <div class="tourSticky">
+    <canvas id="tourCanvas"></canvas>
+    <div class="tourCap on" data-cap="0">
+      <div class="kicker">The project in 3D</div>
+      <h2>Walk around the towers.</h2>
+      <p>Scroll - the camera flies you around Surya Sky Heights: two towers, a landscaped podium, and the clubhouse block.</p>
+    </div>
+    <div class="tourCap" data-cap="1">
+      <div class="kicker">Podium living</div>
+      <h2>Amenities between the towers.</h2>
+      <p>Pool, gym, children's play area and gardens sit on the central podium - no vehicles, fully pedestrian.</p>
+    </div>
+    <div class="tourCap" data-cap="2">
+      <div class="kicker">The location</div>
+      <h2>Madhurawada, next to the IT SEZ.</h2>
+      <p>5 minutes to the SEZ gate, 10 to Rushikonda beach. Ask the assistant for the price sheet or a site visit.</p>
+    </div>
+    <div class="tourHint">Scroll ↓</div>
+  </div>
+</section>
 
 <section id="projects">
   <div class="wrap">
@@ -509,6 +545,7 @@ footer b{color:#a9bfb2; font-weight:600}
 
 <div id="zoom" role="dialog" aria-label="Media viewer"><button class="x" type="button" aria-label="Close">&#10005;</button><img alt=""><video controls playsinline preload="none" style="display:none"></video><div class="cap"></div></div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 /* ============================== content ============================== */
 const T = {
@@ -1074,6 +1111,157 @@ function addDivider(txt){ const d=document.createElement('div'); d.className='di
   }));
   document.addEventListener('keydown', e=>{ if(e.key==='Escape' && panel.classList.contains('open')) closeChat(); });
 })();
+
+/* ---------- 3D model tour (daytime archviz, scroll-driven) ---------- */
+(function(){
+  const sec = document.getElementById('tour');
+  if(!sec || !window.THREE) return;
+  const canvas = document.getElementById('tourCanvas');
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.setClearColor(0x000000, 0);
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(0xe6eef1, 70, 180);
+  const camera = new THREE.PerspectiveCamera(50, 1, .1, 400);
+
+  scene.add(new THREE.HemisphereLight(0xcfe2ee, 0x9db3a0, .95));
+  const sun = new THREE.DirectionalLight(0xfff1da, 1.05);
+  sun.position.set(34, 52, 20);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(1024, 1024);
+  sun.shadow.camera.left=-46; sun.shadow.camera.right=46; sun.shadow.camera.top=46; sun.shadow.camera.bottom=-46;
+  sun.shadow.bias = -0.0004;
+  scene.add(sun);
+
+  // facade texture: light concrete + soft glass-blue windows + balcony bands
+  function facadeTex(base, glass){
+    const c = document.createElement('canvas'); c.width=128; c.height=256;
+    const g = c.getContext('2d');
+    g.fillStyle = base; g.fillRect(0,0,128,256);
+    for(let y=0;y<16;y++){
+      g.fillStyle = 'rgba(0,0,0,.06)'; g.fillRect(0, y*16, 128, 1);       // floor lines
+      for(let x=0;x<6;x++){
+        g.fillStyle = glass; g.globalAlpha = .75 + Math.random()*.25;
+        g.fillRect(6+x*20, 4+y*16, 13, 9);
+        g.globalAlpha = .16; g.fillStyle = '#ffffff';                     // glass highlight
+        g.fillRect(6+x*20, 4+y*16, 13, 3); g.globalAlpha = 1;
+      }
+    }
+    const t = new THREE.CanvasTexture(c); return t;
+  }
+  const texA = facadeTex('#efe9db', '#7fa0b0');
+  const texB = facadeTex('#e8e2d2', '#88a8b8');
+
+  const model = new THREE.Group(); scene.add(model);
+  function tower(x, z, w, d, hh, tex){
+    const m = new THREE.Mesh(new THREE.BoxGeometry(w, hh, d),
+      new THREE.MeshLambertMaterial({map:tex}));
+    m.position.set(x, hh/2 + 2, z); m.castShadow = true; m.receiveShadow = true;
+    model.add(m);
+    const cap = new THREE.Mesh(new THREE.BoxGeometry(w*.8, 2.4, d*.8),
+      new THREE.MeshLambertMaterial({color:0xd8d2c2}));
+    cap.position.set(x, hh + 2 + 1.2, z); cap.castShadow = true; model.add(cap);
+  }
+  tower(9, -5, 7.5, 7.5, 30, texA);
+  tower(-9, 3, 7.5, 7.5, 24, texB);
+
+  // podium
+  const pod = new THREE.Mesh(new THREE.BoxGeometry(30, 2, 20), new THREE.MeshLambertMaterial({color:0xe6e0d0}));
+  pod.position.y = 1; pod.castShadow = true; pod.receiveShadow = true; model.add(pod);
+  // clubhouse
+  const club = new THREE.Mesh(new THREE.BoxGeometry(8, 3.6, 6), new THREE.MeshLambertMaterial({color:0xdfd8c6}));
+  club.position.set(1, 2 + 1.8, 6.5); club.castShadow = true; model.add(club);
+  // pool on podium
+  const pool = new THREE.Mesh(new THREE.PlaneGeometry(7, 3.2), new THREE.MeshLambertMaterial({color:0x8ecfe0}));
+  pool.rotation.x = -Math.PI/2; pool.position.set(-3, 2.03, -2); model.add(pool);
+
+  // ground + roads
+  const ground = new THREE.Mesh(new THREE.CircleGeometry(46, 64), new THREE.MeshLambertMaterial({color:0xdde5da}));
+  ground.rotation.x = -Math.PI/2; ground.receiveShadow = true; scene.add(ground);
+  const roadMat = new THREE.MeshLambertMaterial({color:0xb7c0b4});
+  const r1 = new THREE.Mesh(new THREE.PlaneGeometry(92, 5), roadMat); r1.rotation.x = -Math.PI/2; r1.position.set(0,.01,24); r1.receiveShadow=true; scene.add(r1);
+  const r2 = new THREE.Mesh(new THREE.PlaneGeometry(5, 92), roadMat); r2.rotation.x = -Math.PI/2; r2.position.set(24,.011,0); r2.receiveShadow=true; scene.add(r2);
+
+  // trees
+  const trunkMat = new THREE.MeshLambertMaterial({color:0x8a6b4a});
+  const leafMat = new THREE.MeshLambertMaterial({color:0x4e7d54});
+  function tree(x, y, z, s){
+    const g = new THREE.Group();
+    const tr = new THREE.Mesh(new THREE.CylinderGeometry(.1*s,.13*s,.7*s,6), trunkMat); tr.position.y=.35*s; tr.castShadow=true;
+    const c1 = new THREE.Mesh(new THREE.ConeGeometry(.95*s, 2.2*s, 8), leafMat); c1.position.y=1.6*s; c1.castShadow=true;
+    const c2 = new THREE.Mesh(new THREE.ConeGeometry(.62*s, 1.5*s, 8), leafMat); c2.position.y=2.6*s; c2.castShadow=true;
+    g.add(tr,c1,c2); g.position.set(x,y,z); model.add(g);
+  }
+  [[-13,2,-6],[13,2,4],[-5,2,7.6],[6,2,-7.5],[12,2,-1],[-12,2,1.5],[0,2,-6.5],[7,2,7.6]].forEach(([x,y,z])=>tree(x,y,z,1.1));
+  [[-20,0,14],[18,0,-14],[-18,0,-16],[30,0,10],[-28,0,6],[10,0,16]].forEach(([x,y,z])=>tree(x,y,z,1.6));
+
+  // camera flight path around the model
+  const cam = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(34, 13, 36),
+    new THREE.Vector3(4, 21, 42),
+    new THREE.Vector3(-30, 11, 26),
+    new THREE.Vector3(-34, 9, -8),
+    new THREE.Vector3(-4, 24, -34),
+    new THREE.Vector3(30, 16, -26),
+    new THREE.Vector3(38, 11, 10),
+  ]);
+  const look = new THREE.Vector3(0, 8, 0);
+
+  // scroll progress within the section
+  let target = 0, prog = 0, mx = 0, my = 0, mxT = 0, myT = 0;
+  function onScroll(){
+    const r = sec.getBoundingClientRect();
+    const total = sec.offsetHeight - innerHeight;
+    target = Math.min(1, Math.max(0, -r.top / total));
+    const caps = document.querySelectorAll('.tourCap');
+    caps.forEach(c=>{
+      const i = +c.dataset.cap;
+      c.classList.toggle('on', target >= i/3 && target < (i+1)/3 || (i===2 && target >= 2/3));
+    });
+  }
+  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+  sec.querySelector('.tourSticky').addEventListener('pointermove', e=>{
+    const r = sec.getBoundingClientRect();
+    mxT = (e.clientX/innerWidth - .5) * 2.2; myT = -(e.clientY/innerHeight - .5) * 1.2;
+  });
+
+  function resize(){
+    const w = canvas.clientWidth, hgt = canvas.clientHeight;
+    if(canvas.width !== w*renderer.getPixelRatio()){ renderer.setSize(w, hgt, false); camera.aspect = w/hgt; camera.updateProjectionMatrix(); }
+  }
+  addEventListener('resize', resize);
+
+  const clock = new THREE.Clock();
+  (function loop(){
+    requestAnimationFrame(loop);
+    const dt = Math.min(clock.getDelta(), .05), t = clock.elapsedTime;
+    resize();
+    prog += (target - prog) * .06;
+    mx += (mxT - mx) * .05; my += (myT - my) * .05;
+    const cp = cam.getPoint(prog);
+    const drift = Math.sin(t * .4) * .5;
+    camera.position.set(cp.x + mx + drift, cp.y + my, cp.z);
+    camera.lookAt(look);
+    renderer.render(scene, camera);
+  })();
+})();
+
+/* ---------- 3D tilt on photo cards ---------- */
+(function(){
+  document.querySelectorAll('.pcard,.gal .g,.fp .plan,.video .vwrap').forEach(el=>{
+    el.classList.add('tilt');
+    el.addEventListener('pointermove', e=>{
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left)/r.width - .5, y = (e.clientY - r.top)/r.height - .5;
+      el.style.transform = `perspective(900px) rotateX(${(-y*6).toFixed(2)}deg) rotateY(${(x*8).toFixed(2)}deg) translateY(-4px)`;
+    });
+    el.addEventListener('pointerleave', ()=>{ el.style.transform=''; });
+  });
+})();
+
 </script>
 </body>
 </html>
