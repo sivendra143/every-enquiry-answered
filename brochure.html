@@ -24,7 +24,7 @@
   /* ---------- pages ---------- */
   .page{background:var(--cream);color:var(--ink);overflow:hidden}
   .page .inner{position:absolute;inset:0;padding:34px 30px;display:flex;flex-direction:column}
-  .p-num{position:absolute;bottom:16px;right:22px;font-size:10px;letter-spacing:.2em;opacity:.5}
+  .page:after{content:"Fictional demo · Illustrative imagery";position:absolute;bottom:6px;left:22px;font-size:8px;opacity:.5;pointer-events:none}.p-num{position:absolute;bottom:16px;right:22px;font-size:10px;letter-spacing:.2em;opacity:.5}
   .kicker{font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.6;margin-bottom:10px}
   .serif{font-family:'Instrument Serif',serif;font-weight:400}
   .cover{background:var(--dark);color:var(--cream)}
@@ -91,10 +91,10 @@
     <div class="inner">
       <div class="kicker">Residence 01</div>
       <h2 class="pt">Sky Heights</h2>
-      <p class="body">Madhurawada, near IT SEZ &amp; Rushikonda. 2 &amp; 3 BHK apartments with sea-facing balconies.</p>
+      <p class="body">Madhurawada, near IT SEZ &amp; Rushikonda. 2 BHK apartments in a gated community.</p>
       <div class="imgr" style="height:34%"><img src="https://images.pexels.com/photos/34940630/pexels-photo-34940630.jpeg?auto=compress&cs=tinysrgb&w=1400" alt=""></div>
       <div class="price">₹58 L onwards</div>
-      <div class="tags"><span class="tag">2 BHK · 1180 sq.ft</span><span class="tag">3 BHK · 1520 sq.ft</span></div>
+      <div class="tags"><span class="tag">2 BHK · 1150–1250 sq.ft</span></div>
       <div class="specs">
         <div class="row"><span>Possession</span><b>Dec 2027</b></div>
         <div class="row"><span>Status</span><b>RERA registered · VUDA approved</b></div>
@@ -109,9 +109,9 @@
       <h2 class="pt">Floor plans</h2>
       <div class="imgr" style="flex:1;min-height:180px"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/3d-design-floor-plan-coloured.jpg/1280px-3d-design-floor-plan-coloured.jpg" alt="" style="object-fit:contain;background:#fff"></div>
       <div class="specs">
-        <div class="row"><span>2 BHK</span><b>1180 sq.ft · ₹58 L</b></div>
-        <div class="row"><span>3 BHK</span><b>1520 sq.ft · ₹74 L</b></div>
-        <div class="row"><span>3 BHK sea-view</span><b>1640 sq.ft · ₹85 L</b></div>
+        <div class="row"><span>2 BHK</span><b>1150 sq.ft · ₹58 L onwards</b></div>
+        <div class="row"><span>3 BHK · Palm Enclave</span><b>1650–2100 sq.ft · ₹85 L</b></div>
+        
       </div>
       <div class="p-num">04</div>
     </div>
@@ -124,9 +124,9 @@
       <p class="body">Yendada, near the beach road. Premium 3 BHK residences in a low-rise coastal enclave.</p>
       <div class="imgr" style="height:34%"><img src="https://images.pexels.com/photos/28054849/pexels-photo-28054849.jpeg?auto=compress&cs=tinysrgb&w=1400" alt=""></div>
       <div class="price">₹85 L onwards</div>
-      <div class="tags"><span class="tag">3 BHK · 1750 sq.ft</span><span class="tag">Clubhouse</span></div>
+      <div class="tags"><span class="tag">3 BHK · 1650–2100 sq.ft</span><span class="tag">Clubhouse</span></div>
       <div class="specs">
-        <div class="row"><span>Possession</span><b>Jun 2028</b></div>
+        <div class="row"><span>Possession</span><b>Ready to move</b></div>
         <div class="row"><span>Status</span><b>RERA registered</b></div>
       </div>
       <div class="p-num">05</div>
@@ -137,7 +137,7 @@
     <div class="inner">
       <div class="kicker">Plots</div>
       <h2 class="pt">Green Valley Plots</h2>
-      <p class="body">Anandapuram, on the Bhimili corridor. VUDA-approved residential plots, 167–267 sq.yd, ready for registration.</p>
+      <p class="body">Anandapuram, on the NH-16 corridor. VUDA-approved residential plots, 167–267 sq.yd, ready for registration.</p>
       <div class="imgr" style="height:34%"><img src="https://images.pexels.com/photos/8094663/pexels-photo-8094663.jpeg?auto=compress&cs=tinysrgb&w=1400" alt=""></div>
       <div class="price">₹22 L onwards</div>
       <div class="specs">
@@ -171,7 +171,7 @@
       <h2 class="pt">Close to everything.</h2>
       <div class="imgr" style="height:30%"><img src="https://images.pexels.com/photos/16916525/pexels-photo-16916525.jpeg?auto=compress&cs=tinysrgb&w=1400" alt=""></div>
       <ul class="list">
-        <li>Rushikonda beach <span>8 min</span></li>
+        <li>Rushikonda beach <span>10 min</span></li>
         <li>IT SEZ, Madhurawada <span>5 min</span></li>
         <li>Gitam University <span>10 min</span></li>
         <li>NH-16 junction <span>12 min</span></li>
@@ -201,19 +201,20 @@
     <div class="inner">
       <div class="bc-brand">REAL ESTATE / DEMO</div>
       <h2>Come and see it.</h2>
-      <p>Free site visits every day, 9am – 6pm.<br>Pick-up from Madhurawada junction.<br><br>📞 +91 90000 12345 (demo)<br>✉️ sales@realestatedemo.in<br>📍 Madhurawada, Visakhapatnam</p>
+      <p>Free site visits every day, 9am – 6pm.<br>Pick-up from Madhurawada junction.<br><br>📞 +91 90000 12345 (demo)<br>✉️ sales@realestatedemo.example<br>📍 Madhurawada, Visakhapatnam</p>
       <p style="margin-top:26px;font-size:10px;opacity:.5">RERA nos. available at site office.<br>A free demo concept — not a real company.<br>Photos: Pexels (free license).</p>
     </div>
   </div>
 
 </div></div>
 <div class="controls">
+  <button class="cbtn" id="zoom" type="button" aria-label="Zoom brochure">＋</button>
   <button class="cbtn" id="prev" type="button">← PREV</button>
   <span id="pg">1 / 10</span>
   <button class="cbtn" id="next" type="button">NEXT →</button>
   <button class="cbtn dl" id="dl" type="button">↓ PDF</button>
 </div>
-<script src="brochure-pdf.js"></script>
+<script src="brochure-pdf.js"></script><script src="brochure-pdf-2.js"></script>
 <script>
 (function(){
   document.getElementById('dl').onclick=function(){
@@ -224,7 +225,7 @@
     var a=document.createElement('a'); a.href=url; a.download='Real-Estate-Demo-Brochure.pdf';
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){URL.revokeObjectURL(url);},4000);
   };
-  var book=document.getElementById('book');
+  var book=document.getElementById('book');var zoomed=false;document.getElementById('zoom').onclick=function(){zoomed=!zoomed;book.style.transform=zoomed?'scale(1.5)':'scale(1)';document.getElementById('zoom').textContent=zoomed?'−':'＋';document.getElementById('stage').style.overflow=zoomed?'auto':'hidden';};
   var portrait = window.innerWidth < 780;
   var W = portrait ? Math.min(window.innerWidth-24, 460) : Math.min((window.innerWidth-60)/2, 430);
   var H = Math.min(window.innerHeight-170, W*1.38);
