@@ -192,7 +192,7 @@ footer{background:var(--cream);color:var(--ink);min-height:100svh;display:flex;f
 
 <header id="hero">
   <div class="hwrap">
-    <img src="https://images.pexels.com/photos/30781823/pexels-photo-30781823.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Madhurawada, Visakhapatnam from the hills">
+    <img src="https://images.pexels.com/photos/30781823/pexels-photo-30781823.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Illustrative luxury residence">
     <div class="shade"></div>
   </div>
   <h1 class="htitle serif" id="htitle"><span class="line">Homes,</span><span class="line"><em>by the sea.</em></span></h1>
@@ -204,7 +204,7 @@ footer{background:var(--cream);color:var(--ink);min-height:100svh;display:flex;f
   <div class="hmeta">
     <div><div class="lbl">Featured project</div><div class="v">Sky Heights</div></div>
     <div><div class="lbl">Location</div><div class="v">Madhurawada, Vizag</div></div>
-    <div><div class="lbl">Status</div><div class="v">Ready 2026</div></div>
+    <div><div class="lbl">Status</div><div class="v">Ready 2027</div></div>
     <div><div class="lbl">Scroll</div><div class="v">Explore &darr;</div></div>
   </div>
 </header>
@@ -523,7 +523,7 @@ footer .f-big{max-width:100%;overflow-wrap:break-word}
   <div class="chatbox" data-anim>
         <header>
           <div class="logo"><span class="lgm">RE</span></div>
-          <div class="h-title"><h1>Real Estate Demo</h1><p><span class="dot"></span><span id="status">AI Assistant · replies in 30 sec</span></p></div>
+          <div class="h-title"><h1>Real Estate Demo</h1><p><span class="dot"></span><span id="status">Demo assistant · English / తెలుగు</span></p></div>
           <button id="spk" class="spk on" type="button" aria-label="Voice replies on/off"><svg viewBox="0 0 24 24" fill="none"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
           <div class="lang"><button id="bEn" class="on" type="button">EN</button><button id="bTe" type="button">తెలుగు</button></div>
         </header>
@@ -533,7 +533,7 @@ footer .f-big{max-width:100%;overflow-wrap:break-word}
           <button id="mic" type="button" aria-label="Talk to the assistant"><svg viewBox="0 0 24 24" fill="none"><rect x="9" y="3" width="6" height="11" rx="3" fill="#0e3b2e"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" stroke="#0e3b2e" stroke-width="1.8" stroke-linecap="round"/></svg></button>
           <button id="send" type="submit" aria-label="Send"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l16-7-5 16-3.5-6.5L4 12z" fill="#fff"/></svg></button>
         </form>
-        <div class="foot">A free demo concept for Visakhapatnam builders · No payment, no sign-up<br><span style="opacity:.55;font-size:9.5px">Photos: Wikimedia Commons contributors (CC BY / CC BY-SA) · Walkthrough video: UE4Arch (CC BY-SA 4.0) · Aerial videos: Pexels - Hindustani Lens, Santhosh Peddi (free license)</span></div>
+        <div class="foot">Fictional demo · Sample prices, approvals & photos · No real bookings<br><span style="opacity:.55;font-size:9.5px">Photos: Wikimedia Commons contributors (CC BY / CC BY-SA) · Walkthrough video: UE4Arch (CC BY-SA 4.0) · Aerial videos: Pexels - Hindustani Lens, Santhosh Peddi (free license)</span></div>
       </div>
     </div>
 </div>
@@ -543,7 +543,7 @@ footer .f-big{max-width:100%;overflow-wrap:break-word}
 /* ============================== content ============================== */
 const T = {
   en: {
-    status:"AI Assistant · replies in 30 sec",
+    status:"Demo assistant · English / తెలుగు",
     placeholder:"Type a message…",
     welcome:"Namaste! 🙏 I'm the Real Estate Demo AI assistant.\nLooking for a home in Visakhapatnam? Ask me about flats, plots, prices, loans, approvals or a free site visit - any time, day or night.",
     chips:["2 BHK flats","3 BHK flats","VUDA plots","💰 Loan & EMI","📖 Brochure","Book a site visit"],
@@ -556,10 +556,10 @@ const T = {
     budgets:["₹40–60 L","₹60–90 L","₹90 L +"],
     leadWhen:"Last step - when would you like to visit the site?",
     times:["Tomorrow morning","Tomorrow evening","This Sunday","Just call me first"],
-    done:"All done, {n}! ✅ I've passed your details to our sales team. A real person will call you within 30 minutes (9am-9pm) to confirm your visit.",
-    leadTitle:"Lead sent to sales team",
-    leadSub:"WhatsApp + call, within 30 minutes",
-    waTitle:"WhatsApp to sales person",
+    done:"All done, {n}! ✅ Your enquiry summary is ready below. This demo does not send your details or book a real visit.",
+    leadTitle:"Sales-ready enquiry summary",
+    leadSub:"Demo preview - not sent",
+    waTitle:"Sales handoff preview",
     waBody:l=>`🔔 New buyer lead\nName: ${l.name}\nPhone: ${l.phone}\nInterest: ${l.interest}\nBudget: ${l.budget}\nVisit: ${l.when}\nSource: AI assistant (web)`,
     anything:"Here's what I can help with - tap one, or just type your question:",
     reAskName:"Meanwhile - may I have your name?",
@@ -571,9 +571,9 @@ const T = {
     again:"Start again",
   },
   te: {
-    status:"AI అసిస్టెంట్ · 30 సెకన్లలో సమాధానం",
+    status:"డెమో అసిస్టెంట్ · తెలుగు / English",
     placeholder:"ఇక్కడ టైప్ చేయండి…",
-    welcome:"నమస్కారం! 🙏 నేను సూర్య గ్రాండ్ AI అసిస్టెంట్‌ని.\nవిశాఖపట్నంలో ఇల్లు వెతుకుతున్నారా? ఫ్లాట్లు, ప్లాట్లు, ధరలు లేదా ఉచిత సైట్ విజిట్ గురించి అడగండి - పగలు లేదా రాత్రి, ఎప్పుడైనా.",
+    welcome:"నమస్కారం! 🙏 నేను రియల్ ఎస్టేట్ డెమో AI అసిస్టెంట్‌ని.\nవిశాఖపట్నంలో ఇల్లు వెతుకుతున్నారా? ఫ్లాట్లు, ప్లాట్లు, ధరలు లేదా ఉచిత సైట్ విజిట్ గురించి అడగండి - పగలు లేదా రాత్రి, ఎప్పుడైనా.",
     chips:["2 BHK ఫ్లాట్లు","3 BHK ఫ్లాట్లు","VUDA ప్లాట్లు","💰 లోన్ & EMI","📖 బ్రోచర్","సైట్ విజిట్ బుక్ చేయండి"],
     price:"ధర", from:"నుండి",
     photos:"ఫోటోలు", interested:"నాకు ఇష్టం",
@@ -584,9 +584,9 @@ const T = {
     budgets:["₹40–60 లక్షలు","₹60–90 లక్షలు","₹90 లక్షలు +"],
     leadWhen:"చివరి అడుగు - సైట్ ఎప్పుడు చూడాలనుకుంటున్నారు?",
     times:["రేపు ఉదయం","రేపు సాయంత్రం","ఈ ఆదివారం","ముందు కాల్ చేయండి"],
-    done:"పూర్తయింది, {n}! ✅ మీ వివరాలు మా సేల్స్ టీమ్‌కు పంపాను. మీ విజిట్ నిర్ధారించడానికి నిజమైన వ్యక్తి 30 నిమిషాల్లో (ఉదయం 9 - రాత్రి 9) మీకు కాల్ చేస్తారు.",
-    leadTitle:"లీడ్ సేల్స్ టీమ్‌కు పంపబడింది",
-    leadSub:"WhatsApp + కాల్, 30 నిమిషాల్లో",
+    done:"పూర్తయింది, {n}! ✅ మీ వివరాల సారాంశం సిద్ధంగా ఉంది. ఇది డెమో మాత్రమే - వివరాలు పంపబడవు, నిజమైన విజిట్ బుక్ కాదు.",
+    leadTitle:"సేల్స్ కోసం వివరాల సారాంశం",
+    leadSub:"డెమో ప్రివ్యూ - పంపబడలేదు",
     waTitle:"సేల్స్ వ్యక్తికి WhatsApp",
     waBody:l=>`🔔 కొత్త కొనుగోలుదారు లీడ్\nపేరు: ${l.name}\nఫోన్: ${l.phone}\nఆసక్తి: ${l.interest}\nబడ్జెట్: ${l.budget}\nవిజిట్: ${l.when}\nమూలం: AI అసిస్టెంట్ (వెబ్)`,
     anything:"ఇవాంటివి అడగవచ్చు - ఒకటి టాప్ చేయండి లేదా మీ ప్రశ్న టైప్ చేయండి:",
@@ -827,7 +827,7 @@ function esc(s){ const d=document.createElement('div'); d.textContent=s; return 
 function userEcho(text){ addMsg('user', text, true); }
 
 /* --------- understanding --------- */
-const QA_KINDS = new Set(['project','video','floorplan','amen','possess','loan','photos','price','loc','size','visit','all']);
+const QA_KINDS = new Set(['project','video','floorplan','amen','possess','loan','photos','price','loc','size','visit','all','rera','brochure','contact']);
 function understand(raw){
   const q = ' ' + raw.toLowerCase().trim() + ' ';
   let pm = null;
@@ -910,13 +910,13 @@ async function respond(raw){
     }
     case 'rera': {
       await say(te
-        ? "అన్ని ప్రాజెక్ట్లు RERA రిజిస్టర్ చేయబడ్డాయి మరియు VUDA ఆమోదితమే. టైటిల్ క్లియర్, డాక్యుమెంట్లు సైట్ ఆఫీసులో చూపిస్తాము. RERA నంబర్లు, అప్రూవల్ కాపీలు కావాలంటే సైట్ విజిట్ బుక్ చేయండి - మా టీమ్ అన్నీ వివరిస్తుంది."
-        : "Every project is RERA-registered and VUDA-approved, with clear titles. Approval copies and RERA numbers are shared at the site office. Book a free site visit and the team will walk you through all documents.");
+        ? "ఇది కల్పిత డెమో మాత్రమే. RERA / VUDA వివరాలు స్యాంపుల్ డేటా - నిజమైన రిజిస్ట్రేషన్ నంబర్లు లేదా ధృవీకరించిన అనుమతులు లేవు."
+        : "For this fictional demo, the sample projects are marked RERA-registered / VUDA-approved. There are no real registration numbers or verified approvals. A live builder version would show the verified project documents here.");
       topicChips(); break;
     }
     case 'brochure': {
       await say(te
-        ? "ఇదిగోండి మా బ్రోచర్ 📖 - అన్ని ప్రాజెక్ట్లు, ఫ్లోర్ ప్లాన్లు, ప్రైస్ షీట్, లోన్ వివరాలు. పేజీలు తippడానికి స్వైప్ చేయండి, PDF డౌన్‌లోడ్ కూడా ఉంది."
+        ? "ఇదిగోండి మా బ్రోచర్ 📖 - అన్ని ప్రాజెక్ట్లు, ఫ్లోర్ ప్లాన్లు, ప్రైస్ షీట్, లోన్ వివరాలు. పేజీలు తిప్పడానికి స్వైప్ చేయండి, PDF డౌన్‌లోడ్ కూడా ఉంది."
         : "Here is our brochure 📖 - all projects, floor plans, price sheet and loan details. Swipe to turn the pages; you can also download it as a PDF.");
       const b = document.createElement('div'); b.className='vcard';
       b.innerHTML = `<img src="https://images.pexels.com/photos/30781823/pexels-photo-30781823.jpeg?auto=compress&cs=tinysrgb&w=800" alt="brochure" loading="lazy"><span class="play">📖</span><b>${te?'బ్రోచర్ తెరవండి':'Open the brochure'} · PDF</b>`;
@@ -926,8 +926,8 @@ async function respond(raw){
     }
     case 'contact': {
       await say(te
-        ? "📞 సేల్స్ టీమ్: +91 90000 12345 (డెమో)\n✉️ sales@realestatedemo.in\n📍 ఆఫీస్: మాధురవాడ, విశాఖపట్నం\nకాల్ బ్యాక్ కావాలంటే సైట్ విజిట్ బుక్ చేయండి - 30 నిమిషాల్లో కాల్ చేస్తాము."
-        : "📞 Sales team: +91 90000 12345 (demo)\n✉️ sales@realestatedemo.in\n📍 Office: Madhurawada, Visakhapatnam\nWant a callback? Book a free site visit and we call you within 30 minutes.");
+        ? "📞 సేల్స్ టీమ్: +91 90000 12345 (డెమో)\n✉️ sales@realestatedemo.example\n📍 ఆఫీస్: మాధురవాడ, విశాఖపట్నం\nడెమో సంప్రదింపు వివరాలు మాత్రమే - నిజమైన కాల్స్ చేయబడవు."
+        : "📞 Sales team: +91 90000 12345 (demo)\n✉️ sales@realestatedemo.example\n📍 Office: Madhurawada, Visakhapatnam\nSample contact details only. Try the site-visit flow to preview a sales-ready enquiry. No real calls are made.");
       topicChips(); break;
     }
     case 'visit': startVisit(); break;
@@ -1261,4 +1261,4 @@ function addDivider(txt){ const d=document.createElement('div'); d.className='di
 </script>
 
 </body>
-</html>
+          </html>
