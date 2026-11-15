@@ -1132,7 +1132,7 @@ function addDivider(txt){ const d=document.createElement('div'); d.className='di
   renderer.toneMappingExposure = 1.0;
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.Fog(0xf6ecd6, 95, 260);
+  scene.fog = new THREE.Fog(0xf6ecd6, 115, 300);
   const camera = new THREE.PerspectiveCamera(46, 1, .1, 400);
 
   scene.add(new THREE.HemisphereLight(0xfff0d8, 0xa8b39a, .55));
@@ -1160,8 +1160,8 @@ function addDivider(txt){ const d=document.createElement('div'); d.className='di
     }
     const t = new THREE.CanvasTexture(c); return t;
   }
-  const texA = facadeTex('#e9e1cd', '#5c8093');
-  const texB = facadeTex('#e2dac6', '#67899c');
+  const texA = facadeTex('#e9e1cd', '#4e7488');
+  const texB = facadeTex('#e2dac6', '#587f94');
 
   const model = new THREE.Group(); scene.add(model);
   function tower(x, z, w, d, hh, tex){
@@ -1214,7 +1214,8 @@ function addDivider(txt){ const d=document.createElement('div'); d.className='di
     new THREE.Vector3(-48, 22, 8),
     new THREE.Vector3(-30, 32, -32),
     new THREE.Vector3(14, 40, -40),
-    new THREE.Vector3(48, 32, -6),
+    new THREE.Vector3(46, 30, -8),
+    new THREE.Vector3(52, 46, 34),
   ]);
   const look = new THREE.Vector3(0, 6, 0);
   const progFill = document.getElementById('tourProgFill');
@@ -1254,7 +1255,7 @@ function addDivider(txt){ const d=document.createElement('div'); d.className='di
     const cp = cam.getPoint(e);
     const drift = Math.sin(t * .35) * .45;
     camera.position.set(cp.x + mx*1.2 + drift, cp.y + my, cp.z);
-    look.set(Math.sin(e*Math.PI*2)*2, 6 + e*11, 0);       // gaze rises from podium to rooftops
+    look.set(Math.sin(e*Math.PI*2)*2, 6 + e*8, 0);       // gaze rises from podium to rooftops
     camera.lookAt(look);
     camera.rotateZ(Math.sin(e*Math.PI*2)*.014);           // whisper of cinematic roll
     if(progFill) progFill.style.transform = 'scaleY(' + prog.toFixed(4) + ')';
