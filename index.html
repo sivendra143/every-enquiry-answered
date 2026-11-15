@@ -266,7 +266,12 @@ footer b{color:#a9bfb2; font-weight:600}
 #zoom img{max-width:92vw;max-height:76vh;border-radius:16px;box-shadow:0 30px 90px rgba(0,0,0,.6);cursor:zoom-in;transition:transform .35s}
 #zoom img.big{transform:scale(1.7);cursor:zoom-out}
 #zoom .cap{color:#e9f2ec;font-size:13px;font-weight:600}
-#zoom .x{position:absolute;top:16px;right:16px;width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:18px;cursor:pointer}
+#zoom .x{position:absolute;top:16px;right:16px;width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:18px;cursor:pointer;z-index:2}
+#zoom video{max-width:92vw;max-height:76vh;border-radius:16px;box-shadow:0 30px 90px rgba(0,0,0,.6);background:#000}
+.chatbox .vcard{position:relative;border-radius:14px;overflow:hidden;cursor:pointer;margin:2px 0 11px;box-shadow:0 10px 26px rgba(20,40,30,.18);animation:rise .4s both}
+.chatbox .vcard img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+.chatbox .vcard .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:30px;color:#fff;background:rgba(10,24,18,.28);text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.chatbox .vcard b{position:absolute;left:0;right:0;bottom:0;padding:8px 10px;font-size:11px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.65))}
 </style>
 </head>
 <body>
@@ -400,7 +405,7 @@ Visit: This Sunday</div>
           <button id="mic" type="button" aria-label="Talk to the assistant"><svg viewBox="0 0 24 24" fill="none"><rect x="9" y="3" width="6" height="11" rx="3" fill="#0e3b2e"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" stroke="#0e3b2e" stroke-width="1.8" stroke-linecap="round"/></svg></button>
           <button id="send" type="submit" aria-label="Send"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l16-7-5 16-3.5-6.5L4 12z" fill="#fff"/></svg></button>
         </form>
-        <div class="foot">A free demo concept for Visakhapatnam builders · No payment, no sign-up</div>
+        <div class="foot">A free demo concept for Visakhapatnam builders · No payment, no sign-up<br><span style="opacity:.55;font-size:9.5px">Photos: Wikimedia Commons contributors (CC BY / CC BY-SA) · Walkthrough video: UE4Arch (CC BY-SA 4.0)</span></div>
       </div>
     </div>
   </section>
@@ -411,7 +416,7 @@ Visit: This Sunday</div>
   Buyer chats are simulated in this demo. No real enquiry is sent anywhere.<br>
   Built as a free demo. Three.js + GSAP, no paid services.<br>Photos: Wikimedia Commons contributors (CC BY). The logo is a placeholder - your company logo goes here.
 </footer>
-<div id="zoom" role="dialog" aria-label="Photo viewer"><button class="x" type="button" aria-label="Close">&#10005;</button><img alt=""><div class="cap"></div></div>
+<div id="zoom" role="dialog" aria-label="Media viewer"><button class="x" type="button" aria-label="Close">&#10005;</button><img alt=""><video controls playsinline preload="none" style="display:none"></video><div class="cap"></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -485,6 +490,8 @@ Visit: This Sunday</div>
     const m = new THREE.MeshLambertMaterial({color:0x0d221b, emissive:0xffffff, emissiveMap:texes[i%6], emissiveIntensity:1});
     const b = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), m);
     b.position.set(x,h/2,z); city.add(b);
+    const cap = new THREE.Mesh(new THREE.BoxGeometry(w*.72, h*.22, d*.72), m);
+    cap.position.set(x, h + h*.11, z); city.add(cap);
   });
   scene.add(city);
 
@@ -523,18 +530,44 @@ Visit: This Sunday</div>
     new THREE.Vector3(0, 9, 0),
     new THREE.Vector3(0, 11, 0),
   ]);
-  let p = 0, mx = 0, my = 0;
+  let p = 0, pT = 0, mx = 0, my = 0, mxT = 0, myT = 0;
   function place(){
     const cp = camCurve.getPoint(p), tp = tgtCurve.getPoint(p);
     camera.position.set(cp.x + mx, cp.y + my, cp.z);
     camera.lookAt(tp);
+    camera.rotation.z += (pT - p) * .55;   // bank into turns as scroll accelerates
   }
   place();
+
+  // traffic: headlights one way, taillights the other, on two ring roads
+  function traffic(color, zc, dir, n){
+    const arr = new Float32Array(n*3);
+    for(let i=0;i<n;i++){ arr[i*3]=(Math.random()-.5)*124; arr[i*3+1]=.28; arr[i*3+2]=zc+(Math.random()-.5)*1.4; }
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(arr,3));
+    const m = new THREE.Points(g, new THREE.PointsMaterial({color, size:.6, transparent:true, opacity:.95, blending:THREE.AdditiveBlending, depthWrite:false}));
+    m.userData.dir = dir; scene.add(m); return m;
+  }
+  const road1 = traffic(0xfff3c4, 21, 1, mobile?16:30);
+  const road2 = traffic(0xff5a3c, 24.5, -1, mobile?12:24);
+  function drive(m, dt){
+    const a = m.geometry.attributes.position.array, d = m.userData.dir;
+    for(let i=0;i<a.length;i+=3){ a[i] += d*dt*13; if(a[i]>64) a[i]=-64; if(a[i]<-64) a[i]=64; }
+    m.geometry.attributes.position.needsUpdate = true;
+  }
+  // high stars
+  const sN = mobile?90:180, sPos = new Float32Array(sN*3);
+  for(let i=0;i<sN;i++){ sPos[i*3]=(Math.random()-.5)*260; sPos[i*3+1]=42+Math.random()*70; sPos[i*3+2]=-30-Math.random()*130; }
+  const sGeo = new THREE.BufferGeometry(); sGeo.setAttribute('position', new THREE.BufferAttribute(sPos,3));
+  const stars = new THREE.Points(sGeo, new THREE.PointsMaterial({color:0xcfe4ff, size:.5, transparent:true, opacity:.55, blending:THREE.AdditiveBlending, depthWrite:false}));
+  scene.add(stars);
 
   const clock = new THREE.Clock();
   (function loop(){
     requestAnimationFrame(loop);
-    const t = clock.getElapsedTime();
+    const dt = Math.min(clock.getDelta(), .05), t = clock.elapsedTime;
+    p += (pT - p) * .075;                          // scroll inertia - buttery, cinematic
+    mx += (mxT - mx) * .06; my += (myT - my) * .06;
+    drive(road1, dt); drive(road2, dt);
     city.children.forEach((b,i)=>{ if(b.material.emissiveIntensity!==undefined) b.material.emissiveIntensity = .82 + Math.sin(t*.9 + i)*0.12; });
     pts.rotation.y = t*.008;
     moon.material.opacity = .9 + Math.sin(t*.6)*.08;
@@ -547,13 +580,13 @@ Visit: This Sunday</div>
     renderer.setSize(innerWidth, innerHeight);
   });
   if(!mobile) addEventListener('mousemove', e=>{
-    mx = (e.clientX/innerWidth - .5)*1.6; my = -(e.clientY/innerHeight - .5)*1.0;
+    mxT = (e.clientX/innerWidth - .5)*1.6; myT = -(e.clientY/innerHeight - .5)*1.0;
   });
 
   // scroll drives camera + progress bar
   ScrollTrigger.create({
-    trigger: document.body, start:'top top', end:'bottom bottom', scrub:1.1,
-    onUpdate(self){ p = self.progress; document.getElementById('progress').style.width = (p*100)+'%'; }
+    trigger: document.body, start:'top top', end:'bottom bottom', scrub:true,
+    onUpdate(self){ pT = self.progress; document.getElementById('progress').style.width = (pT*100)+'%'; }
   });
 
   /* ============ DOM storytelling ============ */
@@ -591,7 +624,7 @@ const T = {
     status:"AI Assistant · replies in 30 sec",
     placeholder:"Type a message…",
     welcome:"Namaste! 🙏 I'm the Surya Grand AI assistant.\nLooking for a home in Visakhapatnam? Ask me about flats, plots, prices or a free site visit - any time, day or night.",
-    chips:["2 BHK flats","3 BHK flats","VUDA plots","Book a site visit"],
+    chips:["2 BHK flats","3 BHK flats","VUDA plots","🎬 Videos","Book a site visit"],
     price:"Price", from:"onwards",
     photos:"Photos", interested:"I'm interested",
     leadName:"Great choice! 🎉 To arrange your free site visit, may I have your name?",
@@ -606,7 +639,11 @@ const T = {
     leadSub:"WhatsApp + call, within 30 minutes",
     waTitle:"WhatsApp to sales person",
     waBody:l=>`🔔 New buyer lead\nName: ${l.name}\nPhone: ${l.phone}\nInterest: ${l.interest}\nBudget: ${l.budget}\nVisit: ${l.when}\nSource: AI assistant (web)`,
-    anything:"You can ask me about price, location, photos, amenities or a site visit. What would you like to know?",
+    anything:"Here's what I can help with - tap one, or just type your question:",
+    reAskName:"Meanwhile - may I have your name?",
+    reAskPhone:"And your mobile number, when you're ready?",
+    reAskBudget:"And what budget should I keep in mind?",
+    reAskWhen:"And when would you like to visit?",
     loc:"Location", visit:"Visit",
     rName:"Name", rPhone:"Phone", rInterest:"Interest", rBudget:"Budget", rWhen:"Visit time",
     again:"Start again",
@@ -615,7 +652,7 @@ const T = {
     status:"AI అసిస్టెంట్ · 30 సెకన్లలో సమాధానం",
     placeholder:"ఇక్కడ టైప్ చేయండి…",
     welcome:"నమస్కారం! 🙏 నేను సూర్య గ్రాండ్ AI అసిస్టెంట్‌ని.\nవిశాఖపట్నంలో ఇల్లు వెతుకుతున్నారా? ఫ్లాట్లు, ప్లాట్లు, ధరలు లేదా ఉచిత సైట్ విజిట్ గురించి అడగండి - పగలు లేదా రాత్రి, ఎప్పుడైనా.",
-    chips:["2 BHK ఫ్లాట్లు","3 BHK ఫ్లాట్లు","VUDA ప్లాట్లు","సైట్ విజిట్ బుక్ చేయండి"],
+    chips:["2 BHK ఫ్లాట్లు","3 BHK ఫ్లాట్లు","VUDA ప్లాట్లు","🎬 వీడియోలు","సైట్ విజిట్ బుక్ చేయండి"],
     price:"ధర", from:"నుండి",
     photos:"ఫోటోలు", interested:"నాకు ఇష్టం",
     leadName:"మంచి ఎంపిక! 🎉 మీ ఉచిత సైట్ విజిట్ ఏర్పాటు చేయడానికి, మీ పేరు చెప్పగలరా?",
@@ -630,7 +667,11 @@ const T = {
     leadSub:"WhatsApp + కాల్, 30 నిమిషాల్లో",
     waTitle:"సేల్స్ వ్యక్తికి WhatsApp",
     waBody:l=>`🔔 కొత్త కొనుగోలుదారు లీడ్\nపేరు: ${l.name}\nఫోన్: ${l.phone}\nఆసక్తి: ${l.interest}\nబడ్జెట్: ${l.budget}\nవిజిట్: ${l.when}\nమూలం: AI అసిస్టెంట్ (వెబ్)`,
-    anything:"ధర, ప్రాంతం, ఫోటోలు, సదుపాయాలు లేదా సైట్ విజిట్ గురించి అడగవచ్చు. ఏమి తెలుసుకోవాలనుకుంటున్నారు?",
+    anything:"ఇవాంటివి అడగవచ్చు - ఒకటి టాప్ చేయండి లేదా మీ ప్రశ్న టైప్ చేయండి:",
+    reAskName:"అయితే - మీ పేరు చెప్పగలరా?",
+    reAskPhone:"మరి మీ మొబైల్ నంబర్ చెప్పగలరా?",
+    reAskBudget:"మరి మీ బడ్జెట్ ఎంత పరిధిలో ఉంటుంది?",
+    reAskWhen:"మరి సైట్ ఎప్పుడు చూడాలనుకుంటున్నారు?",
     loc:"ప్రాంతం", visit:"విజిట్",
     rName:"పేరు", rPhone:"ఫోన్", rInterest:"ఆసక్తి", rBudget:"బడ్జెట్", rWhen:"విజిట్ సమయం",
     again:"మళ్లీ మొదలుపెట్టండి",
@@ -667,6 +708,25 @@ const PROJECTS = [
   },
 ];
 
+/* ============================== rich project data ============================== */
+const EXTRA = {
+  sky:{ sqft:{en:"1,150-1,250 sq ft",te:"1,150-1,250 చ.అ"}, psf:"₹5,040/sq ft",
+    poss:{en:"December 2027",te:"డిసెంబర్ 2027"},
+    amen:{en:["Clubhouse & gym","Swimming pool","Children's play area","100% power backup","Covered car parking","24x7 security with CCTV"],
+          te:["క్లబ్ హౌస్ & జిమ్","స్విమ్మింగ్ పూల్","పిల్లల ఆటస్థలం","100% పవర్ బ్యాకప్","కవర్డ్ కార్ పార్కింగ్","CCTVతో 24x7 సెక్యూరిటీ"]},
+    drive:{en:"5 min to IT SEZ · 10 min to Rushikonda beach · 3 min to NH-16",te:"IT SEZకి 5 నిమిషాలు · రుషికొండ బీచ్‌కి 10 నిమిషాలు · NH-16కి 3 నిమిషాలు"} },
+  palm:{ sqft:{en:"1,650-2,100 sq ft",te:"1,650-2,100 చ.అ"}, psf:"₹5,150/sq ft",
+    poss:{en:"ready to move in",te:"వెంటనే కదలవచ్చు"},
+    amen:{en:["Private sea-breeze decks","Rooftop lounge","Gym & yoga deck","EV charging","2 covered parks per home","24x7 security"],
+          te:["ప్రైవేట్ సీ-బ్రీజ్ డెక్‌లు","రూఫ్‌టాప్ లాంజ్","జిమ్ & యోగా డెక్","EV ఛార్జింగ్","ప్రతి ఇంటికి 2 కవర్డ్ పార్కులు","24x7 సెక్యూరిటీ"]},
+    drive:{en:"2 min to beach road · 8 min to Rushikonda · 15 min to IT SEZ",te:"బీచ్ రోడ్‌కి 2 నిమిషాలు · రుషికొండకి 8 నిమిషాలు · IT SEZకి 15 నిమిషాలు"} },
+  green:{ sqft:{en:"167-267 sq yd plots",te:"167-267 గజాల ప్లాట్లు"}, psf:"₹13,170/sq yd",
+    poss:{en:"immediate registration",te:"వెంటనే రిజిస్ట్రేషన్"},
+    amen:{en:["VUDA-approved layout","40-ft blacktop roads","Compound wall & gate","Underground drainage","Avenue plantation","Park & children's area"],
+          te:["VUDA ఆమోదిత లేఅవుట్","40 అడుగుల తారు రోడ్లు","కంపౌండ్ వాల్ & గేట్","అండర్‌గ్రౌండ్ డ్రైనేజీ","వృక్షాల వరుస","పార్క్ & పిల్లల ఆటస్థలం"]},
+    drive:{en:"On NH-16 · 20 min to city · 25 min to airport",te:"NH-16పై · సిటీకి 20 నిమిషాలు · ఎయిర్‌పోర్ట్‌కి 25 నిమిషాలు"} },
+};
+
 /* ============================== photos (free-licensed, real Vizag) ============================== */
 const IMGS = {
   skyExt:"https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/Apartments%2C_Vizag_%284412310837%29.jpg/960px-Apartments%2C_Vizag_%284412310837%29.jpg",
@@ -676,28 +736,56 @@ const IMGS = {
   living:"https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Modern_living_room_with_stylish_furniture_and_a_view_of_the_outdoors_in_a_cozy_apartment_setting.jpg/960px-Modern_living_room_with_stylish_furniture_and_a_view_of_the_outdoors_in_a_cozy_apartment_setting.jpg",
   living2:"https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d6/New_Orleans_French_Quarter_Apartment_Living_Room.jpg/960px-New_Orleans_French_Quarter_Apartment_Living_Room.jpg",
   plan:"https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/3d-design-floor-plan-coloured.jpg/960px-3d-design-floor-plan-coloured.jpg",
-  beach:"https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Aerial_view_of_Rushikonda_beach.jpg/960px-Aerial_view_of_Rushikonda_beach.jpg"
+  beach:"https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Aerial_view_of_Rushikonda_beach.jpg/960px-Aerial_view_of_Rushikonda_beach.jpg",
+  madhu:"https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Madhurawada_from_Panorama_Hills.jpg/960px-Madhurawada_from_Panorama_Hills.jpg",
+  madhu2:"https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/View_of_Madhurawada_suburb_from_Shilparamam_Jaatara.jpg/960px-View_of_Madhurawada_suburb_from_Shilparamam_Jaatara.jpg",
+  balcony:"https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a9/Sunrise_view_from_an_apartment_balcony_in_Visakhapatnam.jpg/960px-Sunrise_view_from_an_apartment_balcony_in_Visakhapatnam.jpg",
+  interior:"https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/PAJASA_Service_Apartment_Mumbai.jpg/960px-PAJASA_Service_Apartment_Mumbai.jpg",
+  cityPurna:"https://thumb.wikimedia.org/wikipedia/commons/thumb/d/de/City_view_of_Visakhapatnam_from_hillock_at_Purnamarket.jpg/960px-City_view_of_Visakhapatnam_from_hillock_at_Purnamarket.jpg",
+  rkSun:"https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Sunrise_near_Rushikonda_beach_%28December_2018%29_%281%29.jpg/960px-Sunrise_near_Rushikonda_beach_%28December_2018%29_%281%29.jpg",
+  rkView:"https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Rushikonda_beach_view_001.jpg/960px-Rushikonda_beach_view_001.jpg",
+  vizCity:"https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Vizag_city_view_2.jpg/960px-Vizag_city_view_2.jpg"
+};
+const VIDEO = {
+  src:"https://upload.wikimedia.org/wikipedia/commons/transcoded/f/fa/UE4Arch.com_-_Viennese_apartment.webm/UE4Arch.com_-_Viennese_apartment.webm.480p.vp9.webm",
+  poster:"https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/UE4Arch.com_-_Viennese_apartment.webm/960px--UE4Arch.com_-_Viennese_apartment.webm.jpg"
 };
 const MAIN_IMG = {towers:IMGS.skyExt, villa:IMGS.palmExt, plots:IMGS.plotAer};
 const PICS = {
-  towers:[["beach","Rushikonda aerial","రుషికొండ ఏరియల్"],["living","Living room","లివింగ్ రూమ్"],["plan","Floor plan","ఫ్లోర్ ప్లాన్"]],
-  villa:[["rk","Beach road view","బీచ్ రోడ్ వ్యూ"],["living2","Living room","లివింగ్ రూమ్"],["plan","Floor plan","ఫ్లోర్ ప్లాన్"]],
-  plots:[["plotAer","Layout aerial","లేఅవుట్ ఏరియల్"],["beach","Beach nearby","దగ్గర బీచ్"],["rk","Approach road","అప్రోచ్ రోడ్"]]
+  towers:[["madhu","Madhurawada view","మాధురవాడ వ్యూ"],["balcony","Balcony sunrise","బాల్కనీ సన్‌రైజ్"],["interior","Home interior","ఇంటి లోపలి దృశ్యం"],["plan","Floor plan","ఫ్లోర్ ప్లాన్"]],
+  villa:[["beach","Rushikonda aerial","రుషికొండ ఏరియల్"],["rkView","Rushikonda beach","రుషికొండ బీచ్"],["interior","Home interior","ఇంటి లోపలి దృశ్యం"],["plan","Floor plan","ఫ్లోర్ ప్లాన్"]],
+  plots:[["plotAer","Layout aerial","లేఅవుట్ ఏరియల్"],["madhu2","Area view","ప్రాంతం వ్యూ"],["rkSun","Beach sunrise","బీచ్ సన్‌రైజ్"],["cityPurna","City view","సిటీ వ్యూ"]]
 };
 /* photo zoom popup - works for any photo, any company */
+function zoomClose(z){
+  const vd=z.querySelector('video');
+  vd.pause(); vd.removeAttribute('src'); vd.load(); vd.style.display='none';
+  const im=z.querySelector('img'); im.style.display='';
+  z.classList.remove('open');
+}
 function openZoom(src,label){
   const z=document.getElementById('zoom');
+  const vd=z.querySelector('video'); vd.pause(); vd.style.display='none';
   const im=z.querySelector('img');
-  im.src=src; im.classList.remove('big');
+  im.style.display=''; im.src=src; im.classList.remove('big');
   z.querySelector('.cap').textContent=label||'';
   z.classList.add('open');
 }
+function openVideo(){
+  const z=document.getElementById('zoom');
+  const im=z.querySelector('img'), vd=z.querySelector('video');
+  im.style.display='none'; vd.style.display='block';
+  vd.poster=VIDEO.poster; vd.src=VIDEO.src;
+  z.querySelector('.cap').textContent = (lang==='te'?'స్యాంపుల్ ఫ్లాట్ వాక్‌త్రూ':'Sample flat walkthrough') + ' · UE4Arch (CC BY-SA 4.0)';
+  z.classList.add('open');
+  vd.play().catch(()=>{});
+}
 document.getElementById('zoom').addEventListener('click', e=>{
   const z=document.getElementById('zoom');
-  if(e.target.id==='zoom' || e.target.classList.contains('x')) z.classList.remove('open');
+  if(e.target.id==='zoom' || e.target.classList.contains('x')) zoomClose(z);
   else if(e.target.tagName==='IMG') e.target.classList.toggle('big');
 });
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') document.getElementById('zoom').classList.remove('open'); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') zoomClose(document.getElementById('zoom')); });
 
 /* ============================== engine ============================== */
 const chat = document.getElementById('chat');
@@ -813,19 +901,38 @@ function esc(s){ const d=document.createElement('div'); d.textContent=s; return 
 function userEcho(text){ addMsg('user', text, true); }
 
 /* --------- understanding --------- */
+const QA_KINDS = new Set(['project','video','floorplan','amen','possess','loan','photos','price','loc','size','visit','all']);
 function understand(raw){
-  const q = raw.toLowerCase();
-  const te = lang==='te';
-  for(const p of PROJECTS){ if(p.match.test(q)) return {kind:'project', p}; }
-  if(/plot|vuda|ప్లాట్|స్థలం/.test(q)) return {kind:'project', p:PROJECTS[2]};
-  if(/price|cost|ధర|రేటు/.test(q)) return {kind:'price'};
-  if(/where|location|ఎక్కడ|ప్రాంతం|ఏ ఏరియా/.test(q)) return {kind:'loc'};
-  if(/photo|image|picture|ఫోటో|చిత్రం/.test(q)) return {kind:'photos'};
-  if(/visit|సైట్|విజిట్|చూడ|book/.test(q)) return {kind:'visit'};
-  if(/loan|emi|బ్యాంకు|లోన్/.test(q)) return {kind:'loan'};
-  if(/hi$|hello|hey|నమస్కారం|హాయ్/.test(q)) return {kind:'hi'};
-  if(/all|projects|అన్ని|ప్రాజెక్ట్/.test(q)) return {kind:'all'};
+  const q = ' ' + raw.toLowerCase().trim() + ' ';
+  let pm = null;
+  for(const p of PROJECTS){ if(p.match.test(q)){ pm = p; break; } }
+  const info =
+    /video|walk\s?through|tour|వీడియో|టూర్/i.test(q) ? 'video' :
+    /floor\s?plan|lay\s?out|layout|నక్షా|లేఅవుట్|ప్లాన్/i.test(q) ? 'floorplan' :
+    /amenit|facilit|gym|pool|club|parking|lift|security|backup|సదుపాయ|జిమ్|పూల్|పార్కింగ్|లిఫ్ట్|సెక్యూరిటీ/i.test(q) ? 'amen' :
+    /possession|handover|ready|move in|complete|పజెషన్|అప్పగింపు|కంప్లీట్|రెడీ/i.test(q) ? 'possess' :
+    /loan|emi|bank|finance|లోన్|బ్యాంక్|ఈఎంఐ/i.test(q) ? 'loan' :
+    /photo|image|picture|pics?|gallery|ఫోటో|చిత్రం|గ్యాలరీ/i.test(q) ? 'photos' :
+    /sq\s?ft|sft|square feet|how big|how large|చ\s?అ|విస్తీర్ణ|సైజు|పరిమాణం|ఎంత పెద్ద/i.test(q) ? 'size' :
+    /price|cost|rate|how much|pricing|ధర|రేటు|ఎంత|ఖర్చు/i.test(q) ? 'price' :
+    /where|location|address|near|area|direction|ఎక్కడ|చిరునామా|ప్రాంతం|దగ్గర|లొకేషన్/i.test(q) ? 'loc' :
+    /visit|site seeing|book|appointment|సైట్|విజిట్|చూడాలి|బుక్|అపాయింట్మెంట్/i.test(q) ? 'visit' : null;
+  if(info){ if(pm) currentProject = pm; return {kind:info}; }
+  if(pm) return {kind:'project', p:pm};
+  if(/plot|vuda|land|ప్లాట్|స్థలం|వుడా/i.test(q)) return {kind:'project', p:PROJECTS[2]};
+  if(/^\s*(hi+|hello|hey|namaste|నమస్కారం|హాయ్|హలో)\s*$/i.test(q)) return {kind:'hi'};
+  if(/thank|ధన్యవాద/i.test(q)) return {kind:'thanks'};
+  if(/all|projects|అన్ని|ప్రాజెక్ట్|ఏమి ఉన్నాయి/i.test(q)) return {kind:'all'};
   return {kind:'?'};
+}
+function topicChips(){
+  const te = lang==='te';
+  chips([
+    {label: te?'🎬 వీడియో':'🎬 Video', fn:()=>{ userEcho(te?'వీడియో చూపించు':'Show video'); showVideo(currentProject); }},
+    {label: te?'🖼 ఫోటోలు':'🖼 Photos', fn:()=>{ userEcho(te?'ఫోటోలు చూపించు':'Show photos'); showPhotos(currentProject); }},
+    {label: te?'📐 ఫ్లోర్ ప్లాన్':'📐 Floor plan', fn:()=>{ userEcho(te?'ఫ్లోర్ ప్లాన్':'Floor plan'); showFloorPlan(currentProject); }},
+    {label: te?'📅 సైట్ విజిట్':'📅 Site visit', fn:()=>{ userEcho(te?'సైట్ విజిట్ బుక్ చేయండి':'Book a site visit'); startVisit(); }},
+  ]);
 }
 async function respond(raw){
   const u = understand(raw);
@@ -839,31 +946,81 @@ async function respond(raw){
       break;
     }
     case 'price': {
-      const p = currentProject;
-      await say(te ? `${p.name} ధర ${p.price} ${t().from}. ఫ్లోర్, ఫేసింగ్ మీద కొద్దిగా మారుతుంది.` : `${p.name} starts at ${p.price} ${t().from}. It varies a little by floor and facing.`);
-      afterCard(p);
-      break;
+      const p = currentProject, x = EXTRA[p.id];
+      await say(te
+        ? `${p.name} ధర ${p.price} ${t().from} (${x.psf}). విస్తీర్ణం: ${x.sqft.te}. ఫ్లోర్, ఫేసింగ్ మీద కొద్దిగా మారుతుంది. ఫోటోలు, వీడియో లేదా ఫ్లోర్ ప్లాన్ కావాలంటే అడగండి.`
+        : `${p.name} starts at ${p.price} ${t().from} (${x.psf}). Size: ${x.sqft.en}. It varies a little by floor and facing. Ask me for photos, the video or the floor plan.`);
+      topicChips(); break;
     }
     case 'loc': {
-      const p = currentProject;
-      await say("📍 " + p.loc);
-      afterCard(p);
-      break;
+      const p = currentProject, x = EXTRA[p.id];
+      await say("📍 " + p.name + " - " + p.loc + ".\n" + x.drive[lang]);
+      topicChips(); break;
+    }
+    case 'size': {
+      const p = currentProject, x = EXTRA[p.id];
+      await say(te
+        ? `${p.name} విస్తీర్ణం: ${x.sqft.te}. ఫ్లోర్ ప్లాన్ కావాలంటే "ఫ్లోర్ ప్లాన్" అని టైప్ చేయండి.`
+        : `${p.name} comes in ${x.sqft.en}. Type "floor plan" and I'll show you the layout.`);
+      topicChips(); break;
     }
     case 'photos': showPhotos(currentProject); break;
+    case 'video': showVideo(currentProject); break;
+    case 'floorplan': showFloorPlan(currentProject); break;
+    case 'amen': {
+      const p = currentProject, x = EXTRA[p.id];
+      await say((te ? `${p.name} సదుపాయాలు:\n` : `${p.name} amenities:\n`) + x.amen[lang].map(a=>"• "+a).join("\n"));
+      topicChips(); break;
+    }
+    case 'possess': {
+      const p = currentProject, x = EXTRA[p.id];
+      await say(te
+        ? `${p.name}: పజెషన్ ${x.poss.te}. ${p.id==='green' ? 'డాక్యుమెంట్లు క్లియర్ - వెంటనే రిజిస్ట్రేషన్.' : 'కంస్ట్రక్షన్ షెడ్యూల్ ప్రకారం సక్రమంగా జరుగుతోంది.'}`
+        : `${p.name}: possession ${x.poss.en}. ${p.id==='green' ? 'Documents are clear - register right away.' : 'Construction is on schedule.'}`);
+      topicChips(); break;
+    }
     case 'visit': startVisit(); break;
-    case 'loan':
-      await say(te ? "అన్ని ప్రధాన బ్యాంకుల నుండి హోమ్ లోన్ సదుపాయం ఉంది (SBI, HDFC, ICICI). మా టీమ్ డాక్యుమెంట్స్‌లో సహాయం చేస్తుంది." : "Home loans are available from all major banks (SBI, HDFC, ICICI). Our team helps with the paperwork.");
-      afterCard(currentProject);
-      break;
+    case 'loan': {
+      const p = currentProject;
+      await say(te
+        ? `అవును - SBI, HDFC, ICICI, Axis బ్యాంకుల నుండి హోమ్ లోన్ ఉంది. ${p.name} కోసం EMI సుమారు ₹45,000/నెల నుండి (20 సం., ~8.5%). దరఖాస్తు, డాక్యుమెంట్లతో మా టీమ్ ఉచితంగా సహాయం చేస్తుంది.`
+        : `Yes - home loans from SBI, HDFC, ICICI and Axis. For ${p.name}, EMI works out to roughly ₹45,000/month (20 yrs, ~8.5%). Our team helps with the application and documents, free.`);
+      topicChips(); break;
+    }
     case 'hi':
       await say(t().welcome); mainChips(); break;
+    case 'thanks':
+      await say(te ? "మీకు సహాయం చేయడం ఆనందంగా ఉంది! 🙏 మరేదైనా అడగండి." : "Happy to help! 🙏 Ask me anything else.");
+      topicChips(); break;
     case 'all': showAll(); break;
     default: {
       await say(t().anything);
-      mainChips();
+      topicChips();
     }
   }
+}
+async function showVideo(p){
+  const te = lang==='te';
+  await say(te
+    ? `${p.name} స్యాంపుల్ ఫ్లాట్ వాక్‌త్రూ వీడియో ఇదిగోండి. ప్లే చేయడానికి టాప్ చేయండి 🎬`
+    : `Here is the walkthrough video of the ${p.name} sample flat. Tap to play 🎬`);
+  const w = document.createElement('div'); w.className='vcard';
+  w.innerHTML = `<img src="${VIDEO.poster}" alt="walkthrough video" loading="lazy"><span class="play">▶</span><b>${te?'వాక్‌త్రూ వీడియో':'Walkthrough video'} · 3:56</b>`;
+  w.onclick = ()=>openVideo();
+  addNode(w);
+  afterCard(p);
+}
+async function showFloorPlan(p){
+  const te = lang==='te';
+  const x = EXTRA[p.id];
+  await say(te
+    ? `${p.name} ఫ్లోర్ ప్లాన్ (${x.sqft.te}). జూమ్ చేయడానికి టాప్ చేయండి:`
+    : `${p.name} floor plan (${x.sqft.en}). Tap to zoom:`);
+  const w = document.createElement('div'); w.className='photos';
+  w.innerHTML = `<div class="ph" style="flex:1"><img src="${IMGS.plan}" alt="floor plan" loading="lazy"><b>${te?'ఫ్లోర్ ప్లాన్':'Floor plan'}</b></div>`;
+  w.querySelector('.ph').onclick = ()=>openZoom(IMGS.plan, te?'ఫ్లోర్ ప్లాన్':'Floor plan');
+  addNode(w);
+  afterCard(p);
 }
 function startVisit(){
   currentProject = currentProject || PROJECTS[0];
@@ -874,7 +1031,8 @@ function mainChips(){
   chips(t().chips.map(c=>({label:c, fn:()=>{ userEcho(c); routeChip(c); }})));
 }
 function routeChip(c){
-  if(/2/.test(c)) respond('2 bhk');
+  if(/video|వీడియో/i.test(c)) respond('video');
+  else if(/2/.test(c)) respond('2 bhk');
   else if(/3/.test(c)) respond('3 bhk');
   else if(/plot|ప్లాట్/i.test(c)) respond('plots');
   else startVisit();
@@ -893,6 +1051,8 @@ document.getElementById('f').addEventListener('submit', async e=>{
   userEcho(v);
 
   if(stage==='name'){
+    const probe = understand(v);
+    if(QA_KINDS.has(probe.kind) && probe.kind!=='visit'){ await respond(v); await say(t().reAskName, 500); return; }
     lead.name = v.replace(/\s+/g,' ');
     stage='phone';
     await say(t().leadPhone(lead.name.split(' ')[0]));
@@ -900,15 +1060,29 @@ document.getElementById('f').addEventListener('submit', async e=>{
   }
   if(stage==='phone'){
     const d = v.replace(/\D/g,'').replace(/^(91|0)/,'');
-    if(d.length!==10){ await say(t().phoneBad, 600); return; }
+    if(d.length!==10){
+      const probe = understand(v);
+      if(QA_KINDS.has(probe.kind) && probe.kind!=='visit'){ await respond(v); await say(t().reAskPhone, 500); return; }
+      await say(t().phoneBad, 600); return;
+    }
     lead.phone = '+91 ' + d.slice(0,5) + ' ' + d.slice(5);
     stage='budget';
     await say(t().leadBudget);
     chips(t().budgets.map(b=>({label:b, fn:()=>{ userEcho(b); lead.budget=b; askWhen(); }})));
     return;
   }
-  if(stage==='budget'){ lead.budget=v; askWhen(); return; }
-  if(stage==='when'){ lead.when=v; finishLead(); return; }
+  if(stage==='budget'){
+    const probe = understand(v);
+    if(QA_KINDS.has(probe.kind) && probe.kind!=='visit'){ await respond(v); await say(t().reAskBudget, 500);
+      chips(t().budgets.map(b=>({label:b, fn:()=>{ userEcho(b); lead.budget=b; askWhen(); }}))); return; }
+    lead.budget=v; askWhen(); return;
+  }
+  if(stage==='when'){
+    const probe = understand(v);
+    if(QA_KINDS.has(probe.kind) && probe.kind!=='visit'){ await respond(v); await say(t().reAskWhen, 500);
+      chips(t().times.map(x=>({label:x, fn:()=>{ userEcho(x); lead.when=x; finishLead(); }}))); return; }
+    lead.when=v; finishLead(); return;
+  }
   respond(v);
 });
 async function askWhen(){
